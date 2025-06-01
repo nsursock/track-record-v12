@@ -1,13 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import "tailwindcss";
 @import "flyonui/variants.css";
 
 @import "./themes/acid.css";
+@import "./themes/ghibli.css";
+@import "./themes/valorant.css";
 
 @plugin "flyonui" {
-    themes: cyberpunk --default, acid;
+    themes: cyberpunk --default, acid, ghibli, valorant;
 }
 
 @plugin "@iconify/tailwind4";
@@ -21,6 +25,8 @@
     /* Cyberpunk Theme (Default) */
     --theme-cyberpunk: true;
     --theme-acid: false;
+    --theme-ghibli: false;
+    --theme-valorant: false;
     
     /* Base Colors */
     --color-base-100: #1a103d;
@@ -80,6 +86,7 @@
 [data-theme="acid"] {
     --theme-cyberpunk: false;
     --theme-acid: true;
+    --theme-ghibli: false;
     
     /* Base Colors */
     --color-base-100: oklch(98% 0.01 220);
@@ -121,6 +128,103 @@
     
     /* Font Family */
     --font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+/* Ghibli Theme */
+[data-theme="ghibli"] {
+    --theme-cyberpunk: false;
+    --theme-acid: false;
+    --theme-ghibli: true;
+    
+    /* Base Colors */
+    --color-base-100: oklch(98% 0.01 120);
+    --color-base-200: oklch(95% 0.02 120);
+    --color-base-300: oklch(92% 0.03 120);
+    --color-base-content: oklch(20% 0.1 120);
+    
+    /* Primary Colors */
+    --color-primary: oklch(70% 0.25 120);
+    --color-primary-content: oklch(98% 0.01 120);
+    --color-primary-focus: oklch(65% 0.25 120);
+    --color-primary-hover: oklch(75% 0.25 120);
+    
+    /* Secondary Colors */
+    --color-secondary: oklch(60% 0.25 180);
+    --color-secondary-content: oklch(98% 0.01 120);
+    --color-secondary-focus: oklch(55% 0.25 180);
+    --color-secondary-hover: oklch(65% 0.25 180);
+    
+    /* Accent Colors */
+    --color-accent: oklch(65% 0.25 150);
+    --color-accent-content: oklch(98% 0.01 120);
+    --color-accent-focus: oklch(60% 0.25 150);
+    --color-accent-hover: oklch(70% 0.25 150);
+    
+    /* Neutral Colors */
+    --color-neutral: oklch(50% 0.1 120);
+    --color-neutral-content: oklch(98% 0.01 120);
+    
+    /* State Colors */
+    --color-info: oklch(70% 0.25 200);
+    --color-info-content: oklch(98% 0.01 120);
+    --color-success: oklch(70% 0.25 140);
+    --color-success-content: oklch(98% 0.01 120);
+    --color-warning: oklch(70% 0.25 60);
+    --color-warning-content: oklch(98% 0.01 120);
+    --color-error: oklch(70% 0.25 20);
+    --color-error-content: oklch(98% 0.01 120);
+    
+    /* Font Family */
+    --font-family: "Amaranth", system-ui, sans-serif;
+}
+
+/* Valorant Theme */
+[data-theme="valorant"] {
+    --theme-cyberpunk: false;
+    --theme-acid: false;
+    --theme-ghibli: false;
+    --theme-valorant: true;
+    
+    /* Base Colors */
+    --color-base-100: oklch(15% 0.01 240);
+    --color-base-200: oklch(20% 0.02 240);
+    --color-base-300: oklch(25% 0.03 240);
+    --color-base-content: oklch(98% 0.01 240);
+    
+    /* Primary Colors */
+    --color-primary: oklch(65% 0.25 20);
+    --color-primary-content: oklch(98% 0.01 240);
+    --color-primary-focus: oklch(60% 0.25 20);
+    --color-primary-hover: oklch(70% 0.25 20);
+    
+    /* Secondary Colors */
+    --color-secondary: oklch(60% 0.25 140);
+    --color-secondary-content: oklch(98% 0.01 240);
+    --color-secondary-focus: oklch(55% 0.25 140);
+    --color-secondary-hover: oklch(65% 0.25 140);
+    
+    /* Accent Colors */
+    --color-accent: oklch(65% 0.25 60);
+    --color-accent-content: oklch(98% 0.01 240);
+    --color-accent-focus: oklch(60% 0.25 60);
+    --color-accent-hover: oklch(70% 0.25 60);
+    
+    /* Neutral Colors */
+    --color-neutral: oklch(50% 0.1 240);
+    --color-neutral-content: oklch(98% 0.01 240);
+    
+    /* State Colors */
+    --color-info: oklch(70% 0.25 200);
+    --color-info-content: oklch(98% 0.01 240);
+    --color-success: oklch(70% 0.25 140);
+    --color-success-content: oklch(98% 0.01 240);
+    --color-warning: oklch(70% 0.25 60);
+    --color-warning-content: oklch(98% 0.01 240);
+    --color-error: oklch(70% 0.25 20);
+    --color-error-content: oklch(98% 0.01 240);
+    
+    /* Font Family */
+    --font-family: "Work Sans", system-ui, sans-serif;
 }
 
 /* Apply font family */

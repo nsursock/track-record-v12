@@ -13,12 +13,12 @@ layout: base
 </div>
 
 <article class="mt-12 py-12 px-4 mx-auto max-w-screen-xl lg:py-16">
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <!-- Main Content -->
-    <div class="lg:col-span-2">
-      <!-- Article Header -->
-      <header class="mb-8 lg:mb-12">
-        <div class="flex items-center gap-4 mb-4">
+  <!-- Hero Section -->
+  <header class="mb-8 lg:mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+      <!-- Left Column: Content -->
+      <div class="col-span-2">
+        <div class="flex flex-wrap items-center gap-4 mb-4">
           {% if tags %}
             {% for tag in tags %}
               <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
@@ -26,11 +26,15 @@ layout: base
               </span>
             {% endfor %}
           {% endif %}
-
         </div>
         <h1 class="mb-4 text-3xl font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
           {{ title }}
         </h1>
+        {% if meta_description %}
+          <p class="mb-6 text-lg text-gray-600 dark:text-gray-400">
+            {{ meta_description }}
+          </p>
+        {% endif %}
         <div class="flex items-center space-x-4">
           <div class="flex items-center space-x-2">
             {% if author %}
@@ -46,8 +50,37 @@ layout: base
             {% endif %}
           </div>
         </div>
-      </header>
+      </div>
 
+      <!-- Right Column: Hero Image -->
+      <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden col-span-3">
+        {% set heroMatch = content | regexFind('<img[^>]*>') %}
+        {% if heroMatch and heroMatch[0] %}
+          {% set srcMatch = heroMatch[0] | regexFind('src="([^"]+)"') %}
+          {% if srcMatch and srcMatch[1] %}
+            {% set heroImage = srcMatch[1] %}
+            {% if 'unsplash.com' in heroImage %}
+              {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
+              <img src="{{ transformedUrl }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="eager">
+            {% else %}
+              <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_800,h_450,g_auto,q_auto,f_auto/') }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="eager">
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Content -->
+    <div class="lg:col-span-2">
       <!-- Article Content -->
       <div class="prose prose-lg max-w-none dark:prose-invert 
         prose-headings:prose-headings:font-bold
@@ -62,8 +95,49 @@ layout: base
         prose-hr:border-gray-200 dark:prose-hr:border-gray-700
         prose-li:marker:text-primary-500
         prose-table:border-gray-200 dark:prose-table:border-gray-700
-        prose-th:bg-gray-50 dark:prose-th:bg-gray-800">
-        {{ content | safe }}
+        prose-th:bg-gray-50 dark:prose-th:bg-gray-800"
+        x-data="{ imageCount: 0 }"
+        x-init="$el.querySelectorAll('p > img').forEach(img => {
+          const p = img.parentElement;
+          p.classList.add('float-image');
+          p.classList.add(imageCount % 2 === 0 ? 'float-right' : 'float-left');
+          imageCount++;
+        })">
+        <style>
+          .float-image {
+            clear: both;
+            margin-top: 0.1rem;
+            margin-bottom: 0.1rem;
+          }
+          .float-image img {
+            margin-bottom: 1rem;
+            width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          @media (min-width: 1024px) {
+            .float-image img {
+              max-width: 300px;
+              margin-left: 0;
+              margin-right: 0;
+            }
+            .float-right img {
+              float: right;
+              margin-left: 2rem;
+            }
+            .float-left img {
+              float: left;
+              margin-right: 2rem;
+            }
+          }
+        </style>
+        {% if heroMatch and heroMatch[0] %}
+          {% set contentAfterFirstImage = content | replace(heroMatch[0], '') %}
+          {{ contentAfterFirstImage | safe }}
+        {% else %}
+          {{ content | safe }}
+        {% endif %}
       </div>
 
       <!-- Article Footer -->

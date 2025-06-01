@@ -61,6 +61,12 @@ export default function (eleventyConfig) {
 
   /* --- SHORTCODES --- */
 
+  eleventyConfig.addFilter('log', function (value) {
+    console.log('LOG from Nunjucks:', value);
+    return ''; // or return value to render it
+  });
+
+
   // Image shortcode config
   let defaultSizesConfig = "(min-width: 1200px) 1400px, 100vw"; // above 1200px use a 1400px image at least, below just use 100vw sized image
 
