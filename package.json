@@ -31,7 +31,10 @@
     "tailwindcss": "^4.1.4"
   },
   "dependencies": {
+    "@alpinejs/intersect": "^3.14.9",
+    "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.14.9",
-    "flyonui": "^2.1.0"
+    "flyonui": "^2.1.0",
+    "nunjucks": "^3.2.4"
   }
 }

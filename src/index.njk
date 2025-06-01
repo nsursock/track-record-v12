@@ -61,9 +61,9 @@ eleventyNavigation:
           </p>
           
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="btn btn-lg btn-primary bg-primary hover:bg-primary-focus text-primary-content font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105">
+            <a href="/posts/" class="btn btn-lg btn-primary bg-primary hover:bg-primary-focus text-primary-content font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105">
               Start Reading
-            </button>
+            </a>
             <button class="btn btn-lg btn-outline border-primary/30 text-base-content hover:bg-base-200/50 px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300">
               About the Blog
             </button>
@@ -217,46 +217,6 @@ eleventyNavigation:
         </div>
       </section>
 
-    </div>
-  </div>
-
-  <!-- Development Mode Toggle and Theme Switcher -->
-  <div class="fixed bottom-4 left-4 z-50" x-show="$store.landing.isDev">
-    <div class="flex gap-2">
-      <!-- Theme Switcher -->
-      <div class="dropdown relative inline-flex">
-        <button type="button" class="dropdown-toggle bg-base-200/50 backdrop-blur-sm rounded-lg py-2 px-4 border border-primary/20 shadow-lg flex items-center gap-2" aria-haspopup="menu" aria-expanded="false">
-          <span class="text-xs text-base-content font-medium">Theme</span>
-          <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-48 bg-base-200/95 backdrop-blur-sm rounded-lg border border-primary/20 shadow-lg p-2" role="menu">
-          <li>
-            <button class="dropdown-item w-full text-left px-4 py-2 rounded-lg hover:bg-base-300/50 transition-colors" 
-                    :class="{ 'bg-base-300/50': selectedTheme === 'cyberpunk' }"
-                    @click="setTheme('cyberpunk')">
-              Cyberpunk
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item w-full text-left px-4 py-2 rounded-lg hover:bg-base-300/50 transition-colors"
-                    :class="{ 'bg-base-300/50': selectedTheme === 'acid' }"
-                    @click="setTheme('acid')">
-              Acid
-            </button>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Coming Soon Toggle -->
-      <div class="bg-base-200/50 backdrop-blur-sm rounded-lg py-2 px-4 border border-primary/20 shadow-lg">
-        <div class="flex items-center gap-2">
-          <span class="text-xs text-base-content font-medium">Coming Soon</span>
-          <label class="cursor-pointer">
-            <input type="checkbox" class="switch switch-primary" :checked="$store.landing.showInternal" @change="$store.landing.toggleView()" />
-          </label>
-          <span class="text-xs text-base-content font-medium">Full Site</span>
-        </div>
-      </div>
     </div>
   </div>
 </div>
