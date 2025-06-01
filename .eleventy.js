@@ -10,15 +10,16 @@ import nunjucks from 'nunjucks'
 
 dotenv.config()
 
-const baseUrl = process.env.BASE_URL || "http://localhost:8080"
+// const baseUrl = process.env.BASE_URL || "http://localhost:8080"
 
-const globalSiteData = {
-  title: "Track Record",
-  tagline: "Groovy wisdom",
-  description: "A music and philosophy blog exploring the deeper connections between sound, rhythm, and meaning. Discover thoughtful reflections on albums, artists, and the philosophical questions music raises.",
-  locale: 'en',
-  baseUrl: baseUrl,
-}
+// const globalSiteData = {
+//   title: "Track Record",
+//   tagline: "Groovy wisdom",
+//   description: "A music and philosophy blog exploring the deeper connections between sound, rhythm, and meaning. Discover thoughtful reflections on albums, artists, and the philosophical questions music raises.",
+//   locale: 'en',
+//   baseUrl: baseUrl,
+//   env: process.env.NODE_ENV || 'development'
+// }
 
 export default function (eleventyConfig) {
   // Set template formats and engines first
@@ -39,7 +40,7 @@ export default function (eleventyConfig) {
 
   /* --- GLOBAL DATA --- */
 
-  eleventyConfig.addGlobalData("site", globalSiteData);
+  // eleventyConfig.addGlobalData("site", globalSiteData);
 
   /* --- YAML SUPPORT --- */
 

@@ -1,8 +1,9 @@
 ---
-meta:
-  title: "{{ site.title }} - {{ site.tagline }}"
-  description: "{{ site.description }}"
 layout: base
+eleventyComputed:
+  meta:
+    title: "{{ site.tagline }}"
+    description: "{{ site.description }}"
 eleventyNavigation:
   key: Home
   order: 1

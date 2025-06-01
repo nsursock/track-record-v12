@@ -19,13 +19,17 @@
       </div>
 
       <!-- Mobile Menu Button -->
-      <button class="md:hidden btn btn-ghost btn-sm" @click="mobileMenuOpen = !mobileMenuOpen">
-        <span class="icon-[tabler--menu] size-6"></span>
-      </button>
+      <div class="md:hidden">
+        <button class="btn btn-ghost btn-sm" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
+          <span class="icon-[tabler--menu] size-6"></span>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Navigation -->
-    <div x-show="mobileMenuOpen" class="md:hidden mt-4 py-4 border-t border-primary/20">
+    <div x-show="mobileMenuOpen" 
+         x-cloak
+         class="md:hidden mt-4 py-4 border-t border-primary/20">
       <div class="flex flex-col space-y-4">
         <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
         <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>

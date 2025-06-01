@@ -16,28 +16,41 @@
 /* If you gitignored node_modules use below method */
 @source "./node_modules/flyonui/dist/index.js"; /* Require only if you want to use FlyonUI JS component */
 
+/* Theme Variables */
 :root {
+    /* Cyberpunk Theme (Default) */
     --theme-cyberpunk: true;
-}
-
-@plugin "flyonui/theme" {
-    name: "cyberpunk";
-    default: true;
-    prefersdark: true;
-    color-scheme: dark;
-    fontFamily: "Chakra Petch, system-ui, sans-serif";
-
+    --theme-acid: false;
+    
+    /* Base Colors */
     --color-base-100: #1a103d;
     --color-base-200: #221551;
     --color-base-300: #2a1b64;
     --color-base-content: #f9f7fd;
+    
+    /* Primary Colors */
     --color-primary: #ff00ff;
     --color-primary-content: #ffffff;
+    --color-primary-focus: #ff00ff;
+    --color-primary-hover: #ff00ff;
+    
+    /* Secondary Colors */
     --color-secondary: #00ffff;
+    --color-secondary-content: #ffffff;
+    --color-secondary-focus: #00ffff;
+    --color-secondary-hover: #00ffff;
+    
+    /* Accent Colors */
     --color-accent: #ff00ff;
     --color-accent-content: #ffffff;
+    --color-accent-focus: #ff00ff;
+    --color-accent-hover: #ff00ff;
+    
+    /* Neutral Colors */
     --color-neutral: #221551;
     --color-neutral-content: #f9f7fd;
+    
+    /* State Colors */
     --color-info: #53c0f3;
     --color-info-content: #201047;
     --color-success: #71ead2;
@@ -46,22 +59,73 @@
     --color-warning-content: #201047;
     --color-error: #ec8c78;
     --color-error-content: #201047;
-
+    
+    /* Font Family */
+    --font-family: "Chakra Petch", system-ui, sans-serif;
+    
     /* Border Radius */
     --radius-selector: 0.5rem;
     --radius-field: 0.25rem;
     --radius-box: 0.5rem;
-
-    /* Base Sizes */
-    --size-selector: 0.25rem;
-    --size-field: 0.25rem;
-
-    /* Border Size */
-    --border: 1px;
-
+    
     /* Effects */
-    --depth: 1;
-    --noise: 0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Acid Theme */
+[data-theme="acid"] {
+    --theme-cyberpunk: false;
+    --theme-acid: true;
+    
+    /* Base Colors */
+    --color-base-100: oklch(98% 0.01 220);
+    --color-base-200: oklch(95% 0.02 220);
+    --color-base-300: oklch(92% 0.03 220);
+    --color-base-content: oklch(20% 0.1 220);
+    
+    /* Primary Colors */
+    --color-primary: oklch(70% 0.25 300);
+    --color-primary-content: oklch(98% 0.01 220);
+    --color-primary-focus: oklch(65% 0.25 300);
+    --color-primary-hover: oklch(75% 0.25 300);
+    
+    /* Secondary Colors */
+    --color-secondary: oklch(60% 0.25 200);
+    --color-secondary-content: oklch(98% 0.01 220);
+    --color-secondary-focus: oklch(55% 0.25 200);
+    --color-secondary-hover: oklch(65% 0.25 200);
+    
+    /* Accent Colors */
+    --color-accent: oklch(65% 0.25 250);
+    --color-accent-content: oklch(98% 0.01 220);
+    --color-accent-focus: oklch(60% 0.25 250);
+    --color-accent-hover: oklch(70% 0.25 250);
+    
+    /* Neutral Colors */
+    --color-neutral: oklch(50% 0.1 220);
+    --color-neutral-content: oklch(98% 0.01 220);
+    
+    /* State Colors */
+    --color-info: oklch(70% 0.25 240);
+    --color-info-content: oklch(98% 0.01 220);
+    --color-success: oklch(70% 0.25 140);
+    --color-success-content: oklch(98% 0.01 220);
+    --color-warning: oklch(70% 0.25 60);
+    --color-warning-content: oklch(98% 0.01 220);
+    --color-error: oklch(70% 0.25 20);
+    --color-error-content: oklch(98% 0.01 220);
+    
+    /* Font Family */
+    --font-family: "Space Grotesk", system-ui, sans-serif;
+}
+
+/* Apply font family */
+html {
+    font-family: var(--font-family);
 }
 
 @keyframes float {

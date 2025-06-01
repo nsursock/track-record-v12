@@ -1,36 +1,14 @@
 import '../css/index.css';
 
 import Alpine from 'alpinejs'
- 
 import intersect from '@alpinejs/intersect'
  
 Alpine.plugin(intersect)
 
-
-window.Alpine = Alpine
-
-// Add Alpine extensions here
-Alpine.data('themes', () => ({
-    selectedTheme: localStorage.getItem('theme') || 'cyberpunk',
-    init() {
-        // Set initial theme
-        document.documentElement.setAttribute('data-theme', this.selectedTheme);
-
-        // Watch for theme changes
-        this.$watch('selectedTheme', (value) => {
-            document.documentElement.setAttribute('data-theme', value);
-            localStorage.setItem('theme', value);
-        });
-    },
-    setTheme(theme) {
-        this.selectedTheme = theme;
-    }
-}))
-
 // Create a store for landing page state
 Alpine.store('landing', {
     showInternal: false,
-    isDev: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1',
+    isDev: false, // Default to false for real users
     
     init() {
         // Check URL parameter first
@@ -43,28 +21,81 @@ Alpine.store('landing', {
         }
         
         // Check localStorage for persistent access
-        this.showInternal = localStorage.getItem('trackRecordInternal') === 'true';
+        const hasInternalFlag = localStorage.getItem('trackRecordInternal') === 'true';
         
-        // If in development mode, always show internal view
-        if (this.isDev) {
-            this.showInternal = true;
-        }
+        // Set isDev based on environment OR internal flag
+        // This means dev features are available in:
+        // 1. Development mode
+        // 2. Production mode with internal flag
+        this.isDev = import.meta.env.MODE === 'development' || hasInternalFlag;
+        
+        // Set showInternal based on isDev
+        this.showInternal = this.isDev;
+
+        console.log('Landing store initialized:', {
+            showInternal: this.showInternal,
+            isDev: this.isDev,
+            env: import.meta.env.MODE,
+            hasInternalFlag
+        });
     },
 
     toggleView() {
-        this.showInternal = !this.showInternal;
-        
-        if (this.showInternal) {
-            localStorage.setItem('trackRecordInternal', 'true');
-        } else {
-            localStorage.removeItem('trackRecordInternal');
+        // Allow toggling if we're in development mode OR have internal flag
+        if (this.isDev) {
+            this.showInternal = !this.showInternal;
+            
+            if (this.showInternal) {
+                localStorage.setItem('trackRecordInternal', 'true');
+            } else {
+                localStorage.removeItem('trackRecordInternal');
+            }
         }
+
+        console.log('View toggled:', {
+            showInternal: this.showInternal,
+            isDev: this.isDev
+        });
     }
 });
+
+// Add Alpine extensions here
+Alpine.data('themes', () => ({
+    selectedTheme: localStorage.getItem('theme') || 'cyberpunk',
+    init() {
+        console.log('Themes component initialized:', {
+            selectedTheme: this.selectedTheme,
+            storedTheme: localStorage.getItem('theme')
+        });
+
+        // Set initial theme
+        this.setTheme(this.selectedTheme);
+
+        // Watch for theme changes
+        this.$watch('selectedTheme', (value) => {
+            console.log('Theme changed:', value);
+            this.setTheme(value);
+        });
+    },
+    setTheme(theme) {
+        console.log('Setting theme:', theme);
+        this.selectedTheme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+}));
 
 // Register components
 Alpine.data('mobileMenu', () => ({
     mobileMenuOpen: false,
+    init() {
+        // Close mobile menu on window resize if screen becomes larger than mobile breakpoint
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) { // md breakpoint
+                this.mobileMenuOpen = false;
+            }
+        });
+    },
     toggleMobileMenu() {
         this.mobileMenuOpen = !this.mobileMenuOpen;
     }
@@ -187,11 +218,13 @@ Alpine.data('articlesGrid', () => ({
         });
     }
 }));
- 
-document.addEventListener('alpine:init', () => {
-    console.log('Alpine:init event fired');
-});
 
 // Start Alpine
+window.Alpine = Alpine;
 Alpine.start();
-console.log('Alpine started');
+
+// Initialize store after Alpine is started
+document.addEventListener('alpine:init', () => {
+    console.log('Alpine:init event fired');
+    Alpine.store('landing').init();
+});
