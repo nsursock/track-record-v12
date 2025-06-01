@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ meta.lang or site.lang }}" x-data="themes">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site.title }} - {{ title or meta.title }}</title>
+    {% include "meta.njk" %}
+    <link rel="stylesheet" href="{{ '/assets/css/index.css' | url }}">
+    <link rel="stylesheet" href="{{ '/node_modules/flyonui/flyonui.css' | url }}">
+  </head>
+
+  <body>
+    <template x-if="$store.landing.showInternal">
+      {% include "header.njk" %}
+    </template>
+
+    <main id="main">
+      {% if hero_picture %}
+        <div class="hero-image mb-8">
+          {% image "src/assets/images/" + hero_picture + ".png", title, "100vw" %}
+        </div>
+      {% endif %}
+      
+      {{ content | safe }}
+
+    </main>
+
+    <template x-if="$store.landing.showInternal">
+      {% include "footer.njk" %}
+    </template>
+
+    <script type="module" src="{{ '/assets/js/index.js' | url }}"></script>
+    <script src="{{ '/node_modules/flyonui/flyonui.js' | url }}"></script>
+  </body>
+</html>

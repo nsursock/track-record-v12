@@ -1,0 +1,37 @@
+<!-- Header -->
+<header x-data="mobileMenu" class="fixed top-0 left-0 right-0 z-50 bg-base-100/80 backdrop-blur-lg border-b border-primary/20">
+  <nav class="container mx-auto px-4 sm:px-8 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+          <span class="icon-[tabler--fish-bone] size-6 text-primary-content"></span>
+        </div>
+        <span class="text-xl font-bold text-base-content">{{ site.title }}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
+        <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>
+        <a href="#community" class="text-base-content/80 hover:text-primary transition-colors">Community</a>
+        <button class="btn btn-primary btn-sm">Get Started</button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden btn btn-ghost btn-sm" @click="mobileMenuOpen = !mobileMenuOpen">
+        <span class="icon-[tabler--menu] size-6"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div x-show="mobileMenuOpen" class="md:hidden mt-4 py-4 border-t border-primary/20">
+      <div class="flex flex-col space-y-4">
+        <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
+        <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>
+        <a href="#community" class="text-base-content/80 hover:text-primary transition-colors">Community</a>
+        <button class="btn btn-primary btn-sm w-full">Get Started</button>
+      </div>
+    </div>
+  </nav>
+</header> 

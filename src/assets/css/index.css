@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@import "flyonui/variants.css";
+
+@import "./themes/acid.css";
+
+@plugin "flyonui" {
+    themes: cyberpunk --default, acid;
+}
+
+@plugin "@iconify/tailwind4";
+
+/* If you gitignored node_modules use below method */
+@source "./node_modules/flyonui/dist/index.js"; /* Require only if you want to use FlyonUI JS component */
+
+:root {
+    --theme-cyberpunk: true;
+}
+
+@plugin "flyonui/theme" {
+    name: "cyberpunk";
+    default: true;
+    prefersdark: true;
+    color-scheme: dark;
+    fontFamily: "Chakra Petch, system-ui, sans-serif";
+
+    --color-base-100: #1a103d;
+    --color-base-200: #221551;
+    --color-base-300: #2a1b64;
+    --color-base-content: #f9f7fd;
+    --color-primary: #ff00ff;
+    --color-primary-content: #ffffff;
+    --color-secondary: #00ffff;
+    --color-accent: #ff00ff;
+    --color-accent-content: #ffffff;
+    --color-neutral: #221551;
+    --color-neutral-content: #f9f7fd;
+    --color-info: #53c0f3;
+    --color-info-content: #201047;
+    --color-success: #71ead2;
+    --color-success-content: #201047;
+    --color-warning: #eace6c;
+    --color-warning-content: #201047;
+    --color-error: #ec8c78;
+    --color-error-content: #201047;
+
+    /* Border Radius */
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+
+    /* Base Sizes */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+
+    /* Border Size */
+    --border: 1px;
+
+    /* Effects */
+    --depth: 1;
+    --noise: 0;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 10s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
