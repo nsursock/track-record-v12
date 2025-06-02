@@ -1,5 +1,15 @@
+
+
 <!-- Header -->
 <header x-data="mobileMenu" class="fixed top-0 left-0 right-0 z-50 bg-base-100/80 backdrop-blur-lg border-b border-primary/20">
+{# 
+  <div class="alert alert-info debug-font mt-20" role="alert">
+    <div class="container mx-auto flex justify-between items-center">
+      <span>Theme: <span x-text="selectedTheme"></span></span>
+      <span>Font: <span x-text="getComputedStyle(document.documentElement).getPropertyValue('--font-family')"></span></span>
+    </div>
+  </div> #}
+
   <nav class="container mx-auto px-4 sm:px-8 py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
@@ -38,4 +48,4 @@
       </div>
     </div>
   </nav>
-</header> 
+</header>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ meta.lang or site.lang }}" x-data="themes">
+<html lang="{{ meta.lang or site.lang }}" x-data="themes" data-theme="cyberpunk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,9 +41,9 @@
           <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-48 bg-base-200/95 backdrop-blur-sm rounded-lg border border-primary/20 shadow-lg p-2" role="menu">
             <li>
               <button class="dropdown-item w-full text-left px-4 py-2 rounded-lg hover:bg-base-300/50 transition-colors" 
-                      :class="{ 'bg-base-300/50': selectedTheme === 'cyberpunk' }"
-                      @click="setTheme('cyberpunk')">
-                Cyberpunk
+                      :class="{ 'bg-base-300/50': selectedTheme === 'neon' }"
+                      @click="setTheme('neon')">
+                Neon
               </button>
             </li>
             <li>

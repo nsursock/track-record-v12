@@ -2,8 +2,10 @@
     name: "acid";
     fontFamily: "Space Grotesk, system-ui, sans-serif";
     color-scheme: light;
-    
-    /* Enhanced Color System */
+}
+
+[data-theme="acid"] {
+    /* Base Colors */
     --color-base-100: oklch(98% 0.01 220);
     --color-base-200: oklch(95% 0.02 220);
     --color-base-300: oklch(92% 0.03 220);

@@ -1,78 +1,58 @@
 @plugin "flyonui/theme" {
     name: "valorant";
     fontFamily: "Work Sans, system-ui, sans-serif";
-    color-scheme: dark;
-    
+    color-scheme: light;
+}
+
+[data-theme="valorant"] {
     /* Base Colors */
-    --color-base-100: oklch(15% 0.01 240);
-    --color-base-200: oklch(20% 0.02 240);
-    --color-base-300: oklch(25% 0.03 240);
-    --color-base-content: oklch(98% 0.01 240);
+    --color-base-100: oklch(99.14% 0.0044 359.99);
+    --color-base-200: oklch(96.72% 0.0163 12.78);
+    --color-base-300: oklch(27.67% 0.0779 19.29);
+    --color-base-content: oklch(21% 0.006 56.043);
     
     /* Primary Colors */
-    --color-primary: oklch(65% 0.25 20);
-    --color-primary-content: oklch(98% 0.01 240);
-    --color-primary-focus: oklch(60% 0.25 20);
-    --color-primary-hover: oklch(70% 0.25 20);
+    --color-primary: oklch(66.77% 0.2199 21.34);
+    --color-primary-content: oklch(97% 0.013 17.38);
     
     /* Secondary Colors */
-    --color-secondary: oklch(60% 0.25 140);
-    --color-secondary-content: oklch(98% 0.01 240);
-    --color-secondary-focus: oklch(55% 0.25 140);
-    --color-secondary-hover: oklch(65% 0.25 140);
+    --color-secondary: oklch(30.12% 0 0);
+    --color-secondary-content: oklch(100% 0 0);
     
     /* Accent Colors */
-    --color-accent: oklch(65% 0.25 60);
-    --color-accent-content: oklch(98% 0.01 240);
-    --color-accent-focus: oklch(60% 0.25 60);
-    --color-accent-hover: oklch(70% 0.25 60);
+    --color-accent: oklch(55% 0.016 285.938);
+    --color-accent-content: oklch(98% 0 0);
     
     /* Neutral Colors */
-    --color-neutral: oklch(50% 0.1 240);
-    --color-neutral-content: oklch(98% 0.01 240);
-    --color-neutral-focus: oklch(45% 0.1 240);
-    --color-neutral-hover: oklch(55% 0.1 240);
+    --color-neutral: oklch(20.89% 0.0248 249.09);
+    --color-neutral-content: oklch(98% 0.001 106.423);
     
     /* State Colors */
-    --color-info: oklch(70% 0.25 200);
-    --color-info-content: oklch(98% 0.01 240);
-    --color-info-focus: oklch(65% 0.25 200);
-    --color-info-hover: oklch(75% 0.25 200);
+    --color-info: oklch(58% 0.158 241.966);
+    --color-info-content: oklch(98% 0.019 200.873);
     
-    --color-success: oklch(70% 0.25 140);
-    --color-success-content: oklch(98% 0.01 240);
-    --color-success-focus: oklch(65% 0.25 140);
-    --color-success-hover: oklch(75% 0.25 140);
+    --color-success: oklch(76.82% 0.1855 152.24);
+    --color-success-content: oklch(39% 0.095 152.535);
     
-    --color-warning: oklch(70% 0.25 60);
-    --color-warning-content: oklch(98% 0.01 240);
-    --color-warning-focus: oklch(65% 0.25 60);
-    --color-warning-hover: oklch(75% 0.25 60);
+    --color-warning: oklch(80.16% 0.1705 73.27);
+    --color-warning-content: oklch(47% 0.137 46.201);
     
-    --color-error: oklch(70% 0.25 20);
-    --color-error-content: oklch(98% 0.01 240);
-    --color-error-focus: oklch(65% 0.25 20);
-    --color-error-hover: oklch(75% 0.25 20);
+    --color-error: oklch(67.08% 0.2165 25.19);
+    --color-error-content: oklch(97% 0.014 343.198);
 
     /* Border Radius */
-    --radius-selector: 0.25rem;
-    --radius-field: 0.25rem;
-    --radius-box: 0.25rem;
-    --radius-btn: 0.25rem;
-    --radius-badge: 0.25rem;
-    --radius-tab: 0.25rem;
+    --radius-selector: 0rem;
+    --radius-field: 0rem;
+    --radius-box: 0rem;
+
+    /* Size */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+
+    /* Border */
+    --border: 1px;
 
     /* Effects */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    /* Animation */
-    --animation-btn: 0.2s;
-    --animation-input: 0.2s;
-    --animation-card: 0.2s;
-    --animation-badge: 0.2s;
-    --animation-modal: 0.2s;
+    --depth: 1;
+    --noise: 1;
 } 

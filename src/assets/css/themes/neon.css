@@ -1,0 +1,62 @@
+@plugin "flyonui/theme" {
+    name: "neon";
+    default: true;
+    prefersdark: false;
+    color-scheme: dark;
+    fontFamily: "Chakra Petch, system-ui, sans-serif";
+}
+
+[data-theme="neon"] {
+    /* Base Colors */
+    --color-base-100: #1a103d;
+    --color-base-200: #221551;
+    --color-base-300: #2a1b64;
+    --color-base-content: #f9f7fd;
+    
+    /* Primary Colors */
+    --color-primary: #ff00ff;
+    --color-primary-content: #ffffff;
+    --color-primary-focus: #ff00ff;
+    --color-primary-hover: #ff00ff;
+    
+    /* Secondary Colors */
+    --color-secondary: #00ffff;
+    --color-secondary-content: #ffffff;
+    --color-secondary-focus: #00ffff;
+    --color-secondary-hover: #00ffff;
+    
+    /* Accent Colors */
+    --color-accent: #ff00ff;
+    --color-accent-content: #ffffff;
+    --color-accent-focus: #ff00ff;
+    --color-accent-hover: #ff00ff;
+    
+    /* Neutral Colors */
+    --color-neutral: #221551;
+    --color-neutral-content: #f9f7fd;
+    
+    /* State Colors */
+    --color-info: #53c0f3;
+    --color-info-content: #201047;
+    --color-success: #71ead2;
+    --color-success-content: #201047;
+    --color-warning: #eace6c;
+    --color-warning-content: #201047;
+    --color-error: #ec8c78;
+    --color-error-content: #201047;
+
+    /* Border Radius */
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --radius-btn: 0.5rem;
+    --radius-badge: 1.9rem;
+    --radius-tab: 0.5rem;
+
+    /* Effects */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}

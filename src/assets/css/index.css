@@ -1,17 +1,21 @@
+/* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Core Imports */
 @import "tailwindcss";
 @import "flyonui/variants.css";
 
+/* Theme Imports */
+@import "./themes/neon.css";
 @import "./themes/acid.css";
 @import "./themes/ghibli.css";
 @import "./themes/valorant.css";
 
 @plugin "flyonui" {
-    themes: cyberpunk --default, acid, ghibli, valorant;
+    themes: neon --default, acid, ghibli, valorant;
 }
 
 @plugin "@iconify/tailwind4";
@@ -20,228 +24,7 @@
 /* If you gitignored node_modules use below method */
 @source "./node_modules/flyonui/dist/index.js"; /* Require only if you want to use FlyonUI JS component */
 
-/* Theme Variables */
-:root {
-    /* Cyberpunk Theme (Default) */
-    --theme-cyberpunk: true;
-    --theme-acid: false;
-    --theme-ghibli: false;
-    --theme-valorant: false;
-    
-    /* Base Colors */
-    --color-base-100: #1a103d;
-    --color-base-200: #221551;
-    --color-base-300: #2a1b64;
-    --color-base-content: #f9f7fd;
-    
-    /* Primary Colors */
-    --color-primary: #ff00ff;
-    --color-primary-content: #ffffff;
-    --color-primary-focus: #ff00ff;
-    --color-primary-hover: #ff00ff;
-    
-    /* Secondary Colors */
-    --color-secondary: #00ffff;
-    --color-secondary-content: #ffffff;
-    --color-secondary-focus: #00ffff;
-    --color-secondary-hover: #00ffff;
-    
-    /* Accent Colors */
-    --color-accent: #ff00ff;
-    --color-accent-content: #ffffff;
-    --color-accent-focus: #ff00ff;
-    --color-accent-hover: #ff00ff;
-    
-    /* Neutral Colors */
-    --color-neutral: #221551;
-    --color-neutral-content: #f9f7fd;
-    
-    /* State Colors */
-    --color-info: #53c0f3;
-    --color-info-content: #201047;
-    --color-success: #71ead2;
-    --color-success-content: #201047;
-    --color-warning: #eace6c;
-    --color-warning-content: #201047;
-    --color-error: #ec8c78;
-    --color-error-content: #201047;
-    
-    /* Font Family */
-    --font-family: "Chakra Petch", system-ui, sans-serif;
-    
-    /* Border Radius */
-    --radius-selector: 0.5rem;
-    --radius-field: 0.25rem;
-    --radius-box: 0.5rem;
-    
-    /* Effects */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-}
 
-/* Acid Theme */
-[data-theme="acid"] {
-    --theme-cyberpunk: false;
-    --theme-acid: true;
-    --theme-ghibli: false;
-    
-    /* Base Colors */
-    --color-base-100: oklch(98% 0.01 220);
-    --color-base-200: oklch(95% 0.02 220);
-    --color-base-300: oklch(92% 0.03 220);
-    --color-base-content: oklch(20% 0.1 220);
-    
-    /* Primary Colors */
-    --color-primary: oklch(70% 0.25 300);
-    --color-primary-content: oklch(98% 0.01 220);
-    --color-primary-focus: oklch(65% 0.25 300);
-    --color-primary-hover: oklch(75% 0.25 300);
-    
-    /* Secondary Colors */
-    --color-secondary: oklch(60% 0.25 200);
-    --color-secondary-content: oklch(98% 0.01 220);
-    --color-secondary-focus: oklch(55% 0.25 200);
-    --color-secondary-hover: oklch(65% 0.25 200);
-    
-    /* Accent Colors */
-    --color-accent: oklch(65% 0.25 250);
-    --color-accent-content: oklch(98% 0.01 220);
-    --color-accent-focus: oklch(60% 0.25 250);
-    --color-accent-hover: oklch(70% 0.25 250);
-    
-    /* Neutral Colors */
-    --color-neutral: oklch(50% 0.1 220);
-    --color-neutral-content: oklch(98% 0.01 220);
-    
-    /* State Colors */
-    --color-info: oklch(70% 0.25 240);
-    --color-info-content: oklch(98% 0.01 220);
-    --color-success: oklch(70% 0.25 140);
-    --color-success-content: oklch(98% 0.01 220);
-    --color-warning: oklch(70% 0.25 60);
-    --color-warning-content: oklch(98% 0.01 220);
-    --color-error: oklch(70% 0.25 20);
-    --color-error-content: oklch(98% 0.01 220);
-    
-    /* Font Family */
-    --font-family: "Space Grotesk", system-ui, sans-serif;
-}
-
-/* Ghibli Theme */
-[data-theme="ghibli"] {
-    --theme-cyberpunk: false;
-    --theme-acid: false;
-    --theme-ghibli: true;
-    
-    /* Base Colors */
-    --color-base-100: oklch(98% 0.01 120);
-    --color-base-200: oklch(95% 0.02 120);
-    --color-base-300: oklch(92% 0.03 120);
-    --color-base-content: oklch(20% 0.1 120);
-    
-    /* Primary Colors */
-    --color-primary: oklch(70% 0.25 120);
-    --color-primary-content: oklch(98% 0.01 120);
-    --color-primary-focus: oklch(65% 0.25 120);
-    --color-primary-hover: oklch(75% 0.25 120);
-    
-    /* Secondary Colors */
-    --color-secondary: oklch(60% 0.25 180);
-    --color-secondary-content: oklch(98% 0.01 120);
-    --color-secondary-focus: oklch(55% 0.25 180);
-    --color-secondary-hover: oklch(65% 0.25 180);
-    
-    /* Accent Colors */
-    --color-accent: oklch(65% 0.25 150);
-    --color-accent-content: oklch(98% 0.01 120);
-    --color-accent-focus: oklch(60% 0.25 150);
-    --color-accent-hover: oklch(70% 0.25 150);
-    
-    /* Neutral Colors */
-    --color-neutral: oklch(50% 0.1 120);
-    --color-neutral-content: oklch(98% 0.01 120);
-    
-    /* State Colors */
-    --color-info: oklch(70% 0.25 200);
-    --color-info-content: oklch(98% 0.01 120);
-    --color-success: oklch(70% 0.25 140);
-    --color-success-content: oklch(98% 0.01 120);
-    --color-warning: oklch(70% 0.25 60);
-    --color-warning-content: oklch(98% 0.01 120);
-    --color-error: oklch(70% 0.25 20);
-    --color-error-content: oklch(98% 0.01 120);
-    
-    /* Font Family */
-    --font-family: "Amaranth", system-ui, sans-serif;
-
-    /* Border Radius - Force higher priority */
-    --radius-selector: 0.5rem !important;
-    --radius-field: 0.25rem !important;
-    --radius-box: 0.5rem !important;
-    --radius-btn: 0.5rem !important;
-    --radius-badge: 1.9rem !important;
-    --radius-tab: 0.5rem !important;
-}
-
-/* Valorant Theme */
-[data-theme="valorant"] {
-    --theme-cyberpunk: false;
-    --theme-acid: false;
-    --theme-ghibli: false;
-    --theme-valorant: true;
-    
-    /* Base Colors */
-    --color-base-100: oklch(15% 0.01 240);
-    --color-base-200: oklch(20% 0.02 240);
-    --color-base-300: oklch(25% 0.03 240);
-    --color-base-content: oklch(98% 0.01 240);
-    
-    /* Primary Colors */
-    --color-primary: oklch(65% 0.25 20);
-    --color-primary-content: oklch(98% 0.01 240);
-    --color-primary-focus: oklch(60% 0.25 20);
-    --color-primary-hover: oklch(70% 0.25 20);
-    
-    /* Secondary Colors */
-    --color-secondary: oklch(60% 0.25 140);
-    --color-secondary-content: oklch(98% 0.01 240);
-    --color-secondary-focus: oklch(55% 0.25 140);
-    --color-secondary-hover: oklch(65% 0.25 140);
-    
-    /* Accent Colors */
-    --color-accent: oklch(65% 0.25 60);
-    --color-accent-content: oklch(98% 0.01 240);
-    --color-accent-focus: oklch(60% 0.25 60);
-    --color-accent-hover: oklch(70% 0.25 60);
-    
-    /* Neutral Colors */
-    --color-neutral: oklch(50% 0.1 240);
-    --color-neutral-content: oklch(98% 0.01 240);
-    
-    /* State Colors */
-    --color-info: oklch(70% 0.25 200);
-    --color-info-content: oklch(98% 0.01 240);
-    --color-success: oklch(70% 0.25 140);
-    --color-success-content: oklch(98% 0.01 240);
-    --color-warning: oklch(70% 0.25 60);
-    --color-warning-content: oklch(98% 0.01 240);
-    --color-error: oklch(70% 0.25 20);
-    --color-error-content: oklch(98% 0.01 240);
-    
-    /* Font Family */
-    --font-family: "Work Sans", system-ui, sans-serif;
-
-    /* Border Radius - Force higher priority */
-    --radius-selector: 0.25rem !important;
-    --radius-field: 0.25rem !important;
-    --radius-box: 0.25rem !important;
-    --radius-btn: 0.25rem !important;
-    --radius-badge: 0.25rem !important;
-    --radius-tab: 0.25rem !important;
-}
 
 /* Apply font family */
 html {
@@ -318,23 +101,4 @@ html {
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
-}
-
-/* Force theme border radius on common elements */
-[data-theme="ghibli"] .btn,
-[data-theme="ghibli"] .card,
-[data-theme="ghibli"] .badge,
-[data-theme="ghibli"] .input,
-[data-theme="ghibli"] .select,
-[data-theme="ghibli"] .textarea {
-    border-radius: var(--radius-btn) !important;
-}
-
-[data-theme="valorant"] .btn,
-[data-theme="valorant"] .card,
-[data-theme="valorant"] .badge,
-[data-theme="valorant"] .input,
-[data-theme="valorant"] .select,
-[data-theme="valorant"] .textarea {
-    border-radius: var(--radius-btn) !important;
 }

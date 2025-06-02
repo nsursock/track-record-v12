@@ -2,77 +2,57 @@
     name: "ghibli";
     fontFamily: "Amaranth, system-ui, sans-serif";
     color-scheme: light;
-    
+}
+
+[data-theme="ghibli"] {
     /* Base Colors */
-    --color-base-100: oklch(98% 0.01 120);
-    --color-base-200: oklch(95% 0.02 120);
-    --color-base-300: oklch(92% 0.03 120);
-    --color-base-content: oklch(20% 0.1 120);
+    --color-base-100: oklch(0.94 0.0262 82.38);
+    --color-base-200: oklch(0.91 0.0326 80.99);
+    --color-base-300: oklch(0.34 0.0131 81.73 / 20%);
+    --color-base-content: oklch(41% 0.077 79.04);
     
     /* Primary Colors */
-    --color-primary: oklch(70% 0.25 120);
-    --color-primary-content: oklch(98% 0.01 120);
-    --color-primary-focus: oklch(65% 0.25 120);
-    --color-primary-hover: oklch(75% 0.25 120);
+    --color-primary: oklch(0.62 0.0868 111.8);
+    --color-primary-content: oklch(97% 0.009 106.57);
     
     /* Secondary Colors */
-    --color-secondary: oklch(60% 0.25 180);
-    --color-secondary-content: oklch(98% 0.01 120);
-    --color-secondary-focus: oklch(55% 0.25 180);
-    --color-secondary-hover: oklch(65% 0.25 180);
+    --color-secondary: oklch(44% 0.043 257.281);
+    --color-secondary-content: oklch(92% 0.013 255.508);
     
     /* Accent Colors */
-    --color-accent: oklch(65% 0.25 150);
-    --color-accent-content: oklch(98% 0.01 120);
-    --color-accent-focus: oklch(60% 0.25 150);
-    --color-accent-hover: oklch(70% 0.25 150);
+    --color-accent: oklch(70% 0.14 182.503);
+    --color-accent-content: oklch(98% 0.014 180.72);
     
     /* Neutral Colors */
-    --color-neutral: oklch(50% 0.1 120);
-    --color-neutral-content: oklch(98% 0.01 120);
-    --color-neutral-focus: oklch(45% 0.1 120);
-    --color-neutral-hover: oklch(55% 0.1 120);
+    --color-neutral: oklch(41% 0.025 282.21);
+    --color-neutral-content: oklch(98% 0.001 286.38);
     
     /* State Colors */
-    --color-info: oklch(70% 0.25 200);
-    --color-info-content: oklch(98% 0.01 120);
-    --color-info-focus: oklch(65% 0.25 200);
-    --color-info-hover: oklch(75% 0.25 200);
+    --color-info: oklch(62% 0.214 259.815);
+    --color-info-content: oklch(97% 0.014 254.604);
     
-    --color-success: oklch(70% 0.25 140);
-    --color-success-content: oklch(98% 0.01 120);
-    --color-success-focus: oklch(65% 0.25 140);
-    --color-success-hover: oklch(75% 0.25 140);
+    --color-success: oklch(64% 0.2 131.684);
+    --color-success-content: oklch(98% 0.031 120.757);
     
-    --color-warning: oklch(70% 0.25 60);
-    --color-warning-content: oklch(98% 0.01 120);
-    --color-warning-focus: oklch(65% 0.25 60);
-    --color-warning-hover: oklch(75% 0.25 60);
+    --color-warning: oklch(68% 0.162 75.834);
+    --color-warning-content: oklch(28% 0.066 53.813);
     
-    --color-error: oklch(70% 0.25 20);
-    --color-error-content: oklch(98% 0.01 120);
-    --color-error-focus: oklch(65% 0.25 20);
-    --color-error-hover: oklch(75% 0.25 20);
+    --color-error: oklch(63% 0.237 25.331);
+    --color-error-content: oklch(97% 0.013 17.38);
 
     /* Border Radius */
-    --radius-selector: 0.5rem;
-    --radius-field: 0.25rem;
-    --radius-box: 0.5rem;
-    --radius-btn: 0.5rem;
-    --radius-badge: 1.9rem;
-    --radius-tab: 0.5rem;
+    --radius-selector: 0.25rem;
+    --radius-field: 1rem;
+    --radius-box: 2rem;
+
+    /* Size */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+
+    /* Border */
+    --border: 1px;
 
     /* Effects */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    /* Animation */
-    --animation-btn: 0.25s;
-    --animation-input: 0.2s;
-    --animation-card: 0.3s;
-    --animation-badge: 0.2s;
-    --animation-modal: 0.3s;
+    --depth: 0;
+    --noise: 0;
 } 

@@ -61,7 +61,7 @@ Alpine.store('landing', {
 
 // Add Alpine extensions here
 Alpine.data('themes', () => ({
-    selectedTheme: localStorage.getItem('theme') || 'cyberpunk',
+    selectedTheme: localStorage.getItem('theme') || 'neon',
     init() {
         console.log('Themes component initialized:', {
             selectedTheme: this.selectedTheme,
@@ -80,8 +80,35 @@ Alpine.data('themes', () => ({
     setTheme(theme) {
         console.log('Setting theme:', theme);
         this.selectedTheme = theme;
+        
+        // Set theme attribute
         document.documentElement.setAttribute('data-theme', theme);
+        
+        // Set theme variables
+        document.documentElement.style.setProperty('--theme-cyberpunk', theme === 'cyberpunk' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-acid', theme === 'acid' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-ghibli', theme === 'ghibli' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-valorant', theme === 'valorant' ? 'true' : 'false');
+        
+        // Set font family based on theme
+        const fontFamilies = {
+            neon: '"Chakra Petch", system-ui, sans-serif',
+            acid: '"Space Grotesk", system-ui, sans-serif',
+            ghibli: '"Amaranth", system-ui, sans-serif',
+            valorant: '"Work Sans", system-ui, sans-serif'
+        };
+        
+        document.documentElement.style.setProperty('--font-family', fontFamilies[theme]);
+        
+        // Store theme preference
         localStorage.setItem('theme', theme);
+        
+        console.log('Theme set:', {
+            theme,
+            fontFamily: fontFamilies[theme],
+            dataTheme: document.documentElement.getAttribute('data-theme'),
+            cssFontFamily: getComputedStyle(document.documentElement).getPropertyValue('--font-family')
+        });
     }
 }));
 
