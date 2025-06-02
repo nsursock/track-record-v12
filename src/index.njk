@@ -18,15 +18,15 @@ eleventyNavigation:
         <div class="mb-8 flex justify-center">
           <span class="icon-[tabler--fish-bone] size-32 text-primary"></span>
         </div>
-        
+
         <h1 class="text-4xl sm:text-6xl font-bold text-base-content mb-4 tracking-tight">{{ site.title }}</h1>
         <p class="text-xl sm:text-2xl text-primary mb-8 font-light">{{ site.tagline }}</p>
         <p class="text-base sm:text-lg text-base-content/80 mb-12 leading-relaxed">{{ site.description }}</p>
-        
-        <div class="bg-base-200/50 backdrop-blur-sm rounded-xl p-6 sm:p-8 border border-primary/20">
+
+        <div class="bg-base-200/50 backdrop-blur-sm  p-6 sm:p-8 border border-primary/20">
           <h2 class="text-xl sm:text-2xl font-semibold text-base-content mb-4">Coming Soon</h2>
           <p class="text-base-content/80 mb-6">We're crafting something special. Get ready for deep dives into music, philosophy, and the groovy wisdom that connects them all.</p>
-          
+
           <!-- Email signup -->
           <div class="flex flex-col space-y-3 max-w-md mx-auto">
             <input type="email" placeholder="Enter your email" class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary">
@@ -38,7 +38,7 @@ eleventyNavigation:
 
     <!-- Full Landing Page (Internal) -->
     <div x-cloak x-show="$store.landing.showInternal" class="min-h-screen w-full overflow-x-hidden">
-      
+
       <!-- Hero Section -->
       <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-base-100 w-full">
         <!-- Background Image -->
@@ -46,13 +46,17 @@ eleventyNavigation:
           <img src="https://picsum.photos/1920/1080?random=1" alt="Background" class="w-full h-full object-cover opacity-20">
           <div class="absolute inset-0 bg-base-100/80"></div>
         </div>
-        
+
         <!-- Floating vinyl records -->
-        <div class="absolute top-20 left-10 w-16 h-16 bg-neutral rounded-full opacity-30 animate-float"></div>
-        <div class="absolute top-40 right-20 w-12 h-12 bg-neutral rounded-full opacity-20 animate-float-delayed"></div>
-        <div class="absolute bottom-40 left-20 w-20 h-20 bg-neutral rounded-full opacity-25 animate-float-slow"></div>
-        
+        {# <div class="absolute top-20 left-10 w-16 h-16 bg-neutral  opacity-30 animate-float"></div>
+        <div class="absolute top-40 right-20 w-12 h-12 bg-neutral  opacity-20 animate-float-delayed"></div>
+        <div class="absolute bottom-40 left-20 w-20 h-20 bg-neutral  opacity-25 animate-float-slow"></div> #}
+
         <div class="relative z-10 text-center px-4 sm:px-8 max-w-5xl mx-auto w-full">
+          <!-- Fish bone icon -->
+          <div class="mb-8 flex justify-center">
+            <span class="icon-[tabler--fish-bone] size-32 text-primary"></span>
+          </div>
           <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold text-base-content mb-6 tracking-tight">
             {{ site.title }}
           </h1>
@@ -60,21 +64,21 @@ eleventyNavigation:
           <p class="text-lg sm:text-xl text-base-content/80 mb-12 leading-relaxed max-w-3xl mx-auto">
             Dive deep into the philosophical dimensions of music. Where every beat tells a story, every lyric sparks thought, and every album becomes a journey of discovery.
           </p>
-          
+
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/posts/" class="btn btn-lg btn-primary bg-primary hover:bg-primary-focus text-primary-content font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 transform hover:scale-105">
+            <a href="/posts/" class="btn btn-lg btn-primary bg-primary hover:bg-primary-focus text-primary-content font-semibold px-6 sm:px-8 py-3 sm:py-4  transition-all duration-300 transform hover:scale-105">
               Start Reading
             </a>
-            <button class="btn btn-lg btn-outline border-primary/30 text-base-content hover:bg-base-200/50 px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300">
+            <button class="btn btn-lg btn-outline border-primary/30 text-base-content hover:bg-base-200/50 px-6 sm:px-8 py-3 sm:py-4  transition-all duration-300">
               About the Blog
             </button>
           </div>
         </div>
-        
+
         <!-- Scroll indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div class="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center">
-            <div class="w-1 h-3 bg-primary/50 rounded-full mt-2 animate-pulse"></div>
+          <div class="w-6 h-10 border-2 border-primary/50  flex justify-center">
+            <div class="w-1 h-3 bg-primary/50  mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
@@ -86,31 +90,31 @@ eleventyNavigation:
             <h2 class="text-4xl sm:text-5xl font-bold text-base-content mb-4 sm:mb-6">What Makes Us Different</h2>
             <p class="text-lg sm:text-xl text-base-content/80 max-w-3xl mx-auto">We don't just review music – we explore the deeper questions it raises about life, meaning, and human experience.</p>
           </div>
-          
+
           <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
             <div class="card bg-primary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
-                <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+                <div class="w-16 h-16 bg-primary rounded-box mx-auto mb-6 flex items-center justify-center">
                   <span class="icon-[tabler--music] size-8 text-primary-content"></span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Deep Listening</h3>
                 <p class="text-base-content/80 leading-relaxed">We go beyond surface-level reviews to explore the philosophical depths hidden in every track, album, and artist's journey.</p>
               </div>
             </div>
-            
+
             <div class="card bg-secondary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
-                <div class="w-16 h-16 bg-secondary rounded-full mx-auto mb-6 flex items-center justify-center">
+                <div class="w-16 h-16 bg-secondary rounded-box mx-auto mb-6 flex items-center justify-center">
                   <span class="icon-[tabler--brain] size-8 text-secondary-content"></span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Thoughtful Analysis</h3>
                 <p class="text-base-content/80 leading-relaxed">Each piece connects musical elements to broader philosophical concepts, creating bridges between sound and meaning.</p>
               </div>
             </div>
-            
+
             <div class="card bg-primary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
-                <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-6 flex items-center justify-center">
+                <div class="w-16 h-16 bg-primary rounded-box mx-auto mb-6 flex items-center justify-center">
                   <span class="icon-[tabler--sparkles] size-8 text-primary-content"></span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Groovy Wisdom</h3>
@@ -128,7 +132,7 @@ eleventyNavigation:
             <h2 class="text-4xl sm:text-5xl font-bold text-base-content mb-4 sm:mb-6">Recent Explorations</h2>
             <p class="text-lg sm:text-xl text-base-content/80">A taste of the philosophical journeys awaiting you</p>
           </div>
-          
+
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
@@ -143,7 +147,7 @@ eleventyNavigation:
                 </div>
               </div>
             </article>
-            
+
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
                 <img src="https://picsum.photos/400/250?random=3" alt="Article" class="w-full h-48 object-cover">
@@ -157,7 +161,7 @@ eleventyNavigation:
                 </div>
               </div>
             </article>
-            
+
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
                 <img src="https://picsum.photos/400/250?random=4" alt="Article" class="w-full h-48 object-cover">
@@ -182,32 +186,32 @@ eleventyNavigation:
             <h2 class="text-4xl sm:text-5xl font-bold text-base-content mb-4 sm:mb-6">Join the Conversation</h2>
             <p class="text-lg sm:text-xl text-base-content/80 max-w-3xl mx-auto">Connect with fellow music philosophers and expand your understanding together</p>
           </div>
-          
+
           <div class="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=1" alt="Community member" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full mx-auto mb-4 border-4 border-primary">
+              <img src="https://i.pravatar.cc/150?img=1" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
               <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Sarah Chen</h4>
               <p class="text-primary text-sm mb-4">Philosophy Professor</p>
               <p class="text-base-content/80 italic">"This blog opened my eyes to connections between Nietzsche and modern indie rock I never imagined."</p>
             </div>
-            
+
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=2" alt="Community member" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full mx-auto mb-4 border-4 border-primary">
+              <img src="https://i.pravatar.cc/150?img=2" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
               <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Marcus Rodriguez</h4>
               <p class="text-primary text-sm mb-4">Music Producer</p>
               <p class="text-base-content/80 italic">"The deep dive into rhythm and consciousness changed how I approach creating beats."</p>
             </div>
-            
+
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=3" alt="Community member" class="w-16 sm:w-20 h-16 sm:h-20 rounded-full mx-auto mb-4 border-4 border-primary">
+              <img src="https://i.pravatar.cc/150?img=3" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
               <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Elena Vasquez</h4>
               <p class="text-primary text-sm mb-4">Cultural Critic</p>
               <p class="text-base-content/80 italic">"Finally, a place where musical analysis meets genuine philosophical inquiry."</p>
             </div>
           </div>
-          
+
           <!-- Newsletter signup -->
-          <div class="bg-base-200/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto border border-primary/20">
+          <div class="bg-base-200/50 backdrop-blur-sm  p-6 sm:p-8 max-w-2xl mx-auto border border-primary/20">
             <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4 text-center">Never Miss a Beat</h3>
             <p class="text-base-content/80 text-center mb-6">Get weekly insights delivered to your inbox</p>
             <div class="flex flex-col space-y-3">

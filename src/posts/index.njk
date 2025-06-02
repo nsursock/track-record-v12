@@ -28,10 +28,95 @@ meta:
 <section class="mt-12 py-16 px-4 mx-auto max-w-screen-xl" 
          x-data="articlesGrid()"
          x-init="init()">
-  <div class="mx-auto max-w-screen-sm text-center mb-12">
-    <h1 class="mb-4 text-4xl tracking-tight text-base-content">Essays & Articles</h1>
-    <p class="font-light text-base-content/70 sm:text-xl">Exploring the intersections of culture, society, and human experience</p>
+
+  <!-- Page header - Variation 1: Modern Gradient with Stats -->
+  {# <div class="relative overflow-hidden bg-gradient-to-br from-base-200 to-base-300 rounded-2xl mb-16">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <div class="relative px-6 py-16 sm:px-12 sm:py-24 lg:py-32">
+      <div class="mx-auto max-w-2xl text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
+          Essays & Articles
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
+          Exploring the intersections of culture, society, and human experience
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <div class="flex items-center space-x-4">
+            <span class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+              <span class="icon-[tabler--book] w-4 h-4 mr-2"></span>
+              {{ collections.post | length }} Articles
+            </span>
+            <span class="inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-sm font-medium text-secondary">
+              <span class="icon-[tabler--calendar] w-4 h-4 mr-2"></span>
+              Latest: {{ collections.post[0].data.published_date | formatDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-base-content/20 to-transparent"></div>
+  </div> #}
+
+  <!-- Page header - Variation 2: Split Layout with Decorative Elements -->
+  <div class="relative mb-16">
+    <div class="absolute inset-0 bg-base-200/50 rounded-box"></div>
+    <div class="relative px-6 py-12 sm:px-12 sm:py-16 lg:py-20">
+      <div class="grid lg:grid-cols-2 gap-8 items-center">
+        <div class="text-center lg:text-left">
+          <h1 class="text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
+            Essays & Articles
+          </h1>
+          <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
+            Exploring the intersections of culture, society, and human experience
+          </p>
+        </div>
+        <div class="flex flex-col items-center lg:items-end space-y-4">
+          <div class="stats shadow">
+            <div class="stat">
+              <div class="stat-figure text-primary">
+                <span class="icon-[tabler--book] w-8 h-8"></span>
+              </div>
+              <div class="stat-title text-base-content/70">Total Articles</div>
+              <div class="stat-value text-primary">{{ collections.post | length }}</div>
+            </div>
+            
+            <div class="stat">
+              <div class="stat-figure text-secondary">
+                <span class="icon-[tabler--calendar] w-8 h-8"></span>
+              </div>
+              <div class="stat-title text-base-content/70">Latest Update</div>
+              <div class="stat-value text-secondary text-2xl">{{ collections.post[0].data.published_date | formatDate }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Page header - Variation 3: Minimal with Accent Border -->
+  {# <div class="relative mb-16">
+    <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary rounded-full"></div>
+    <div class="pl-8">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
+          Essays & Articles
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
+          Exploring the intersections of culture, society, and human experience
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <div class="flex items-center text-base-content/70">
+            <span class="icon-[tabler--book] w-5 h-5 mr-2 text-primary"></span>
+            <span>{{ collections.post | length }} Articles</span>
+          </div>
+          <div class="flex items-center text-base-content/70">
+            <span class="icon-[tabler--calendar] w-5 h-5 mr-2 text-secondary"></span>
+            <span>Latest: {{ collections.post[0].data.published_date | formatDate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> #}
 
   <div class="grid gap-12" id="articles-grid">
     {% for post in posts %}
@@ -161,7 +246,7 @@ meta:
   <div x-show="isLoading" 
        x-transition
        class="flex justify-center items-center mt-8">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-base-content"></div>
+    <div class="animate-spin rounded-box h-8 w-8 border-b-2 border-base-content"></div>
   </div>
 
   <!-- No more articles message -->
@@ -170,7 +255,7 @@ meta:
        class="flex justify-center items-center mt-8">
     <a href="#" 
        @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})"
-       class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-lg hover:bg-base-300 hover:text-base-content">
+       class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
       <span class="icon-[tabler--arrow-up] w-3.5 h-3.5 mr-2"></span>
       Back to top
     </a>
@@ -181,13 +266,13 @@ meta:
        x-show="!isMobile" 
        x-transition>
     {% if pagination.href.previous %}
-      <a href="{{pagination.href.previous}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-lg hover:bg-base-300 hover:text-base-content">
+      <a href="{{pagination.href.previous}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
         <span class="icon-[tabler--arrow-left] w-3.5 h-3.5 mr-2"></span>
         Previous
       </a>
     {% endif %}
     {% if pagination.href.next %}
-      <a href="{{pagination.href.next}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-lg hover:bg-base-300 hover:text-base-content">
+      <a href="{{pagination.href.next}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
         Next
         <span class="icon-[tabler--arrow-right] w-3.5 h-3.5 ml-2"></span>
       </a>

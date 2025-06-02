@@ -122,7 +122,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("formatDate", function (date) {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     });
   });
