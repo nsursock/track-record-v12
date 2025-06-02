@@ -70,22 +70,45 @@ meta:
             Exploring the intersections of culture, society, and human experience
           </p>
         </div>
-        <div class="flex flex-col items-center lg:items-end space-y-4">
-          <div class="stats shadow">
-            <div class="stat">
-              <div class="stat-figure text-primary">
-                <span class="icon-[tabler--book] w-8 h-8"></span>
-              </div>
-              <div class="stat-title text-base-content/70">Total Articles</div>
-              <div class="stat-value text-primary">{{ collections.post | length }}</div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <div class="flex flex-wrap justify-center gap-8 sm:gap-12">
+          <div class="flex items-center gap-3">
+            <span class="icon-[tabler--book] w-6 h-6 text-primary"></span>
+            <div class="text-left">
+              <div class="text-sm text-base-content/70">Total Articles</div>
+              <div class="text-xl font-semibold text-primary">{{ collections.post | length }}</div>
             </div>
-            
-            <div class="stat">
-              <div class="stat-figure text-secondary">
-                <span class="icon-[tabler--calendar] w-8 h-8"></span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="icon-[tabler--calendar] w-6 h-6 text-secondary"></span>
+            <div class="text-left">
+              <div class="text-sm text-base-content/70">Latest Update</div>
+              <div class="text-xl font-semibold text-secondary">{{ collections.post[0].data.published_date | formatDate }}</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="icon-[tabler--clock] w-6 h-6 text-accent"></span>
+            <div class="text-left">
+              <div class="text-sm text-base-content/70">Avg. Reading Time</div>
+              <div class="text-xl font-semibold text-accent">5 min</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="icon-[tabler--tags] w-6 h-6 text-info"></span>
+            <div class="text-left">
+              <div class="text-sm text-base-content/70">Total Tags</div>
+              <div class="text-xl font-semibold text-info">
+                {% set tagCount = 0 %}
+                {% for post in collections.post %}
+                  {% set tagCount = tagCount + post.data.tags | length %}
+                {% endfor %}
+                {{ tagCount }}
               </div>
-              <div class="stat-title text-base-content/70">Latest Update</div>
-              <div class="stat-value text-secondary text-2xl">{{ collections.post[0].data.published_date | formatDate }}</div>
             </div>
           </div>
         </div>

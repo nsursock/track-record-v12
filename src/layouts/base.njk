@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ meta.lang or site.lang }}" x-data="themes" data-theme="cyberpunk">
+<html lang="{{ meta.lang or site.lang }}" x-data="themes" data-theme="neon">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,6 +65,20 @@
                       :class="{ 'bg-base-300/50': selectedTheme === 'valorant' }"
                       @click="setTheme('valorant')">
                 Valorant
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item w-full text-left px-4 py-2 rounded-lg hover:bg-base-300/50 transition-colors"
+                      :class="{ 'bg-base-300/50': selectedTheme === 'lemonade' }"
+                      @click="setTheme('lemonade')">
+                Lemonade
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item w-full text-left px-4 py-2 rounded-lg hover:bg-base-300/50 transition-colors"
+                      :class="{ 'bg-base-300/50': selectedTheme === 'lofi' }"
+                      @click="setTheme('lofi')">
+                Lofi
               </button>
             </li>
           </ul>

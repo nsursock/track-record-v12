@@ -85,17 +85,21 @@ Alpine.data('themes', () => ({
         document.documentElement.setAttribute('data-theme', theme);
         
         // Set theme variables
-        document.documentElement.style.setProperty('--theme-cyberpunk', theme === 'cyberpunk' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-neon', theme === 'neon' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-acid', theme === 'acid' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-ghibli', theme === 'ghibli' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-valorant', theme === 'valorant' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-lemonade', theme === 'lemonade' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-lofi', theme === 'lofi' ? 'true' : 'false');
         
         // Set font family based on theme
         const fontFamilies = {
             neon: '"Chakra Petch", system-ui, sans-serif',
             acid: '"Space Grotesk", system-ui, sans-serif',
             ghibli: '"Amaranth", system-ui, sans-serif',
-            valorant: '"Work Sans", system-ui, sans-serif'
+            valorant: '"Work Sans", system-ui, sans-serif',
+            lemonade: '"Quicksand", system-ui, sans-serif',
+            lofi: '"Space Mono", monospace'
         };
         
         document.documentElement.style.setProperty('--font-family', fontFamilies[theme]);

@@ -1,0 +1,149 @@
+---
+layout: base
+---
+
+<article class="container mx-auto px-4 py-8">
+  <!-- Hero Section -->
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-base-100 rounded-2xl shadow-lg overflow-hidden">
+      <!-- Hero Image -->
+      {% set heroMatch = content | regexFind('<img[^>]*>') %}
+      {% if heroMatch and heroMatch[0] %}
+        {% set srcMatch = heroMatch[0] | regexFind('src="([^"]+)"') %}
+        {% if srcMatch and srcMatch[1] %}
+          {% set heroImage = srcMatch[1] %}
+          <div class="relative h-[400px] w-full">
+            {% if 'unsplash.com' in heroImage %}
+              {% set transformedUrl = heroImage ~ '&w=1200&h=600' %}
+              <img src="{{ transformedUrl }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% elif 'res.cloudinary.com' in heroImage %}
+              <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_1200,h_600,g_auto,q_auto,f_auto/') }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% else %}
+              <img src="{{ heroImage }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <!-- Content Section -->
+      <div class="p-8">
+        <!-- Tags -->
+        {% if tags %}
+          <div class="flex flex-wrap gap-2 mb-6">
+            {% for tag in tags %}
+              <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
+                <span class="icon-[tabler--tag] size-4 mr-1"></span>
+                {{ tag }}
+              </span>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <!-- Title and Meta -->
+        <h1 class="text-4xl font-bold text-base-content mb-4">{{ title }}</h1>
+        {% if meta_description %}
+          <p class="text-lg text-base-content/80 mb-8">{{ meta_description }}</p>
+        {% endif %}
+
+        <!-- Author Info -->
+        {% if author %}
+          <div class="flex items-center gap-4 mb-8">
+            <img class="w-12 h-12 rounded-full ring-2 ring-primary/20" 
+                 src="https://i.pravatar.cc/150?u={{ author | urlencode }}" 
+                 alt="{{ author }}">
+            <div>
+              <div class="font-medium text-base-content flex items-center gap-2">
+                <span class="icon-[tabler--user] size-4"></span>
+                {{ author }}
+              </div>
+              <div class="text-sm text-base-content/80 flex items-center gap-2">
+                <span class="icon-[tabler--calendar] size-4"></span>
+                {% if published_date %}
+                  {{ published_date | formatDate }}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Article Content -->
+        <div class="prose prose-lg max-w-none dark:prose-invert 
+          prose-headings:font-bold
+          prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
+          prose-p:text-base-content/80
+          prose-a:text-primary dark:prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+          prose-strong:text-base-content
+          prose-code:text-primary dark:prose-code:text-primary
+          prose-pre:bg-base-200 dark:prose-pre:bg-base-200
+          prose-blockquote:border-l-primary prose-blockquote:bg-base-200/50 dark:prose-blockquote:bg-base-200/50
+          prose-img:rounded-box prose-img:shadow-md
+          prose-hr:border-primary/20
+          prose-li:marker:text-primary
+          prose-table:border-primary/20
+          prose-th:bg-base-200/50 dark:prose-th:bg-base-200/50">
+          {% if heroMatch and heroMatch[0] %}
+            {% set contentAfterFirstImage = content | replace(heroMatch[0], '') %}
+            {{ contentAfterFirstImage | safe }}
+          {% else %}
+            {{ content | safe }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Author Bio Card -->
+    {% if author %}
+      <div class="mt-8 bg-base-100 rounded-2xl shadow-lg p-8">
+        <h3 class="text-2xl font-bold text-base-content mb-6 flex items-center gap-2">
+          <span class="icon-[tabler--user-circle] size-6"></span>
+          About the Author
+        </h3>
+        <div class="flex items-center gap-6">
+          <img class="w-20 h-20 rounded-full ring-2 ring-primary/20" 
+               src="https://i.pravatar.cc/150?u={{ author | urlencode }}" 
+               alt="{{ author }}">
+          <div>
+            <h4 class="text-xl font-bold text-base-content flex items-center gap-2">
+              <span class="icon-[tabler--user] size-5"></span>
+              {{ author }}
+            </h4>
+            <p class="text-base-content/80 mt-2">{{ author_bio or "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }}</p>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Related Posts -->
+    <div class="mt-8 bg-base-100 rounded-2xl shadow-lg p-8">
+      <h3 class="text-2xl font-bold text-base-content mb-6 flex items-center gap-2">
+        <span class="icon-[tabler--article] size-6"></span>
+        Related Posts
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <a href="#" class="block hover:bg-base-200/50 p-6 rounded-xl transition-colors">
+          <h4 class="font-medium text-base-content flex items-center gap-2">
+            <span class="icon-[tabler--chevron-right] size-4"></span>
+            Related Post Title 1
+          </h4>
+          <p class="text-sm text-base-content/80 mt-2">Brief description of the related post...</p>
+        </a>
+        <a href="#" class="block hover:bg-base-200/50 p-6 rounded-xl transition-colors">
+          <h4 class="font-medium text-base-content flex items-center gap-2">
+            <span class="icon-[tabler--chevron-right] size-4"></span>
+            Related Post Title 2
+          </h4>
+          <p class="text-sm text-base-content/80 mt-2">Brief description of the related post...</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
