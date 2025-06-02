@@ -22,26 +22,31 @@ layout: base
           {% if tags %}
             {% for tag in tags %}
               <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
+                <span class="icon-[tabler--tag] size-4 mr-1"></span>
                 {{ tag }}
               </span>
             {% endfor %}
           {% endif %}
         </div>
-        <h1 class="mb-4 text-3xl font-bold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+        <h1 class="mb-4 text-3xl font-bold leading-tight text-base-content lg:mb-6 lg:text-4xl">
           {{ title }}
         </h1>
         {% if meta_description %}
-          <p class="mb-6 text-lg text-gray-600 dark:text-gray-400">
+          <p class="mb-6 text-lg text-base-content/80">
             {{ meta_description }}
           </p>
         {% endif %}
         <div class="flex items-center space-x-4">
           <div class="flex items-center space-x-2">
             {% if author %}
-              <img class="w-10 h-10 rounded-full ring-2 ring-primary-200" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
-              <div class="font-medium dark:text-white">
-                <div>{{ author }}</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400">
+              <img class="w-10 h-10 rounded-full ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
+              <div class="font-medium text-base-content">
+                <div class="flex items-center gap-2">
+                  <span class="icon-[tabler--user] size-4"></span>
+                  {{ author }}
+                </div>
+                <div class="text-sm text-base-content/80 flex items-center gap-2">
+                  <span class="icon-[tabler--calendar] size-4"></span>
                   {% if published_date %}
                     {{ published_date }}
                   {% endif %}
@@ -64,12 +69,17 @@ layout: base
               <img src="{{ transformedUrl }}" 
                    alt="{{ title }}"
                    class="object-cover w-full h-full"
-                   loading="eager">
-            {% else %}
+                   loading="lazy">
+            {% elif 'res.cloudinary.com' in heroImage %}
               <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_800,h_450,g_auto,q_auto,f_auto/') }}" 
                    alt="{{ title }}"
                    class="object-cover w-full h-full"
-                   loading="eager">
+                   loading="lazy">
+            {% else %}
+              <img src="{{ heroImage }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
             {% endif %}
           {% endif %}
         {% endif %}
@@ -85,53 +95,34 @@ layout: base
       <div class="prose prose-lg max-w-none dark:prose-invert 
         prose-headings:prose-headings:font-bold
         prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
-        prose-p:text-gray-600 dark:prose-p:text-gray-300
-        prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-gray-900 dark:prose-strong:text-white
-        prose-code:text-primary-600 dark:prose-code:text-primary-400
-        prose-pre:bg-gray-900 dark:prose-pre:bg-gray-800
-        prose-blockquote:border-l-primary-500 prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-800
+        prose-p:text-base-content/80
+        prose-a:text-primary dark:prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-base-content
+        prose-code:text-primary dark:prose-code:text-primary
+        prose-pre:bg-base-200 dark:prose-pre:bg-base-200
+        prose-blockquote:border-l-primary prose-blockquote:bg-base-200/50 dark:prose-blockquote:bg-base-200/50
         prose-img:rounded-lg prose-img:shadow-md
-        prose-hr:border-gray-200 dark:prose-hr:border-gray-700
-        prose-li:marker:text-primary-500
-        prose-table:border-gray-200 dark:prose-table:border-gray-700
-        prose-th:bg-gray-50 dark:prose-th:bg-gray-800"
+        prose-hr:border-primary/20
+        prose-li:marker:text-primary
+        prose-table:border-primary/20
+        prose-th:bg-base-200/50 dark:prose-th:bg-base-200/50"
         x-data="{ imageCount: 0 }"
         x-init="$el.querySelectorAll('p > img').forEach(img => {
           const p = img.parentElement;
           p.classList.add('float-image');
           p.classList.add(imageCount % 2 === 0 ? 'float-right' : 'float-left');
+          img.setAttribute('loading', 'lazy');
+          
+          // Apply Cloudinary transformations if the image is from Cloudinary
+          if (img.src.includes('res.cloudinary.com')) {
+            const originalSrc = img.src;
+            if (!originalSrc.includes('/upload/c_')) {
+              img.src = originalSrc.replace('/upload/', '/upload/c_fill,w_600,h_400,g_auto,q_auto,f_auto/');
+            }
+          }
+          
           imageCount++;
         })">
-        <style>
-          .float-image {
-            clear: both;
-            margin-top: 0.1rem;
-            margin-bottom: 0.1rem;
-          }
-          .float-image img {
-            margin-bottom: 1rem;
-            width: 100%;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-          }
-          @media (min-width: 1024px) {
-            .float-image img {
-              max-width: 300px;
-              margin-left: 0;
-              margin-right: 0;
-            }
-            .float-right img {
-              float: right;
-              margin-left: 2rem;
-            }
-            .float-left img {
-              float: left;
-              margin-right: 2rem;
-            }
-          }
-        </style>
         {% if heroMatch and heroMatch[0] %}
           {% set contentAfterFirstImage = content | replace(heroMatch[0], '') %}
           {{ contentAfterFirstImage | safe }}
@@ -145,10 +136,14 @@ layout: base
         <!-- Tags -->
         {% if tags %}
           <div class="mb-8">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tags</h2>
+            <h2 class="mb-4 text-xl font-bold text-base-content flex items-center gap-2">
+              <span class="icon-[tabler--tags] size-5"></span>
+              Tags
+            </h2>
             <div class="flex flex-wrap gap-2">
               {% for tag in tags %}
                 <a href="/tags/{{ tag | urlencode }}" class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
+                  <span class="icon-[tabler--tag] size-4 mr-1"></span>
                   {{ tag }}
                 </a>
               {% endfor %}
@@ -159,24 +154,29 @@ layout: base
         <!-- Comments Section -->
         {% if comments %}
           <div class="mt-12">
-            <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Comments</h2>
+            <h2 class="mb-8 text-2xl font-bold text-base-content flex items-center gap-2">
+              <span class="icon-[tabler--messages] size-6"></span>
+              Comments
+            </h2>
             <div class="space-y-6">
               {% for comment in comments %}
-                <article class="p-6 text-base bg-white rounded-lg shadow-sm dark:bg-gray-900">
+                <article class="p-6 text-base bg-base-200/50 rounded-lg shadow-sm">
                   <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
-                      <img class="mr-2 w-8 h-8 rounded-full ring-2 ring-primary-200" src="{{ comment.avatar }}" alt="{{ comment.name }}">
-                      <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                      <img class="mr-2 w-8 h-8 rounded-full ring-2 ring-primary/20" src="{{ comment.avatar }}" alt="{{ comment.name }}">
+                      <div class="inline-flex items-center mr-3 text-sm text-base-content">
+                        <span class="icon-[tabler--user] size-4 mr-1"></span>
                         <cite class="font-semibold">{{ comment.name }}</cite>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-base-content/80 flex items-center gap-1">
+                        <span class="icon-[tabler--calendar] size-4"></span>
                         {% if comment.published_date %}
                           {{ comment.published_date }}
                         {% endif %}
                       </p>
                     </div>
                   </footer>
-                  <p class="text-gray-500 dark:text-gray-400">{{ comment.text }}</p>
+                  <p class="text-base-content/80">{{ comment.text }}</p>
                 </article>
               {% endfor %}
             </div>
@@ -185,10 +185,8 @@ layout: base
 
         <!-- Navigation -->
         <div class="mt-12 flex items-center justify-between">
-          <a href="/posts" class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-400">
-            <svg class="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
-            </svg>
+          <a href="/posts" class="inline-flex items-center font-medium text-primary hover:text-primary/80 transition-colors">
+            <span class="icon-[tabler--arrow-left] size-4 mr-2"></span>
             Back to Articles
           </a>
         </div>
@@ -200,31 +198,49 @@ layout: base
       <div class="sticky top-24">
         <!-- Author Bio -->
         {% if author %}
-          <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-900 mb-8">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">About the Author</h3>
+          <div class="p-6 bg-base-200/50 rounded-lg shadow-sm mb-8">
+            <h3 class="text-lg font-bold text-base-content mb-4 flex items-center gap-2">
+              <span class="icon-[tabler--user-circle] size-5"></span>
+              About the Author
+            </h3>
             <div class="flex items-center space-x-4 mb-4">
-              <img class="w-16 h-16 rounded-full ring-2 ring-primary-200" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
+              <img class="w-16 h-16 rounded-full ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
               <div>
-                <h4 class="text-lg font-bold text-gray-900 dark:text-white">{{ author }}</h4>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Author</p>
+                <h4 class="text-lg font-bold text-base-content flex items-center gap-2">
+                  <span class="icon-[tabler--user] size-4"></span>
+                  {{ author }}
+                </h4>
+                <p class="text-sm text-base-content/80 flex items-center gap-2">
+                  <span class="icon-[tabler--pencil] size-4"></span>
+                  Author
+                </p>
               </div>
             </div>
-            <p class="text-gray-600 dark:text-gray-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="text-base-content/80">{{ author_bio or "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }}</p>
           </div>
         {% endif %}
 
         <!-- Related Posts -->
-        <div class="p-6 bg-white rounded-lg shadow-sm dark:bg-gray-900">
-          <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Related Posts</h3>
+        <div class="p-6 bg-base-200/50 rounded-lg shadow-sm">
+          <h3 class="text-lg font-bold text-base-content mb-4 flex items-center gap-2">
+            <span class="icon-[tabler--article] size-5"></span>
+            Related Posts
+          </h3>
           <div class="space-y-4">
             <!-- This would be populated with actual related posts -->
-            <a href="#" class="block hover:bg-gray-50 dark:hover:bg-gray-800 p-4 rounded-lg">
-              <h4 class="font-medium text-gray-900 dark:text-white">Related Post Title 1</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Brief description of the related post...</p>
+            <a href="#" class="block hover:bg-base-200/50 p-4 rounded-lg">
+              <h4 class="font-medium text-base-content flex items-center gap-2">
+                <span class="icon-[tabler--chevron-right] size-4"></span>
+                Related Post Title 1
+              </h4>
+              <p class="text-sm text-base-content/80">Brief description of the related post...</p>
             </a>
-            <a href="#" class="block hover:bg-gray-50 dark:hover:bg-gray-800 p-4 rounded-lg">
-              <h4 class="font-medium text-gray-900 dark:text-white">Related Post Title 2</h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Brief description of the related post...</p>
+            <a href="#" class="block hover:bg-base-200/50 p-4 rounded-lg">
+              <h4 class="font-medium text-base-content flex items-center gap-2">
+                <span class="icon-[tabler--chevron-right] size-4"></span>
+                Related Post Title 2
+              </h4>
+              <p class="text-sm text-base-content/80">Brief description of the related post...</p>
             </a>
           </div>
         </div>

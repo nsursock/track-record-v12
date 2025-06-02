@@ -176,6 +176,14 @@
     
     /* Font Family */
     --font-family: "Amaranth", system-ui, sans-serif;
+
+    /* Border Radius - Force higher priority */
+    --radius-selector: 0.5rem !important;
+    --radius-field: 0.25rem !important;
+    --radius-box: 0.5rem !important;
+    --radius-btn: 0.5rem !important;
+    --radius-badge: 1.9rem !important;
+    --radius-tab: 0.5rem !important;
 }
 
 /* Valorant Theme */
@@ -225,6 +233,14 @@
     
     /* Font Family */
     --font-family: "Work Sans", system-ui, sans-serif;
+
+    /* Border Radius - Force higher priority */
+    --radius-selector: 0.25rem !important;
+    --radius-field: 0.25rem !important;
+    --radius-box: 0.25rem !important;
+    --radius-btn: 0.25rem !important;
+    --radius-badge: 0.25rem !important;
+    --radius-tab: 0.25rem !important;
 }
 
 /* Apply font family */
@@ -266,4 +282,59 @@ html {
 
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
+}
+
+/* Float Image Styles */
+.float-image {
+  clear: both;
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
+}
+
+.float-image img {
+  margin-bottom: 1rem;
+  width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .float-image img {
+    max-width: 300px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .float-right img {
+    float: right;
+    margin-left: 2rem;
+  }
+  .float-left img {
+    float: left;
+    margin-right: 2rem;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Force theme border radius on common elements */
+[data-theme="ghibli"] .btn,
+[data-theme="ghibli"] .card,
+[data-theme="ghibli"] .badge,
+[data-theme="ghibli"] .input,
+[data-theme="ghibli"] .select,
+[data-theme="ghibli"] .textarea {
+    border-radius: var(--radius-btn) !important;
+}
+
+[data-theme="valorant"] .btn,
+[data-theme="valorant"] .card,
+[data-theme="valorant"] .badge,
+[data-theme="valorant"] .input,
+[data-theme="valorant"] .select,
+[data-theme="valorant"] .textarea {
+    border-radius: var(--radius-btn) !important;
 }
