@@ -10,13 +10,16 @@
 
   <nav class="container mx-auto px-4 sm:px-8 py-4">
     <div class="flex items-center justify-between">
-      <!-- Logo -->
+      <!-- Logo Icon -->
       <a href="/" class="flex items-center space-x-3">
         <div class="w-10 h-10 bg-primary rounded-box flex items-center justify-center">
           <span class="icon-[tabler--fish-bone] size-6 text-primary-content"></span>
         </div>
-        <span class="text-xl font-bold text-base-content">{{ site.title }}</span>
+        <span class="text-xl font-bold text-base-content hidden md:inline">{{ site.title }}</span>
       </a>
+
+      <!-- Website Name (Mobile Only) -->
+      <span class="text-xl font-bold text-base-content md:hidden">{{ site.title }}</span>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8">
@@ -38,8 +41,15 @@
 
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
-        <button class="btn btn-ghost btn-sm" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
-          <span class="icon-[tabler--menu] size-6"></span>
+        <button class="btn btn-ghost btn-sm relative w-10 h-10 bg-primary rounded-box" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
+          <div class="relative w-6 h-6 flex items-center justify-center">
+            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                  :class="mobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'"></span>
+            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                  :class="mobileMenuOpen ? 'opacity-0' : 'opacity-100'"></span>
+            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                  :class="mobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'"></span>
+          </div>
         </button>
       </div>
     </div>
@@ -52,7 +62,7 @@
         <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
         <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>
         <a href="#community" class="text-base-content/80 hover:text-primary transition-colors">Community</a>
-        <button class="btn btn-primary btn-sm w-full">Get Started</button>
+        <a href="/credentials/" class="btn btn-primary btn-sm w-full">Get Started</a>
       </div>
     </div>
   </nav>
