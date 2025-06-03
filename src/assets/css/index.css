@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 /* Core Imports */
 @import "tailwindcss";
@@ -19,9 +20,10 @@
 @import "./themes/lemonade.css";
 @import "./themes/lofi.css";
 @import "./themes/lofi-dark.css";
+@import "./themes/tech.css";
 
 @plugin "flyonui" {
-    themes: neon --default, acid, ghibli, valorant, lemonade, lofi, lofi-dark;
+    themes: neon --default, acid, ghibli, valorant, lemonade, lofi, lofi-dark, tech;
 }
 
 @plugin "@iconify/tailwind4";

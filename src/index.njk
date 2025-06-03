@@ -28,10 +28,25 @@ eleventyNavigation:
           <p class="text-base-content/80 mb-6">We're crafting something special. Get ready for deep dives into music, philosophy, and the groovy wisdom that connects them all.</p>
 
           <!-- Email signup -->
-          <div class="flex flex-col space-y-3 max-w-md mx-auto">
-            <input type="email" placeholder="Enter your email" class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary">
-            <button class="btn btn-primary">Notify Me</button>
-          </div>
+          <form
+            action="https://buttondown.com/api/emails/embed-subscribe/nsursock"
+            method="post"
+            target="popupwindow"
+            onsubmit="window.open('https://buttondown.com/nsursock', 'popupwindow')"
+            class="embeddable-buttondown-form flex flex-col space-y-3 max-w-md mx-auto"
+          >
+            <label for="bd-email" class="text-base-content/80">Enter your email</label>
+            <input 
+              type="email" 
+              name="email" 
+              id="bd-email" 
+              class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+            <p class="text-sm text-base-content/60">
+              <a href="https://buttondown.com/refer/nsursock" target="_blank" class="hover:text-primary">Powered by Buttondown.</a>
+            </p>
+          </form>
         </div>
       </div>
     </div>

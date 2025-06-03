@@ -92,6 +92,7 @@ Alpine.data('themes', () => ({
         document.documentElement.style.setProperty('--theme-lemonade', theme === 'lemonade' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-lofi', theme === 'lofi' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-lofi-dark', theme === 'lofi-dark' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-tech', theme === 'tech' ? 'true' : 'false');
         
         // Set font family based on theme
         const fontFamilies = {
@@ -101,7 +102,8 @@ Alpine.data('themes', () => ({
             valorant: '"Work Sans", system-ui, sans-serif',
             lemonade: '"Quicksand", system-ui, sans-serif',
             lofi: '"Space Mono", monospace',
-            'lofi-dark': '"Space Mono", monospace'
+            'lofi-dark': '"Space Mono", monospace',
+            tech: '"JetBrains Mono", monospace'
         };
         
         document.documentElement.style.setProperty('--font-family', fontFamilies[theme]);

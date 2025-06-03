@@ -1,0 +1,163 @@
+@plugin "flyonui/theme" {
+    name: "tech";
+    fontFamily: "JetBrains Mono, monospace";
+    color-scheme: dark;
+}
+
+[data-theme="tech"] {
+    /* Base Colors - Rich Cyberpunk Dark */
+    --color-base-100: oklch(15% 0.02 240);
+    --color-base-200: oklch(20% 0.03 240);
+    --color-base-300: oklch(25% 0.04 240);
+    --color-base-content: oklch(95% 0.01 240);
+    
+    /* Primary Colors - Electric Blue with Warm Glow */
+    --color-primary: oklch(75% 0.25 240);
+    --color-primary-content: oklch(15% 0.02 240);
+    --color-primary-focus: oklch(70% 0.25 240);
+    --color-primary-hover: oklch(80% 0.25 240);
+    
+    /* Secondary Colors - Cyber Purple with Amber Accent */
+    --color-secondary: oklch(65% 0.25 280);
+    --color-secondary-content: oklch(15% 0.02 240);
+    --color-secondary-focus: oklch(60% 0.25 280);
+    --color-secondary-hover: oklch(70% 0.25 280);
+    
+    /* Accent Colors - Warm Neon */
+    --color-accent: oklch(70% 0.25 60);
+    --color-accent-content: oklch(15% 0.02 240);
+    --color-accent-focus: oklch(65% 0.25 60);
+    --color-accent-hover: oklch(75% 0.25 60);
+    
+    /* Neutral Colors - Rich Midtones */
+    --color-neutral: oklch(30% 0.1 240);
+    --color-neutral-content: oklch(95% 0.01 240);
+    --color-neutral-focus: oklch(25% 0.1 240);
+    --color-neutral-hover: oklch(35% 0.1 240);
+    
+    /* State Colors - Cyberpunk Palette */
+    --color-info: oklch(75% 0.25 240);
+    --color-info-content: oklch(15% 0.02 240);
+    --color-info-focus: oklch(70% 0.25 240);
+    --color-info-hover: oklch(80% 0.25 240);
+    
+    --color-success: oklch(75% 0.25 160);
+    --color-success-content: oklch(15% 0.02 240);
+    --color-success-focus: oklch(70% 0.25 160);
+    --color-success-hover: oklch(80% 0.25 160);
+    
+    --color-warning: oklch(75% 0.25 60);
+    --color-warning-content: oklch(15% 0.02 240);
+    --color-warning-focus: oklch(70% 0.25 60);
+    --color-warning-hover: oklch(80% 0.25 60);
+    
+    --color-error: oklch(75% 0.25 25);
+    --color-error-content: oklch(15% 0.02 240);
+    --color-error-focus: oklch(70% 0.25 25);
+    --color-error-hover: oklch(80% 0.25 25);
+
+    /* Border Radius */
+    --radius-selector: 0.25rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --radius-btn: 0.25rem;
+    --radius-badge: 0.25rem;
+    --radius-tab: 0.25rem;
+
+    /* Effects */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Animation */
+    --animation-btn: 0.25s;
+    --animation-input: 0.2s;
+    --animation-card: 0.3s;
+    --animation-badge: 0.2s;
+    --animation-modal: 0.3s;
+}
+
+/* Custom styles for tech theme */
+[data-theme="tech"] {
+    /* Gradient and Glow Effects */
+    --gradient-primary: linear-gradient(135deg, oklch(75% 0.25 240), oklch(75% 0.25 280));
+    --gradient-secondary: linear-gradient(135deg, oklch(65% 0.25 280), oklch(65% 0.25 60));
+    --glow-primary: 0 0 15px oklch(75% 0.25 240 / 0.3);
+    --glow-secondary: 0 0 15px oklch(65% 0.25 280 / 0.3);
+    --glow-accent: 0 0 15px oklch(70% 0.25 60 / 0.3);
+    
+    /* Text Effects */
+    --text-shadow: 0 0 1px oklch(75% 0.25 240 / 0.2);
+    --text-glow: 0 0 2px oklch(75% 0.25 240 / 0.4);
+}
+
+[data-theme="tech"] .btn-primary {
+    background-image: var(--gradient-primary);
+    text-shadow: var(--text-shadow);
+    box-shadow: var(--glow-primary);
+    border: 1px solid oklch(75% 0.25 240 / 0.2);
+}
+
+[data-theme="tech"] .btn-secondary {
+    background-image: var(--gradient-secondary);
+    text-shadow: var(--text-shadow);
+    box-shadow: var(--glow-secondary);
+    border: 1px solid oklch(65% 0.25 280 / 0.2);
+}
+
+[data-theme="tech"] .card {
+    background: oklch(20% 0.03 240);
+    border: 1px solid oklch(75% 0.25 240 / 0.1);
+    box-shadow: var(--glow-primary);
+    backdrop-filter: blur(10px);
+}
+
+[data-theme="tech"] code {
+    background: oklch(25% 0.04 240);
+    border: 1px solid oklch(75% 0.25 240 / 0.2);
+    border-radius: var(--radius-btn);
+    padding: 0.2em 0.4em;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.9em;
+    text-shadow: var(--text-shadow);
+}
+
+[data-theme="tech"] pre {
+    background: oklch(25% 0.04 240);
+    border: 1px solid oklch(75% 0.25 240 / 0.2);
+    border-radius: var(--radius-box);
+    padding: 1em;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.9em;
+    overflow-x: auto;
+    text-shadow: var(--text-shadow);
+}
+
+/* Gradient Text Effect */
+[data-theme="tech"] h1, 
+[data-theme="tech"] h2, 
+[data-theme="tech"] h3 {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: var(--text-glow);
+}
+
+/* Glowing Border Effect */
+[data-theme="tech"] .border-glow {
+    position: relative;
+}
+
+[data-theme="tech"] .border-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: var(--gradient-primary);
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.5;
+} 

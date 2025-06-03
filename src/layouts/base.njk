@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ meta.lang or site.lang }}" x-data="themes" data-theme="neon">
+<html lang="{{ meta.lang or site.lang }}" x-data="themes" data-theme="lofi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -87,6 +87,13 @@
                       :class="{ 'bg-base-300/50': selectedTheme === 'lofi-dark' }"
                       @click="setTheme('lofi-dark')">
                 Lofi Dark
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item w-full text-left px-4 py-2 rounded-box hover:bg-base-300/50 transition-colors"
+                      :class="{ 'bg-base-300/50': selectedTheme === 'tech' }"
+                      @click="setTheme('tech')">
+                Tech
               </button>
             </li>
           </ul>
