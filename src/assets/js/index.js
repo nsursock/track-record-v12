@@ -254,6 +254,123 @@ Alpine.data('articlesGrid', () => ({
     }
 }));
 
+// Simple working Alpine + FullCalendar component
+Alpine.data('calendarComponent', () => ({
+  showModal: false,
+  modalTitle: '',
+  eventTitle: '',
+  selectedEvent: null,
+  selectedDateInfo: null,
+  calendar: null,
+
+  tasks: [
+    {
+      title: 'Define the mission, voice, and target reader',
+      start: '2025-06-03T08:00:00',
+      end: '2025-06-03T11:00:00',
+      classNames: ['fc-event-primary']
+    },
+    {
+      title: 'Choose your platform + theme and launch a basic version',
+      start: '2025-06-03T09:00:00',
+      end: '2025-06-03T13:00:00',
+      classNames: ['fc-event-info']
+    },
+    {
+      title: 'Start drafting your 3–5 key launch pieces',
+      start: '2025-06-03T11:30:00',
+      end: '2025-06-03T16:00:00',
+      classNames: ['fc-event-success']
+    },
+    {
+      title: 'Create an editorial calendar (weekly posts)',
+      start: '2025-06-03T14:00:00',
+      end: '2025-06-03T17:00:00',
+      classNames: ['fc-event-warning']
+    },
+    {
+      title: 'Set up newsletter platform and social handles',
+      start: '2025-06-03T16:30:00',
+      end: '2025-06-03T18:00:00',
+      classNames: ['fc-event-secondary']
+    }
+  ],
+  
+  initCalendar() {
+    const self = this;
+    const calendarEl = document.getElementById('calendar-custom');
+    
+    this.calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      initialDate: new Date().toISOString().split('T')[0],
+      editable: true,
+      selectable: true,
+      headerToolbar: {
+        left: 'prev,next title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+      },
+      buttonText: {
+        month: 'Month',
+        week: 'Week',
+        day: 'Day',
+        list: 'List'
+      },
+      events: self.tasks, // Start with empty events
+      select: function(info) {
+        self.selectedEvent = null;
+        self.selectedDateInfo = info;
+        self.modalTitle = self.formatDate(info.start);
+        self.eventTitle = '';
+        self.showModal = true;
+      },
+      eventClick: function(info) {
+        self.selectedEvent = info.event;
+        self.modalTitle = self.formatDate(info.event.start);
+        self.eventTitle = info.event.title;
+        self.showModal = true;
+      }
+    });
+    
+    this.calendar.render();
+
+  },
+  
+  formatDate(date) {
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  },
+  
+  closeModal() {
+    this.showModal = false;
+    this.selectedEvent = null;
+    this.selectedDateInfo = null;
+    this.eventTitle = '';
+  },
+  
+  saveEvent() {
+    if (this.eventTitle) {
+      if (this.selectedEvent) {
+        this.selectedEvent.setProp('title', this.eventTitle);
+      } else if (this.selectedDateInfo) {
+        this.calendar.addEvent({
+          title: this.eventTitle,
+          start: this.selectedDateInfo.startStr,
+          end: this.selectedDateInfo.endStr,
+          allDay: true,
+          classNames: ['fc-event-primary']
+        });
+      }
+      this.closeModal();
+    }
+  }
+}));
+
+// NOTE: In your HTML, use x-data="calendarComponent()" (with parentheses) for Alpine 3+ compatibility.
+// Example: <div x-data="calendarComponent()" x-init="initCalendar()">...</div>
+
 // Start Alpine
 window.Alpine = Alpine;
 Alpine.start();

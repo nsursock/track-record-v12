@@ -3,155 +3,53 @@ layout: base.njk
 title: Executive Assistant
 ---
 
-<div x-data="{ activeTab: 'daily' }" x-show="$store.landing.showInternal" class="container mx-auto px-4 py-8 mt-20">
-    <!-- Header -->
-    <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold mb-4">Executive Assistant</h1>
-        <p class="text-lg opacity-80">Your strategic roadmap for success</p>
+<div x-data="calendarComponent()" x-init="initCalendar()" class="container mx-auto px-4 py-8 mt-20">
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold mb-4">Executive Assistant</h1>
+    <p class="text-lg opacity-80">Your strategic roadmap for success</p>
+  </div>
+
+  <!-- Calendar View -->
+  <div class="max-w-6xl mx-auto">
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <div id="calendar-custom" class="w-full"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Tabs -->
-    <div class="flex justify-center gap-4 mb-8">
-        <button 
-            @click="activeTab = 'daily'"
-            :class="{ 'btn btn-primary': activeTab === 'daily', 'btn btn-ghost': activeTab !== 'daily' }"
-            class="btn">
-            Daily
-        </button>
-        <button 
-            @click="activeTab = 'weekly'"
-            :class="{ 'btn btn-primary': activeTab === 'weekly', 'btn btn-ghost': activeTab !== 'weekly' }"
-            class="btn">
-            Weekly
-        </button>
-        <button 
-            @click="activeTab = 'monthly'"
-            :class="{ 'btn btn-primary': activeTab === 'monthly', 'btn btn-ghost': activeTab !== 'monthly' }"
-            class="btn">
-            Monthly
-        </button>
+  <!-- Modal -->
+  <div 
+    x-show="showModal" 
+    id="calendar-event-modal" 
+    class="overlay modal" 
+    role="dialog" tabindex="-1"
+    @keydown.escape.window="closeModal"
+    x-transition
+    style="display: none;"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" x-text="modalTitle"></h3>
+          <button type="button" class="btn btn-text btn-circle btn-sm absolute end-3 top-3" @click="closeModal" aria-label="Close"><span class="icon-[tabler--x] size-4"></span></button>
+        </div>
+        <form @submit.prevent="saveEvent">
+          <div class="modal-body pt-0">
+            <div class="mb-4">
+              <label class="label-text" for="eventTitle"> Add event title below </label>
+              <input type="text" id="eventTitle" class="input" x-model="eventTitle" placeholder="Event title" required />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-soft btn-secondary" @click="closeModal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <!-- Content -->
-    <div class="max-w-4xl mx-auto">
-        <!-- Daily Content -->
-        <div x-show="activeTab === 'daily'" class="space-y-6">
-            <div class="card bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">Today's Focus</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-primary badge-lg">1</div>
-                            <div>
-                                <h3 class="font-bold">Define Mission & Vision</h3>
-                                <p class="opacity-80">Clarify your blog's positioning and target audience</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-primary badge-lg">2</div>
-                            <div>
-                                <h3 class="font-bold">Platform Setup</h3>
-                                <p class="opacity-80">Choose and configure your hosting and CMS</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CEO Checklist -->
-            <div class="card bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">✅ CEO Checklist for Today</h2>
-                    <div class="space-y-4">
-                        <label class="flex items-start gap-4 cursor-pointer">
-                            <input type="checkbox" class="checkbox checkbox-primary mt-1" />
-                            <div>
-                                <span class="font-medium">Define the mission, voice, and target reader</span>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-4 cursor-pointer">
-                            <input type="checkbox" class="checkbox checkbox-primary mt-1" />
-                            <div>
-                                <span class="font-medium">Choose your platform + theme and launch a basic version</span>
-                                <p class="text-sm opacity-80">I can help you deploy in a day</p>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-4 cursor-pointer">
-                            <input type="checkbox" class="checkbox checkbox-primary mt-1" />
-                            <div>
-                                <span class="font-medium">Start drafting your 3–5 key launch pieces</span>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-4 cursor-pointer">
-                            <input type="checkbox" class="checkbox checkbox-primary mt-1" />
-                            <div>
-                                <span class="font-medium">Create an editorial calendar (weekly posts)</span>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-4 cursor-pointer">
-                            <input type="checkbox" class="checkbox checkbox-primary mt-1" />
-                            <div>
-                                <span class="font-medium">Set up newsletter platform and social handles</span>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="mt-6 text-center">
-                        <p class="text-sm opacity-80">Want help doing any of the above right now? Just say the word.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Weekly Content -->
-        <div x-show="activeTab === 'weekly'" class="space-y-6">
-            <div class="card bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">Weekly Strategy</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-secondary badge-lg">1</div>
-                            <div>
-                                <h3 class="font-bold">Content Planning</h3>
-                                <p class="opacity-80">Prepare 3-5 flagship articles for launch</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-secondary badge-lg">2</div>
-                            <div>
-                                <h3 class="font-bold">Social Media Setup</h3>
-                                <p class="opacity-80">Claim and secure all relevant social handles</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Monthly Content -->
-        <div x-show="activeTab === 'monthly'" class="space-y-6">
-            <div class="card bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">Monthly Goals</h2>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-accent badge-lg">1</div>
-                            <div>
-                                <h3 class="font-bold">Community Building</h3>
-                                <p class="opacity-80">Establish newsletter and engagement channels</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="badge badge-accent badge-lg">2</div>
-                            <div>
-                                <h3 class="font-bold">Monetization Planning</h3>
-                                <p class="opacity-80">Develop revenue streams and growth strategies</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
 <!-- Fallback for non-internal access -->
@@ -160,4 +58,5 @@ title: Executive Assistant
     <h1 class="text-4xl font-bold mb-4">Access Restricted</h1>
     <p class="text-lg opacity-80">This page is only available for internal access.</p>
   </div>
-</div> 
+</div>
+

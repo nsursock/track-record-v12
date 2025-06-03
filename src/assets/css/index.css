@@ -11,6 +11,7 @@
 /* Core Imports */
 @import "tailwindcss";
 @import "flyonui/variants.css";
+@import "flyonui/src/vendor/fullcalendar.css";
 
 /* Theme Imports */
 @import "./themes/neon.css";
