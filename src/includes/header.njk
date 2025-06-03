@@ -41,7 +41,7 @@
 
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
-        <button class="btn btn-ghost btn-sm relative w-10 h-10 bg-primary rounded-box" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
+        <button class="w-10 h-10 bg-primary rounded-box flex items-center justify-center" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
           <div class="relative w-6 h-6 flex items-center justify-center">
             <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
                   :class="mobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'"></span>
