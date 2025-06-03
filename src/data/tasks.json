@@ -1,0 +1,112 @@
+{
+  "tasks": [
+    {
+      "title": "Define the mission, voice, and target reader",
+      "start": "2025-06-03T08:00:00",
+      "end": "2025-06-03T11:00:00",
+      "classNames": ["fc-event-primary"]
+    },
+    {
+      "title": "Choose your platform + theme and launch a basic version",
+      "start": "2025-06-03T09:00:00",
+      "end": "2025-06-03T13:00:00",
+      "classNames": ["fc-event-info"]
+    },
+    {
+      "title": "Start drafting your 3–5 key launch pieces",
+      "start": "2025-06-03T11:30:00",
+      "end": "2025-06-03T16:00:00",
+      "classNames": ["fc-event-success"]
+    },
+    {
+      "title": "Create an editorial calendar (weekly posts)",
+      "start": "2025-06-03T14:00:00",
+      "end": "2025-06-03T17:00:00",
+      "classNames": ["fc-event-warning"]
+    },
+    {
+      "title": "Set up newsletter platform and social handles",
+      "start": "2025-06-03T16:30:00",
+      "end": "2025-06-03T18:00:00",
+      "classNames": ["fc-event-secondary"]
+    },
+    {
+      "title": "Write your Subscribe Page copy + About Page",
+      "start": "2025-06-04T09:00:00",
+      "end": "2025-06-04T11:00:00",
+      "classNames": ["fc-event-primary"]
+    },
+    {
+      "title": "Finalize 1 launch piece (edit, polish, publish draft privately)",
+      "start": "2025-06-04T11:30:00",
+      "end": "2025-06-04T15:00:00",
+      "classNames": ["fc-event-success"]
+    },
+    {
+      "title": "Create Notion or Sheet for Editorial Calendar (weeks 1–4)",
+      "start": "2025-06-04T15:30:00",
+      "end": "2025-06-04T17:00:00",
+      "classNames": ["fc-event-warning"]
+    },
+    {
+      "title": "Build a minimal homepage with CTA (subscribe + intro)",
+      "start": "2025-06-05T09:00:00",
+      "end": "2025-06-05T12:00:00",
+      "classNames": ["fc-event-info"]
+    },
+    {
+      "title": "Create your first tweet thread or Reddit post to promote blog",
+      "start": "2025-06-05T13:00:00",
+      "end": "2025-06-05T15:00:00",
+      "classNames": ["fc-event-success"]
+    },
+    {
+      "title": "Outline 2nd blog post + newsletter exclusive idea",
+      "start": "2025-06-05T15:30:00",
+      "end": "2025-06-05T17:30:00",
+      "classNames": ["fc-event-primary"]
+    },
+    {
+      "title": "Finalize post layout (50% → 100%)",
+      "start": "2025-06-04T10:00:00",
+      "end": "2025-06-04T13:00:00",
+      "classNames": ["fc-event-success"]
+    },
+    {
+      "title": "Decide: 750 words + AI refine OR AI writes from prompt",
+      "start": "2025-06-04T14:00:00",
+      "end": "2025-06-04T15:00:00",
+      "classNames": ["fc-event-primary"]
+    },
+    {
+      "title": "Choose number of personas (out of 5) to include at launch",
+      "start": "2025-06-04T15:00:00",
+      "end": "2025-06-04T16:00:00",
+      "classNames": ["fc-event-primary"]
+    },
+    {
+      "title": "Simulate 100 subscribers (mock data + styling)",
+      "start": "2025-06-04T16:00:00",
+      "end": "2025-06-04T18:00:00",
+      "classNames": ["fc-event-warning"]
+    },
+    {
+      "title": "Set MVP launch date",
+      "start": "2025-06-05T09:00:00",
+      "end": "2025-06-05T10:00:00",
+      "classNames": ["fc-event-info"]
+    },
+    {
+      "title": "Prep for MVP: polish landing, posts, and post layout",
+      "start": "2025-06-05T10:00:00",
+      "end": "2025-06-05T14:00:00",
+      "classNames": ["fc-event-success"]
+    },
+    {
+      "title": "Write or generate 1 post per AI strategy decision",
+      "start": "2025-06-05T14:30:00",
+      "end": "2025-06-05T17:30:00",
+      "classNames": ["fc-event-secondary"]
+    }
+  ]
+} 

@@ -2,6 +2,7 @@ import '../css/index.css';
 
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
+import { Calendar } from 'fullcalendar'
  
 Alpine.plugin(intersect)
 
@@ -262,45 +263,148 @@ Alpine.data('calendarComponent', () => ({
   selectedEvent: null,
   selectedDateInfo: null,
   calendar: null,
+  tasks: [], // Start with empty array, will be populated from YAML
 
-  tasks: [
-    {
-      title: 'Define the mission, voice, and target reader',
-      start: '2025-06-03T08:00:00',
-      end: '2025-06-03T11:00:00',
-      classNames: ['fc-event-primary']
-    },
-    {
-      title: 'Choose your platform + theme and launch a basic version',
-      start: '2025-06-03T09:00:00',
-      end: '2025-06-03T13:00:00',
-      classNames: ['fc-event-info']
-    },
-    {
-      title: 'Start drafting your 3–5 key launch pieces',
-      start: '2025-06-03T11:30:00',
-      end: '2025-06-03T16:00:00',
-      classNames: ['fc-event-success']
-    },
-    {
-      title: 'Create an editorial calendar (weekly posts)',
-      start: '2025-06-03T14:00:00',
-      end: '2025-06-03T17:00:00',
-      classNames: ['fc-event-warning']
-    },
-    {
-      title: 'Set up newsletter platform and social handles',
-      start: '2025-06-03T16:30:00',
-      end: '2025-06-03T18:00:00',
-      classNames: ['fc-event-secondary']
+  // Fetch tasks from YAML data
+  async fetchTasks() {
+    try {
+      // Try to load tasks data directly 
+      const tasksData = {
+        "tasks": [
+          {
+            "title": "Strategic Planning: Define core mission and target audience personas",
+            "start": "2025-06-03T02:00:00",
+            "end": "2025-06-03T04:00:00",
+            "classNames": ["fc-event-primary"]
+          },
+          {
+            "title": "Platform Setup: Configure CMS and deploy initial site structure",
+            "start": "2025-06-03T08:00:00",
+            "end": "2025-06-03T11:00:00",
+            "classNames": ["fc-event-info"]
+          },
+          {
+            "title": "Content Strategy: Draft 3 pillar articles and newsletter framework",
+            "start": "2025-06-03T19:00:00",
+            "end": "2025-06-03T22:00:00",
+            "classNames": ["fc-event-success"]
+          },
+          {
+            "title": "Growth Planning: Set up analytics and conversion tracking",
+            "start": "2025-06-04T02:00:00",
+            "end": "2025-06-04T04:00:00",
+            "classNames": ["fc-event-warning"]
+          },
+          {
+            "title": "Community Building: Create and optimize social media profiles",
+            "start": "2025-06-04T08:00:00",
+            "end": "2025-06-04T11:00:00",
+            "classNames": ["fc-event-secondary"]
+          },
+          {
+            "title": "Content Creation: Write and polish first pillar article",
+            "start": "2025-06-04T19:00:00",
+            "end": "2025-06-04T22:00:00",
+            "classNames": ["fc-event-primary"]
+          },
+          {
+            "title": "Technical Setup: Implement newsletter system and automation",
+            "start": "2025-06-05T02:00:00",
+            "end": "2025-06-05T04:00:00",
+            "classNames": ["fc-event-info"]
+          },
+          {
+            "title": "Content Planning: Create 4-week editorial calendar",
+            "start": "2025-06-05T08:00:00",
+            "end": "2025-06-05T11:00:00",
+            "classNames": ["fc-event-success"]
+          },
+          {
+            "title": "Growth Strategy: Research and implement SEO best practices",
+            "start": "2025-06-05T19:00:00",
+            "end": "2025-06-05T22:00:00",
+            "classNames": ["fc-event-warning"]
+          },
+          {
+            "title": "Content Creation: Draft second pillar article",
+            "start": "2025-06-06T02:00:00",
+            "end": "2025-06-06T04:00:00",
+            "classNames": ["fc-event-primary"]
+          },
+          {
+            "title": "Community Engagement: Plan and schedule first social media campaign",
+            "start": "2025-06-06T08:00:00",
+            "end": "2025-06-06T11:00:00",
+            "classNames": ["fc-event-secondary"]
+          },
+          {
+            "title": "Technical Optimization: Implement performance improvements",
+            "start": "2025-06-06T19:00:00",
+            "end": "2025-06-06T22:00:00",
+            "classNames": ["fc-event-info"]
+          },
+          {
+            "title": "Analytics Review: Analyze initial traffic and engagement metrics",
+            "start": "2025-06-07T02:00:00",
+            "end": "2025-06-07T04:00:00",
+            "classNames": ["fc-event-warning"]
+          },
+          {
+            "title": "Content Refinement: Polish and optimize existing articles",
+            "start": "2025-06-07T08:00:00",
+            "end": "2025-06-07T11:00:00",
+            "classNames": ["fc-event-success"]
+          },
+          {
+            "title": "Growth Tactics: Implement A/B testing and conversion optimization",
+            "start": "2025-06-07T19:00:00",
+            "end": "2025-06-07T22:00:00",
+            "classNames": ["fc-event-warning"]
+          },
+          {
+            "title": "Final Review: Audit all systems and content for launch",
+            "start": "2025-06-08T02:00:00",
+            "end": "2025-06-08T04:00:00",
+            "classNames": ["fc-event-primary"]
+          },
+          {
+            "title": "Launch Prep: Finalize all launch materials and checklists",
+            "start": "2025-06-08T08:00:00",
+            "end": "2025-06-08T11:00:00",
+            "classNames": ["fc-event-info"]
+          },
+          {
+            "title": "Community Activation: Prepare launch announcement and outreach",
+            "start": "2025-06-08T19:00:00",
+            "end": "2025-06-08T22:00:00",
+            "classNames": ["fc-event-secondary"]
+          }
+        ]
+      };
+
+      this.tasks = tasksData.tasks;
+    } catch (error) {
+      console.warn('Could not load tasks data, using fallback tasks');
+      // Fallback tasks if loading fails
+      this.tasks = [
+        {
+          title: 'Define the mission, voice, and target reader',
+          start: '2025-06-03T08:00:00',
+          end: '2025-06-03T11:00:00',
+          classNames: ['fc-event-primary']
+        }
+      ];
     }
-  ],
+  },
   
-  initCalendar() {
+  async initCalendar() {
+    // Load tasks first
+    await this.fetchTasks();
+    
     const self = this;
     const calendarEl = document.getElementById('calendar-custom');
     
-    this.calendar = new FullCalendar.Calendar(calendarEl, {
+    this.calendar = new Calendar(calendarEl, {
       initialView: 'dayGridMonth',
       initialDate: new Date().toISOString().split('T')[0],
       editable: true,
@@ -315,7 +419,7 @@ Alpine.data('calendarComponent', () => ({
         day: 'Day',
         list: 'List'
       },
-      events: self.tasks, // Start with empty events
+      events: self.tasks, // Use tasks loaded from YAML
       select: function(info) {
         self.selectedEvent = null;
         self.selectedDateInfo = info;
@@ -332,7 +436,6 @@ Alpine.data('calendarComponent', () => ({
     });
     
     this.calendar.render();
-
   },
   
   formatDate(date) {
