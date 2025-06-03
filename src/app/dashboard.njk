@@ -1,0 +1,104 @@
+---
+layout: base
+eleventyNavigation:
+  key: Dashboard
+  order: 1
+  parent: app
+meta:
+  title: Dashboard
+  description: Your personal dashboard
+---
+
+<section class="min-h-screen bg-base-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold tracking-tight text-base-content">
+        Dashboard
+      </h1>
+      <p class="mt-2 text-base-content/70">
+        Welcome back! Here's an overview of your account.
+      </p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Total Posts</h3>
+              <p class="text-3xl font-bold text-primary mt-2">12</p>
+            </div>
+            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+              <span class="icon-[tabler--file-text] w-6 h-6 text-primary"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Connections</h3>
+              <p class="text-3xl font-bold text-secondary mt-2">48</p>
+            </div>
+            <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+              <span class="icon-[tabler--users] w-6 h-6 text-secondary"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Engagement</h3>
+              <p class="text-3xl font-bold text-accent mt-2">89%</p>
+            </div>
+            <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
+              <span class="icon-[tabler--chart-bar] w-6 h-6 text-accent"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card bg-base-200">
+      <div class="card-body">
+        <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="icon-[tabler--edit] w-5 h-5 text-primary"></span>
+            </div>
+            <div>
+              <p class="font-medium">New post published</p>
+              <p class="text-sm text-base-content/70">2 hours ago</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+              <span class="icon-[tabler--user-plus] w-5 h-5 text-secondary"></span>
+            </div>
+            <div>
+              <p class="font-medium">New connection</p>
+              <p class="text-sm text-base-content/70">5 hours ago</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+              <span class="icon-[tabler--message] w-5 h-5 text-accent"></span>
+            </div>
+            <div>
+              <p class="font-medium">New comment received</p>
+              <p class="text-sm text-base-content/70">1 day ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

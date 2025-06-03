@@ -18,9 +18,10 @@
 @import "./themes/valorant.css";
 @import "./themes/lemonade.css";
 @import "./themes/lofi.css";
+@import "./themes/lofi-dark.css";
 
 @plugin "flyonui" {
-    themes: neon --default, acid, ghibli, valorant, lemonade, lofi;
+    themes: neon --default, acid, ghibli, valorant, lemonade, lofi, lofi-dark;
 }
 
 @plugin "@iconify/tailwind4";

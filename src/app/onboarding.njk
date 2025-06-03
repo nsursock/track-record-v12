@@ -1,0 +1,268 @@
+---
+layout: base
+eleventyNavigation:
+  key: Onboarding
+  order: 6
+meta:
+  title: Welcome to Your Journey
+  description: Let's get you set up and ready to go.
+---
+
+<section class="min-h-screen bg-base-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8" x-data="{ step: 1 }">
+  <div class="max-w-3xl mx-auto">
+    <!-- Progress bar -->
+    <div class="mb-8">
+      <div class="flex justify-between mb-2">
+        <div class="text-sm font-medium text-base-content">Step <span x-text="step"></span> of 4</div>
+        <div class="text-sm font-medium text-base-content/70">Profile Setup</div>
+      </div>
+      <div class="w-full bg-base-200 rounded-full h-2">
+        <div class="bg-primary h-2 rounded-full transition-all duration-300"
+             :style="'width: ' + (step * 25) + '%'"></div>
+      </div>
+    </div>
+
+    <!-- Step 1: Welcome -->
+    <div x-show="step === 1" class="space-y-8">
+      <div class="text-center">
+        <h1 class="text-3xl font-bold tracking-tight text-base-content">
+          Welcome to Your Journey
+        </h1>
+        <p class="mt-4 text-lg text-base-content/70">
+          Let's get you set up and ready to explore. This will only take a few minutes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div class="card bg-base-200 p-6 text-center">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="icon-[tabler--user] w-6 h-6 text-primary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Create Profile</h3>
+          <p class="text-base-content/70">Set up your personal profile</p>
+        </div>
+
+        <div class="card bg-base-200 p-6 text-center">
+          <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="icon-[tabler--settings] w-6 h-6 text-secondary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Preferences</h3>
+          <p class="text-base-content/70">Customize your experience</p>
+        </div>
+
+        <div class="card bg-base-200 p-6 text-center">
+          <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="icon-[tabler--rocket] w-6 h-6 text-accent"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Get Started</h3>
+          <p class="text-base-content/70">Begin your journey</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-8">
+        <button @click="step = 2" class="btn btn-primary">
+          Get Started
+          <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Profile Information -->
+    <div x-show="step === 2" class="space-y-8">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold tracking-tight text-base-content">
+          Tell us about yourself
+        </h2>
+        <p class="mt-2 text-base-content/70">
+          This information will help us personalize your experience
+        </p>
+      </div>
+
+      <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">First name</span>
+            </label>
+            <input type="text" class="input input-bordered w-full" placeholder="John" required />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Last name</span>
+            </label>
+            <input type="text" class="input input-bordered w-full" placeholder="Doe" required />
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Bio</span>
+          </label>
+          <textarea class="textarea textarea-bordered h-24" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Profile picture</span>
+          </label>
+          <div class="flex items-center space-x-4">
+            <div class="w-20 h-20 rounded-full bg-base-200 flex items-center justify-center">
+              <span class="icon-[tabler--user] w-8 h-8 text-base-content/50"></span>
+            </div>
+            <button class="btn btn-outline">Upload photo</button>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button @click="step = 1" class="btn btn-ghost">
+            <span class="icon-[tabler--arrow-left] mr-2 w-5 h-5"></span>
+            Back
+          </button>
+          <button @click="step = 3" class="btn btn-primary">
+            Continue
+            <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 3: Preferences -->
+    <div x-show="step === 3" class="space-y-8">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold tracking-tight text-base-content">
+          Customize your experience
+        </h2>
+        <p class="mt-2 text-base-content/70">
+          Select your preferences to help us tailor content for you
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Interests</span>
+          </label>
+          <div class="flex flex-wrap gap-2">
+            <label class="btn btn-sm btn-outline">
+              <input type="checkbox" class="hidden" />
+              Technology
+            </label>
+            <label class="btn btn-sm btn-outline">
+              <input type="checkbox" class="hidden" />
+              Design
+            </label>
+            <label class="btn btn-sm btn-outline">
+              <input type="checkbox" class="hidden" />
+              Business
+            </label>
+            <label class="btn btn-sm btn-outline">
+              <input type="checkbox" class="hidden" />
+              Marketing
+            </label>
+            <label class="btn btn-sm btn-outline">
+              <input type="checkbox" class="hidden" />
+              Development
+            </label>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Notification preferences</span>
+          </label>
+          <div class="space-y-4">
+            <label class="flex items-center space-x-3">
+              <input type="checkbox" class="checkbox checkbox-primary" checked />
+              <span>Email notifications</span>
+            </label>
+            <label class="flex items-center space-x-3">
+              <input type="checkbox" class="checkbox checkbox-primary" checked />
+              <span>Weekly digest</span>
+            </label>
+            <label class="flex items-center space-x-3">
+              <input type="checkbox" class="checkbox checkbox-primary" />
+              <span>Product updates</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button @click="step = 2" class="btn btn-ghost">
+            <span class="icon-[tabler--arrow-left] mr-2 w-5 h-5"></span>
+            Back
+          </button>
+          <button @click="step = 4" class="btn btn-primary">
+            Continue
+            <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Completion -->
+    <div x-show="step === 4" class="space-y-8">
+      <div class="text-center">
+        <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="icon-[tabler--check] w-10 h-10 text-primary"></span>
+        </div>
+        <h2 class="text-2xl font-bold tracking-tight text-base-content">
+          You're all set!
+        </h2>
+        <p class="mt-4 text-lg text-base-content/70">
+          Your profile is ready. Let's start exploring.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div class="card bg-base-200 p-6">
+          <h3 class="text-lg font-semibold mb-4">Next steps</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center space-x-3">
+              <span class="icon-[tabler--check] w-5 h-5 text-primary"></span>
+              <span>Complete your profile</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="icon-[tabler--check] w-5 h-5 text-primary"></span>
+              <span>Set your preferences</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <span class="icon-[tabler--check] w-5 h-5 text-primary"></span>
+              <span>Connect with others</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card bg-base-200 p-6">
+          <h3 class="text-lg font-semibold mb-4">Quick links</h3>
+          <ul class="space-y-4">
+            <li>
+              <a href="#" class="flex items-center space-x-3 text-primary hover:underline">
+                <span class="icon-[tabler--compass] w-5 h-5"></span>
+                <span>Explore content</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center space-x-3 text-primary hover:underline">
+                <span class="icon-[tabler--users] w-5 h-5"></span>
+                <span>Find connections</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center space-x-3 text-primary hover:underline">
+                <span class="icon-[tabler--settings] w-5 h-5"></span>
+                <span>Account settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-8">
+        <a href="/" class="btn btn-primary">
+          Go to Dashboard
+          <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section> 

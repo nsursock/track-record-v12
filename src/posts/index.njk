@@ -64,7 +64,7 @@ meta:
       <div class="grid lg:grid-cols-2 gap-8 items-center">
         <div class="text-center lg:text-left">
           <h1 class="text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
-            Essays & Articles
+            Articles
           </h1>
           <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
             Exploring the intersections of culture, society, and human experience
@@ -184,13 +184,14 @@ meta:
               {{ post.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
-              <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-2">
+                <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
                   {{ post.data.published_date | formatDate }}
                 </div>
               </div>
               <a href="{{post.url}}" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-focus">
-                Read essay
+                Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
             </div>
@@ -240,13 +241,14 @@ meta:
               {{ post.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
-              <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-2">
+                <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
                   {{ post.data.published_date | formatDate }}
                 </div>
               </div>
               <a href="{{post.url}}" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-focus">
-                Read essay
+                Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
             </div>
