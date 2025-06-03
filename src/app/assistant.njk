@@ -3,7 +3,7 @@ layout: base.njk
 title: Executive Assistant
 ---
 
-<div x-data="{ activeTab: 'daily' }" class="container mx-auto px-4 py-8 mt-20">
+<div x-data="{ activeTab: 'daily' }" x-show="$store.landing.showInternal" class="container mx-auto px-4 py-8 mt-20">
     <!-- Header -->
     <div class="text-center mb-12">
         <h1 class="text-4xl font-bold mb-4">Executive Assistant</h1>
@@ -152,4 +152,12 @@ title: Executive Assistant
             </div>
         </div>
     </div>
+</div>
+
+<!-- Fallback for non-internal access -->
+<div x-show="!$store.landing.showInternal" class="min-h-screen flex items-center justify-center">
+  <div class="text-center px-4">
+    <h1 class="text-4xl font-bold mb-4">Access Restricted</h1>
+    <p class="text-lg opacity-80">This page is only available for internal access.</p>
+  </div>
 </div> 
