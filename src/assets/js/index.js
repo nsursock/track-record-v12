@@ -95,6 +95,8 @@ Alpine.data('themes', () => ({
         document.documentElement.style.setProperty('--theme-lofi-dark', theme === 'lofi-dark' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-tech', theme === 'tech' ? 'true' : 'false');
         document.documentElement.style.setProperty('--theme-neontech', theme === 'neontech' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-neontech-light', theme === 'neontech-light' ? 'true' : 'false');
+        document.documentElement.style.setProperty('--theme-tech-light', theme === 'tech-light' ? 'true' : 'false');
         
         // Set font family based on theme
         const fontFamilies = {
@@ -106,7 +108,9 @@ Alpine.data('themes', () => ({
             lofi: '"Space Mono", monospace',
             'lofi-dark': '"Space Mono", monospace',
             tech: '"JetBrains Mono", monospace',
-            neontech: '"Share Tech Mono", monospace'
+            neontech: '"Share Tech Mono", monospace',
+            'neontech-light': '"Share Tech Mono", monospace',
+            'tech-light': '"JetBrains Mono", monospace'
         };
         
         document.documentElement.style.setProperty('--font-family', fontFamilies[theme]);

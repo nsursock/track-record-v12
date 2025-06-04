@@ -23,10 +23,12 @@
 @import "./themes/lofi.css";
 @import "./themes/lofi-dark.css";
 @import "./themes/tech.css";
+@import "./themes/tech-light.css";
 @import "./themes/neontech.css";
+@import "./themes/neontech-light.css";
 
 @plugin "flyonui" {
-    themes: neon --default, acid, ghibli, valorant, lemonade, lofi, lofi-dark, tech, neontech;
+    themes: neon --default, acid, ghibli, valorant, lemonade, lofi, lofi-dark, tech, tech-light, neontech, neontech-light;
 }
 
 @plugin "@iconify/tailwind4";

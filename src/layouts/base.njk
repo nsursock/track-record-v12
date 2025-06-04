@@ -103,6 +103,20 @@
                 Neontech
               </button>
             </li>
+            <li>
+              <button class="dropdown-item w-full text-left px-4 py-2 rounded-box hover:bg-base-300/50 transition-colors"
+                      :class="{ 'bg-base-300/50': selectedTheme === 'tech-light' }"
+                      @click="setTheme('tech-light')">
+                Tech Light
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item w-full text-left px-4 py-2 rounded-box hover:bg-base-300/50 transition-colors"
+                      :class="{ 'bg-base-300/50': selectedTheme === 'neontech-light' }"
+                      @click="setTheme('neontech-light')">
+                Neontech Light
+              </button>
+            </li>
           </ul>
         </div>
 
