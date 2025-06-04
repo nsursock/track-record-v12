@@ -227,21 +227,27 @@ layout: base
             Related Posts
           </h3>
           <div class="space-y-4">
-            <!-- This would be populated with actual related posts -->
-            <a href="#" class="block hover:bg-base-200/50 p-4 rounded-box">
-              <h4 class="font-medium text-base-content flex items-center gap-2">
-                <span class="icon-[tabler--chevron-right] size-4"></span>
-                Related Post Title 1
-              </h4>
-              <p class="text-sm text-base-content/80">Brief description of the related post...</p>
-            </a>
-            <a href="#" class="block hover:bg-base-200/50 p-4 rounded-box">
-              <h4 class="font-medium text-base-content flex items-center gap-2">
-                <span class="icon-[tabler--chevron-right] size-4"></span>
-                Related Post Title 2
-              </h4>
-              <p class="text-sm text-base-content/80">Brief description of the related post...</p>
-            </a>
+            {% set relatedCount = 0 %}
+            {% for post in collections.post | reverse %}
+              {% if post.url != page.url and relatedCount < 3 %}
+                {% set hasCommonTags = false %}
+                {% for tag in tags %}
+                  {% if tag in post.data.tags %}
+                    {% set hasCommonTags = true %}
+                  {% endif %}
+                {% endfor %}
+                {% if hasCommonTags %}
+                  <a href="{{ post.url }}" class="block hover:bg-base-200/50 p-4 rounded-box">
+                    <h4 class="font-medium text-base-content flex items-center gap-2">
+                      <span class="icon-[tabler--chevron-right] size-4"></span>
+                      {{ post.data.title }}
+                    </h4>
+                    <p class="text-sm text-base-content/80">{{ post.data.meta_description }}</p>
+                  </a>
+                  {% set relatedCount = relatedCount + 1 %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
       </div>

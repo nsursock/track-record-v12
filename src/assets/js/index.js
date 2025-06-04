@@ -130,6 +130,10 @@ Alpine.data('themes', () => ({
 // Register components
 Alpine.data('mobileMenu', () => ({
     mobileMenuOpen: false,
+    navigationLinks: [
+        { href: '/about/', text: 'About' },
+        { href: '/contact/', text: 'Contact' }
+    ],
     init() {
         // Close mobile menu on window resize if screen becomes larger than mobile breakpoint
         window.addEventListener('resize', () => {

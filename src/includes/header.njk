@@ -23,19 +23,9 @@
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
-        <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>
-        <a href="#community" class="text-base-content/80 hover:text-primary transition-colors">Community</a>
-        {# <div class="join">
-          <a href="/login/" class="btn btn-primary btn-sm join-item">
-            <span class="icon-[tabler--login] size-4"></span>
-            Log in
-          </a>
-          <a href="/signup/" class="btn btn-primary btn-sm join-item">
-            <span class="icon-[tabler--user-plus] size-4"></span>
-            Sign up
-          </a>
-        </div> #}
+        <template x-for="link in navigationLinks" :key="link.href">
+          <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
+        </template>
         <a href="/credentials/" class="btn btn-primary btn-sm">Get Started</a>
       </div>
 
@@ -59,9 +49,9 @@
          x-cloak
          class="md:hidden mt-4 py-4 border-t border-primary/20">
       <div class="flex flex-col space-y-4">
-        <a href="#features" class="text-base-content/80 hover:text-primary transition-colors">Features</a>
-        <a href="#explorations" class="text-base-content/80 hover:text-primary transition-colors">Explorations</a>
-        <a href="#community" class="text-base-content/80 hover:text-primary transition-colors">Community</a>
+        <template x-for="link in navigationLinks" :key="link.href">
+          <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
+        </template>
         <a href="/credentials/" class="btn btn-primary btn-sm w-full">Get Started</a>
       </div>
     </div>
