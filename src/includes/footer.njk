@@ -50,10 +50,25 @@
       <div>
         <h3 class="text-lg font-semibold text-base-content mb-4">Stay Updated</h3>
         <p class="text-base-content/80 mb-4">Subscribe to our newsletter for the latest insights.</p>
-        <div class="flex flex-col space-y-3">
-          <input type="email" placeholder="Enter your email" class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary">
-          <button class="btn btn-primary">Subscribe</button>
-        </div>
+        <form
+          action="https://buttondown.com/api/emails/embed-subscribe/nsursock"
+          method="post"
+          target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/nsursock', 'popupwindow')"
+          class="embeddable-buttondown-form flex flex-col space-y-3"
+        >
+          <input 
+            type="email" 
+            name="email" 
+            id="bd-email-footer" 
+            placeholder="Enter your email" 
+            class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+          <p class="text-sm text-base-content/60">
+            <a href="https://buttondown.com/refer/nsursock" target="_blank" class="hover:text-primary">Powered by Buttondown.</a>
+          </p>
+        </form>
       </div>
     </div>
 
