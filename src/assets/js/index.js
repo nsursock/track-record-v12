@@ -131,6 +131,7 @@ Alpine.data('themes', () => ({
 Alpine.data('mobileMenu', () => ({
     mobileMenuOpen: false,
     navigationLinks: [
+        { href: '/posts/', text: 'Blog' },
         { href: '/about/', text: 'About' },
         { href: '/contact/', text: 'Contact' }
     ],

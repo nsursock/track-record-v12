@@ -9,7 +9,7 @@ export default {
   env: process.env.NODE_ENV || 'development',
   author: {
     name: "Nicolas Sursock",
-    email: "nicolas.sursock@gmail.com",
+    email: "contact@trackrecord.ink",
     twitter: "SursockNicolas",
     instagram: "nsursock",
     linkedin: "nicolas-sursock",
