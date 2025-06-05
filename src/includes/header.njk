@@ -26,21 +26,177 @@
         <template x-for="link in navigationLinks" :key="link.href">
           <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
         </template>
-        {% include "auth-status.njk" %}
+        
+        <!-- Desktop Auth Status -->
+        <div x-data="{ 
+          showUserMenu: false, 
+          avatarError: false,
+          init() {
+            console.log('Auth status component initialized');
+            this.$watch('$store.auth.isAuthenticated', (value) => {
+              console.log('Auth status changed:', value);
+            });
+          }
+        }" class="relative" x-show="!$store.auth.loading">
+          <!-- Authenticated User (Desktop Only) -->
+          <div x-show="$store.auth.isAuthenticated" class="flex items-center gap-4">
+            <!-- User Avatar & Menu -->
+            <div class="relative">
+              <button 
+                @click="showUserMenu = !showUserMenu"
+                class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                aria-haspopup="menu"
+                :aria-expanded="showUserMenu"
+                aria-label="User menu"
+              >
+                <div class="avatar">
+                  <div class="w-10 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <template x-if="$store.auth.userAvatar && !avatarError">
+                      <img 
+                        :src="$store.auth.userAvatar"
+                        :alt="$store.auth.userName"
+                        @error="avatarError = true"
+                      />
+                    </template>
+                    <template x-if="!$store.auth.userAvatar || avatarError">
+                      <div class="bg-primary text-primary-content w-full h-full flex items-center justify-center">
+                        <span class="text-lg font-semibold leading-none" x-text="$store.auth.userName.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </button>
+
+              <!-- User Menu Dropdown (Desktop Only) -->
+              <div 
+                x-show="showUserMenu"
+                @click.away="showUserMenu = false"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="absolute right-0 top-full mt-2 w-56 bg-base-100 rounded-box divide-y divide-base-300 shadow-lg z-50"
+              >
+                <div class="py-3 px-4">
+                  <span class="block text-sm font-semibold text-base-content" x-text="$store.auth.userName"></span>
+                  <span class="block text-sm text-base-content/70 truncate" x-text="$store.auth.userEmail"></span>
+                </div>
+                <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
+                  <li>
+                    <a href="/profile" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                      <span class="icon-[tabler--user] size-4 mr-2"></span>
+                      My profile
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/settings" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                      <span class="icon-[tabler--settings] size-4 mr-2"></span>
+                      Account settings
+                    </a>
+                  </li>
+                </ul>
+                <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
+                  <li>
+                    <a href="#" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                      <span class="icon-[tabler--heart] size-4 mr-2"></span>
+                      My likes
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                      <span class="icon-[tabler--bookmark] size-4 mr-2"></span>
+                      Collections
+                    </a>
+                  </li>
+                </ul>
+                <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
+                  <li>
+                    <button 
+                      @click="async () => {
+                        try {
+                          await $store.auth.signOut();
+                          showUserMenu = false;
+                          window.location.href = '/';
+                        } catch (err) {
+                          console.error('Sign out error:', err);
+                        }
+                      }"
+                      class="flex items-center w-full py-2 px-4 text-sm hover:bg-base-200 text-error"
+                    >
+                      <span class="icon-[tabler--logout] size-4 mr-2"></span>
+                      Sign out
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Not Authenticated (Desktop Only) -->
+          <div x-show="!$store.auth.isAuthenticated" class="flex items-center gap-2">
+            <a href="/credentials/" class="btn btn-sm btn-primary">
+              Get Started
+            </a>
+          </div>
+
+          <!-- Loading State -->
+          <div x-show="$store.auth.loading" class="flex items-center gap-2">
+            <span class="loading loading-spinner loading-sm"></span>
+            <span class="text-sm text-base-content/70">Loading...</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button class="w-10 h-10 bg-primary rounded-box flex items-center justify-center" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
-          <div class="relative w-6 h-6 flex items-center justify-center">
-            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
-                  :class="mobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'"></span>
-            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
-                  :class="mobileMenuOpen ? 'opacity-0' : 'opacity-100'"></span>
-            <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
-                  :class="mobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'"></span>
-          </div>
-        </button>
+      <!-- Mobile Menu Button / Avatar -->
+      <div class="md:hidden" x-data="{ avatarError: false }">
+        <!-- Authenticated: Avatar Button -->
+        <div x-show="$store.auth.isAuthenticated && !$store.auth.loading">
+          <button 
+            @click="mobileMenuOpen = !mobileMenuOpen"
+            class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            aria-haspopup="menu"
+            :aria-expanded="mobileMenuOpen"
+            aria-label="User menu"
+          >
+            <div class="avatar">
+              <div class="w-10 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2">
+                <template x-if="$store.auth.userAvatar && !avatarError">
+                  <img 
+                    :src="$store.auth.userAvatar"
+                    :alt="$store.auth.userName"
+                    @error="avatarError = true"
+                  />
+                </template>
+                <template x-if="!$store.auth.userAvatar || avatarError">
+                  <div class="bg-primary text-primary-content w-full h-full flex items-center justify-center">
+                    <span class="text-lg font-semibold leading-none" x-text="$store.auth.userName.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Not Authenticated: Hamburger Button -->
+        <div x-show="!$store.auth.isAuthenticated && !$store.auth.loading">
+          <button class="w-10 h-10 bg-primary rounded-box flex items-center justify-center" @click="mobileMenuOpen = !mobileMenuOpen" aria-label="Toggle mobile menu">
+            <div class="relative w-6 h-6 flex items-center justify-center">
+              <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                    :class="mobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'"></span>
+              <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                    :class="mobileMenuOpen ? 'opacity-0' : 'opacity-100'"></span>
+              <span class="absolute block w-6 h-0.5 bg-primary-content transition-all duration-300"
+                    :class="mobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'"></span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Loading: Spinner -->
+        <div x-show="$store.auth.loading">
+          <span class="loading loading-spinner loading-sm"></span>
+        </div>
       </div>
     </div>
 
@@ -48,12 +204,65 @@
     <div x-show="mobileMenuOpen" 
          x-cloak
          class="md:hidden mt-4 py-4 border-t border-primary/20">
-      <div class="flex flex-col space-y-4">
+      
+      <!-- Authenticated User Menu -->
+      <div x-show="$store.auth.isAuthenticated" class="flex flex-col space-y-4">
+        <!-- User Info -->
+        <div class="py-3 px-4 bg-base-200 rounded-box">
+          <span class="block text-sm font-semibold text-base-content" x-text="$store.auth.userName"></span>
+          <span class="block text-sm text-base-content/70 truncate" x-text="$store.auth.userEmail"></span>
+        </div>
+        
+        <!-- Navigation Links -->
+        <template x-for="link in navigationLinks" :key="link.href">
+          <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
+        </template>
+        
+        <!-- User Menu Items -->
+        <div class="border-t border-base-300 pt-4 space-y-4">
+          <a href="/profile" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+            <span class="icon-[tabler--user] size-4 mr-3"></span>
+            My profile
+          </a>
+          <a href="/settings" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+            <span class="icon-[tabler--settings] size-4 mr-3"></span>
+            Account settings
+          </a>
+          <a href="#" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+            <span class="icon-[tabler--heart] size-4 mr-3"></span>
+            My likes
+          </a>
+          <a href="#" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+            <span class="icon-[tabler--bookmark] size-4 mr-3"></span>
+            Collections
+          </a>
+          <button 
+            @click="async () => {
+              try {
+                await $store.auth.signOut();
+                mobileMenuOpen = false;
+                window.location.href = '/';
+              } catch (err) {
+                console.error('Sign out error:', err);
+              }
+            }"
+            class="flex items-center w-full text-left text-error hover:text-error-focus transition-colors"
+          >
+            <span class="icon-[tabler--logout] size-4 mr-3"></span>
+            Sign out
+          </button>
+        </div>
+      </div>
+
+      <!-- Non-authenticated Menu -->
+      <div x-show="!$store.auth.isAuthenticated" class="flex flex-col space-y-4">
         <template x-for="link in navigationLinks" :key="link.href">
           <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
         </template>
         <div class="pt-2">
-          {% include "auth-status.njk" %}
+          <a href="/credentials/" class="btn btn-sm btn-primary">
+            Get Started
+          </a>
         </div>
       </div>
     </div>
