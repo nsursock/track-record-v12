@@ -60,7 +60,7 @@
                     </template>
                     <template x-if="!$store.auth.userAvatar || avatarError">
                       <div class="bg-primary text-primary-content w-full h-full flex items-center justify-center">
-                        <span class="text-lg font-semibold leading-none" x-text="$store.auth.userName.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
+                        <span class="text-lg font-semibold leading-none" x-text="$store.auth?.userName?.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
                       </div>
                     </template>
                   </div>
@@ -116,11 +116,15 @@
                     <button 
                       @click="async () => {
                         try {
+                          console.log('🔴 Signing out from desktop menu...');
                           await $store.auth.signOut();
                           showUserMenu = false;
+                          console.log('✅ Sign out successful, redirecting...');
                           window.location.href = '/';
                         } catch (err) {
-                          console.error('Sign out error:', err);
+                          console.error('❌ Sign out error:', err);
+                          // Show error message to user
+                          alert('Sign out failed. Please try again.');
                         }
                       }"
                       class="flex items-center w-full py-2 px-4 text-sm hover:bg-base-200 text-error"
@@ -171,7 +175,7 @@
                 </template>
                 <template x-if="!$store.auth.userAvatar || avatarError">
                   <div class="bg-primary text-primary-content w-full h-full flex items-center justify-center">
-                    <span class="text-lg font-semibold leading-none" x-text="$store.auth.userName.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
+                    <span class="text-lg font-semibold leading-none" x-text="$store.auth?.userName?.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
                   </div>
                 </template>
               </div>
@@ -239,11 +243,15 @@
           <button 
             @click="async () => {
               try {
+                console.log('🔴 Signing out from mobile menu...');
                 await $store.auth.signOut();
                 mobileMenuOpen = false;
+                console.log('✅ Sign out successful, redirecting...');
                 window.location.href = '/';
               } catch (err) {
-                console.error('Sign out error:', err);
+                console.error('❌ Sign out error:', err);
+                // Show error message to user
+                alert('Sign out failed. Please try again.');
               }
             }"
             class="flex items-center w-full text-left text-error hover:text-error-focus transition-colors"
