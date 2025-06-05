@@ -8,7 +8,7 @@
     </div>
   </div> #}
 
-  <nav class="container mx-auto px-4 sm:px-8 py-4">
+  <nav class="container mx-auto px-4 py-4">
     <div class="flex items-center justify-between">
       <!-- Logo Icon -->
       <a href="/" class="flex items-center space-x-3">
@@ -26,7 +26,7 @@
         <template x-for="link in navigationLinks" :key="link.href">
           <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
         </template>
-        <a href="/credentials/" class="btn btn-primary btn-sm">Get Started</a>
+        {% include "auth-status.njk" %}
       </div>
 
       <!-- Mobile Menu Button -->
@@ -52,7 +52,9 @@
         <template x-for="link in navigationLinks" :key="link.href">
           <a :href="link.href" class="text-base-content/80 hover:text-primary transition-colors" x-text="link.text"></a>
         </template>
-        <a href="/credentials/" class="btn btn-primary btn-sm w-full">Get Started</a>
+        <div class="pt-2">
+          {% include "auth-status.njk" %}
+        </div>
       </div>
     </div>
   </nav>

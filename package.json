@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@alpinejs/intersect": "^3.14.9",
+    "@supabase/supabase-js": "^2.49.10",
     "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.14.9",
     "flyonui": "^2.1.0",

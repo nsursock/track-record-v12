@@ -8,7 +8,11 @@ import * as dotenv from 'dotenv'
 import nunjucks from 'nunjucks'
 // import UpgradeHelper from "@11ty/eleventy-upgrade-help"
 
-dotenv.config()
+// Load environment variables in correct priority order
+// .env.local takes precedence (for development/local overrides)
+// .env provides defaults (won't override existing variables)
+dotenv.config({ path: '.env.local' });
+// dotenv.config();
 
 // const baseUrl = process.env.BASE_URL || "http://localhost:8080"
 

@@ -142,5 +142,13 @@
 
     <script type="module" src="{{ '/assets/js/index.js' | url }}"></script>
     <script type="module" src="{{ '/node_modules/flyonui/flyonui.js' | url }}"></script>
+    
+    <!-- Inject Supabase environment variables -->
+    <script>
+      window.SUPABASE_URL = '{{ site.supabase.url }}';
+      window.SUPABASE_KEY = '{{ site.supabase.key }}';
+
+
+    </script>
   </body>
 </html>

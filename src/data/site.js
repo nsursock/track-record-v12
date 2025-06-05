@@ -16,5 +16,9 @@ export default {
     github: "nsursock",
     soundcloud: "nalman",
     spotify: "1137656838",
+  },
+  supabase: {
+    url: process.env.SUPABASE_URL,
+    key: process.env.SUPABASE_KEY
   }
 };

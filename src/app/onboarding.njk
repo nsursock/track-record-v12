@@ -8,17 +8,46 @@ meta:
   description: Let's get you set up and ready to go.
 ---
 
-<section class="min-h-screen bg-base-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8" x-data="{ step: 1 }">
+<section class="min-h-screen bg-base-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8" x-data="{ 
+  step: 1,
+  loading: false,
+  error: '',
+  formData: {
+    handle: '',
+    first_name: '',
+    last_name: '',
+    country: '',
+    city: '',
+    date_of_birth: '',
+    phone_number: '',
+    gender: '',
+    profile_picture_url: '',
+    website_url: ''
+  },
+  socialHandles: [],
+  newSocialHandle: {
+    platform: '',
+    handle: '',
+    url: '',
+    is_public: true
+  }
+}">
   <div class="max-w-3xl mx-auto">
     <!-- Progress bar -->
     <div class="mb-8">
       <div class="flex justify-between mb-2">
-        <div class="text-sm font-medium text-base-content">Step <span x-text="step"></span> of 4</div>
-        <div class="text-sm font-medium text-base-content/70">Profile Setup</div>
+        <div class="text-sm font-medium text-base-content">Step <span x-text="step"></span> of 5</div>
+        <div class="text-sm font-medium text-base-content/70" x-text="
+          step === 1 ? 'Welcome' :
+          step === 2 ? 'Basic Info' :
+          step === 3 ? 'Social Links' :
+          step === 4 ? 'Preferences' :
+          'Completion'
+        "></div>
       </div>
       <div class="w-full bg-base-200 rounded-full h-2">
         <div class="bg-primary h-2 rounded-full transition-all duration-300"
-             :style="'width: ' + (step * 25) + '%'"></div>
+             :style="'width: ' + (step * 20) + '%'"></div>
       </div>
     </div>
 
@@ -78,27 +107,91 @@ meta:
         </p>
       </div>
 
-      <form class="space-y-6">
+      <form class="space-y-6" @submit.prevent="async () => {
+        loading = true;
+        error = '';
+        try {
+          await $store.auth.updateProfile(formData);
+          step = 3;
+        } catch (err) {
+          error = err.message || 'Failed to update profile';
+        } finally {
+          loading = false;
+        }
+      }">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Username</span>
+            <span class="label-text-alt text-base-content/70">This will be your unique handle</span>
+          </label>
+          <div class="join w-full">
+            <span class="join-item btn btn-disabled">@</span>
+            <input type="text" x-model="formData.handle" class="input input-bordered join-item w-full" placeholder="johndoe" required 
+                   pattern="^[a-zA-Z0-9_]+$" 
+                   title="Username can only contain letters, numbers, and underscores"
+                   @input="formData.handle = formData.handle.toLowerCase().replace(/[^a-z0-9_]/g, '')" />
+          </div>
+          <label class="label">
+            <span class="label-text-alt text-base-content/70">Only letters, numbers, and underscores allowed</span>
+          </label>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="form-control">
             <label class="label">
               <span class="label-text">First name</span>
             </label>
-            <input type="text" class="input input-bordered w-full" placeholder="John" required />
+            <input type="text" x-model="formData.first_name" class="input input-bordered w-full" placeholder="John" required />
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text">Last name</span>
             </label>
-            <input type="text" class="input input-bordered w-full" placeholder="Doe" required />
+            <input type="text" x-model="formData.last_name" class="input input-bordered w-full" placeholder="Doe" required />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Country</span>
+            </label>
+            <input type="text" x-model="formData.country" class="input input-bordered w-full" placeholder="United States" />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">City</span>
+            </label>
+            <input type="text" x-model="formData.city" class="input input-bordered w-full" placeholder="New York" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Date of Birth</span>
+            </label>
+            <input type="date" x-model="formData.date_of_birth" class="input input-bordered w-full" />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Phone Number</span>
+            </label>
+            <input type="tel" x-model="formData.phone_number" class="input input-bordered w-full" placeholder="+1 (555) 000-0000" />
           </div>
         </div>
 
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Bio</span>
+            <span class="label-text">Gender</span>
           </label>
-          <textarea class="textarea textarea-bordered h-24" placeholder="Tell us about yourself..."></textarea>
+          <select x-model="formData.gender" class="select select-bordered w-full">
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+            <option value="prefer_not_to_say">Prefer not to say</option>
+          </select>
         </div>
 
         <div class="form-control">
@@ -106,28 +199,152 @@ meta:
             <span class="label-text">Profile picture</span>
           </label>
           <div class="flex items-center space-x-4">
-            <div class="w-20 h-20 rounded-full bg-base-200 flex items-center justify-center">
-              <span class="icon-[tabler--user] w-8 h-8 text-base-content/50"></span>
+            <div class="w-20 h-20 rounded-full bg-base-200 flex items-center justify-center overflow-hidden">
+              <img x-show="formData.profile_picture_url" :src="formData.profile_picture_url" class="w-full h-full object-cover" />
+              <span x-show="!formData.profile_picture_url" class="icon-[tabler--user] w-8 h-8 text-base-content/50"></span>
             </div>
-            <button class="btn btn-outline">Upload photo</button>
+            <button type="button" class="btn btn-outline" @click="$store.auth.uploadProfilePicture()">Upload photo</button>
           </div>
         </div>
 
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Personal Website</span>
+          </label>
+          <input type="url" x-model="formData.website_url" class="input input-bordered w-full" placeholder="https://yourwebsite.com" />
+        </div>
+
+        <!-- Error message -->
+        <div x-show="error" x-transition class="p-3 bg-error/10 border border-error/20 rounded-lg">
+          <p class="text-error text-sm" x-text="error"></p>
+        </div>
+
         <div class="flex justify-between mt-8">
-          <button @click="step = 1" class="btn btn-ghost">
+          <button type="button" @click="step = 1" class="btn btn-ghost">
             <span class="icon-[tabler--arrow-left] mr-2 w-5 h-5"></span>
             Back
           </button>
-          <button @click="step = 3" class="btn btn-primary">
-            Continue
-            <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
+          <button type="submit" class="btn btn-primary" :class="{ 'loading': loading }">
+            <span x-show="!loading">Continue</span>
+            <span x-show="loading">Saving...</span>
+            <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5" x-show="!loading"></span>
           </button>
         </div>
       </form>
     </div>
 
-    <!-- Step 3: Preferences -->
+    <!-- Step 3: Social Links -->
     <div x-show="step === 3" class="space-y-8">
+      <div class="text-center">
+        <h2 class="text-2xl font-bold tracking-tight text-base-content">
+          Connect Your Social Profiles
+        </h2>
+        <p class="mt-2 text-base-content/70">
+          Add your social media handles to help others find and connect with you
+        </p>
+      </div>
+
+      <form class="space-y-6" @submit.prevent="async () => {
+        loading = true;
+        error = '';
+        try {
+          await $store.auth.updateSocialHandles(socialHandles);
+          step = 4;
+        } catch (err) {
+          error = err.message || 'Failed to update social handles';
+        } finally {
+          loading = false;
+        }
+      }">
+        <!-- Add new social handle -->
+        <div class="card bg-base-200 p-4 mb-4">
+          <h3 class="text-lg font-semibold mb-4">Add Social Handle</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Platform</span>
+              </label>
+              <input type="text" x-model="newSocialHandle.platform" class="input input-bordered w-full" placeholder="e.g., Instagram, TikTok, YouTube" />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Handle</span>
+              </label>
+              <input type="text" x-model="newSocialHandle.handle" class="input input-bordered w-full" placeholder="Your username on the platform" />
+            </div>
+          </div>
+          <div class="form-control mt-4">
+            <label class="label">
+              <span class="label-text">URL</span>
+            </label>
+            <input type="url" x-model="newSocialHandle.url" class="input input-bordered w-full" placeholder="Full URL to your profile" />
+          </div>
+          <div class="flex items-center justify-between mt-4">
+            <label class="label cursor-pointer">
+              <span class="label-text mr-2">Public</span>
+              <input type="checkbox" x-model="newSocialHandle.is_public" class="toggle toggle-primary" />
+            </label>
+            <button type="button" class="btn btn-primary" 
+                    @click="socialHandles.push({...newSocialHandle}); 
+                           newSocialHandle = {platform: '', handle: '', url: '', is_public: true}">
+              Add Handle
+            </button>
+          </div>
+        </div>
+
+        <!-- List of added social handles -->
+        <template x-for="(social, index) in socialHandles" :key="index">
+          <div class="card bg-base-200 p-4 mb-4">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold capitalize" x-text="social.platform"></h3>
+              <div class="flex items-center gap-2">
+                <label class="label cursor-pointer">
+                  <span class="label-text mr-2">Public</span>
+                  <input type="checkbox" x-model="social.is_public" class="toggle toggle-primary" />
+                </label>
+                <button type="button" class="btn btn-ghost btn-sm" @click="socialHandles.splice(index, 1)">
+                  <span class="icon-[tabler--trash] w-5 h-5"></span>
+                </button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Handle</span>
+                </label>
+                <input type="text" x-model="social.handle" class="input input-bordered w-full" :placeholder="'Your ' + social.platform + ' handle'" />
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">URL</span>
+                </label>
+                <input type="url" x-model="social.url" class="input input-bordered w-full" placeholder="Full URL to your profile" />
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Error message -->
+        <div x-show="error" x-transition class="p-3 bg-error/10 border border-error/20 rounded-lg">
+          <p class="text-error text-sm" x-text="error"></p>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button type="button" @click="step = 2" class="btn btn-ghost">
+            <span class="icon-[tabler--arrow-left] mr-2 w-5 h-5"></span>
+            Back
+          </button>
+          <button type="submit" class="btn btn-primary" :class="{ 'loading': loading }">
+            <span x-show="!loading">Continue</span>
+            <span x-show="loading">Saving...</span>
+            <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5" x-show="!loading"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 4: Preferences -->
+    <div x-show="step === 4" class="space-y-8">
       <div class="text-center">
         <h2 class="text-2xl font-bold tracking-tight text-base-content">
           Customize your experience
@@ -187,11 +404,11 @@ meta:
         </div>
 
         <div class="flex justify-between mt-8">
-          <button @click="step = 2" class="btn btn-ghost">
+          <button @click="step = 3" class="btn btn-ghost">
             <span class="icon-[tabler--arrow-left] mr-2 w-5 h-5"></span>
             Back
           </button>
-          <button @click="step = 4" class="btn btn-primary">
+          <button @click="step = 5" class="btn btn-primary">
             Continue
             <span class="icon-[tabler--arrow-right] ml-2 w-5 h-5"></span>
           </button>
@@ -199,8 +416,8 @@ meta:
       </div>
     </div>
 
-    <!-- Step 4: Completion -->
-    <div x-show="step === 4" class="space-y-8">
+    <!-- Step 5: Completion -->
+    <div x-show="step === 5" class="space-y-8">
       <div class="text-center">
         <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
           <span class="icon-[tabler--check] w-10 h-10 text-primary"></span>
