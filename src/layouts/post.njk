@@ -19,11 +19,11 @@ layout: base
       <!-- Left Column: Content -->
       <div class="col-span-2">
         <div class="flex flex-wrap items-center gap-4 mb-4">
-          {% if tags %}
-            {% for tag in tags %}
+          {% if categories %}
+            {% for category in categories %}
               <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
                 <span class="icon-[tabler--tag] size-4 mr-1"></span>
-                {{ tag }}
+                {{ category }}
               </span>
             {% endfor %}
           {% endif %}
@@ -48,7 +48,7 @@ layout: base
                 <div class="text-sm text-base-content/80 flex items-center gap-2">
                   <span class="icon-[tabler--calendar] size-4"></span>
                   {% if published_date %}
-                    {{ published_date | formatDate }}
+                    {{ published_date | formatDate("MMM dd, yyyy @ hh:mm") }}
                   {% endif %}
                 </div>
               </div>
@@ -122,7 +122,12 @@ layout: base
           }
           
           imageCount++;
-        })">
+        });
+        // Open links in new tab
+        $el.querySelectorAll('a[href*=\'music.apple.com\']').forEach(link => {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        });">
         {% if heroMatch and heroMatch[0] %}
           {% set contentAfterFirstImage = content | replace(heroMatch[0], '') %}
           {{ contentAfterFirstImage | safe }}
@@ -170,8 +175,8 @@ layout: base
                       </div>
                       <p class="text-sm text-base-content/80 flex items-center gap-1">
                         <span class="icon-[tabler--calendar] size-4"></span>
-                        {% if comment.published_date %}
-                          {{ comment.published_date }}
+                        {% if comment.commented_date %}
+                          {{ comment.commented_date | formatDate("MMM dd, yyyy @ hh:mm") }}
                         {% endif %}
                       </p>
                     </div>
@@ -189,6 +194,10 @@ layout: base
             <span class="icon-[tabler--arrow-left] size-4 mr-2"></span>
             Back to Articles
           </a>
+          <div class="text-base-content/80 flex items-center gap-2">
+            <span class="icon-[tabler--writing] size-4"></span>
+            {{ content | striptags | wordcount }} words
+          </div>
         </div>
       </footer>
     </div>

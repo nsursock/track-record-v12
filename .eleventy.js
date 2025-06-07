@@ -125,7 +125,27 @@ export default function (eleventyConfig) {
   });
 
   // Format date
-  eleventyConfig.addFilter("formatDate", function (date) {
+  eleventyConfig.addFilter("formatDate", function (date, format) {
+    if (format) {
+      // Custom format using Intl.DateTimeFormat
+      const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      };
+      
+      // If format is specified, use it
+      if (format === 'MMM dd, yyyy @ hh:mm') {
+        return new Intl.DateTimeFormat('en-US', options).format(new Date(date))
+          .replace(',', '')
+          .replace(/(\d+):(\d+)/, (_, h, m) => `${h.padStart(2, '0')}:${m.padStart(2, '0')}`);
+      }
+    }
+    
+    // Default format
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',

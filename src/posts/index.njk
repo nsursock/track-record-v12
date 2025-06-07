@@ -152,7 +152,19 @@ meta:
           {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
-            <figure class="h-60 md:h-full w-full md:w-2/5 overflow-hidden">
+            <figure class="h-60 md:h-full w-full md:w-2/5 overflow-hidden relative">
+              {% if post.data.categories and post.data.categories.length > 0 %}
+                <div class="absolute top-4 left-4 z-10 flex gap-2">
+                  <span class="badge badge-primary">
+                    {{ post.data.categories[0] }}
+                  </span>
+                  {% if post.data.categories.length > 1 %}
+                    <span class="badge badge-secondary">
+                      +{{ post.data.categories.length - 1 }}
+                    </span>
+                  {% endif %}
+                </div>
+              {% endif %}
               {% if 'unsplash.com' in heroImage %}
                 {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
                 <img src="{{ transformedUrl }}" 
@@ -170,17 +182,10 @@ meta:
             </figure>
           {% endif %}
           <div class="card-body w-full md:w-3/5">
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-              {% for tag in post.data.tags %}
-                <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
-                  {{ tag }}
-                </span>
-              {% endfor %}
-            </div>
-            <h2 class="card-title mb-3 text-2xl font-bold tracking-tight text-base-content">
+            <h2 class="card-title mb-3 text-2xl font-bold tracking-tight text-base-content line-clamp-2">
               <a href="{{post.url}}" class="hover:underline">{{ post.data.title }}</a>
             </h2>
-            <p class="mb-4 text-base-content/80">
+            <p class="mb-4 text-base-content/80 line-clamp-3">
               {{ post.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
@@ -188,6 +193,11 @@ meta:
                 <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
                   {{ post.data.published_date | formatDate }}
+                </div>
+                <span class="text-base-content/40 mx-2">•</span>
+                <div class="text-sm text-base-content/60" 
+                     x-data="{ readingTime: Math.ceil({{ post.templateContent | safe | striptags | wordcount }} / 200) }"
+                     x-text="readingTime + ' min read'">
                 </div>
               </div>
               <a href="{{post.url}}" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-focus">
@@ -209,7 +219,19 @@ meta:
           {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
-            <figure class="h-60 w-full overflow-hidden">
+            <figure class="h-60 w-full overflow-hidden relative">
+              {% if post.data.categories and post.data.categories.length > 0 %}
+                <div class="absolute top-4 left-4 z-10 flex gap-2">
+                  <span class="badge badge-primary">
+                    {{ post.data.categories[0] }}
+                  </span>
+                  {% if post.data.categories.length > 1 %}
+                    <span class="badge badge-secondary">
+                      +{{ post.data.categories.length - 1 }}
+                    </span>
+                  {% endif %}
+                </div>
+              {% endif %}
               {% if 'unsplash.com' in heroImage %}
                 {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
                 <img src="{{ transformedUrl }}" 
@@ -227,17 +249,10 @@ meta:
             </figure>
           {% endif %}
           <div class="card-body">
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-              {% for tag in post.data.tags %}
-                <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
-                  {{ tag }}
-                </span>
-              {% endfor %}
-            </div>
-            <h2 class="card-title mb-3 text-2xl font-bold tracking-tight text-base-content">
+            <h2 class="card-title mb-3 text-xl font-bold tracking-tight text-base-content line-clamp-2">
               <a href="{{post.url}}" class="hover:underline">{{ post.data.title }}</a>
             </h2>
-            <p class="mb-4 text-base-content/80">
+            <p class="mb-4 text-base-content/80 line-clamp-3">
               {{ post.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
@@ -245,6 +260,11 @@ meta:
                 <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
                   {{ post.data.published_date | formatDate }}
+                </div>
+                <span class="text-base-content/40 mx-2">•</span>
+                <div class="text-sm text-base-content/60"
+                     x-data="{ readingTime: Math.ceil({{ post.templateContent | safe | striptags | wordcount }} / 200) }"
+                     x-text="readingTime + ' min read'">
                 </div>
               </div>
               <a href="{{post.url}}" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-focus">
