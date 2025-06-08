@@ -90,6 +90,8 @@ Funk and soul have always been genres of resistance, their grooves a shield agai
 
 These songs do not shy away from the darkness. Instead, they shine a light on it, forcing listeners to confront uncomfortable truths. The city's decline is not just a backdrop—it's a battleground, and the music is both weapon and shield.
 
+The syncopated rhythms of funk and the soaring vocals of soul became the soundtrack of urban resistance, transforming abandoned lots into dance floors and empty buildings into stages. Artists like [SONG:"What's Going On" by "Marvin Gaye"] and [SONG:"Say It Loud - I'm Black and I'm Proud" by "James Brown"] turned their music into a form of sonic architecture, building sonic spaces where communities could gather, celebrate, and organize against the forces of decay.
+
 ## Hope, Renewal, and the Limits of Prophecy
 
 ### The City's Enduring Spirit: Jazz and Rebirth

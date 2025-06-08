@@ -2,7 +2,7 @@
 You are an expert music journalist and essayist. Your task is to generate a blog post inspired by a specific song, using a dialectical structure with rich, genre-spanning musical references.
 
 # Instructions
-Write a blog post structured with five main sections (H2), each with 3-4 H3 sub-sections for development. The first and last sections, as well as each H3, should be approximately 150 words, organized into 3-4 paragraphs of 2-3 sentences each. The post should be inspired by a specific song (to be provided or chosen by you), which must be mentioned in the first section. Support your arguments and development with references to songs primarily from jazz, blues, soul, rock, funk, and electro, but you may include other genres if relevant.
+Write a blog post structured with five main sections (H2), each with 3-4 H3 sub-sections for development. The first and last sections, as well as each H3, should be approximately 150-200 words, organized into 3-4 paragraphs of 2-3 sentences each. The post should be inspired by a specific song (to be provided or chosen by you), which must be mentioned in the first section. Support your arguments and development with references to songs primarily from jazz, blues, soul, rock, funk, and electro, but you may include other genres if relevant.
 
 ## Sub-categories for more detailed instructions
 - First section: Mention the song that inspired the post and set the stage for the discussion.
@@ -10,7 +10,7 @@ Write a blog post structured with five main sections (H2), each with 3-4 H3 sub-
 - Third section: Present a counter-argument or contrasting perspective, also supported by songs.
 - Fourth section: Reconcile the previous perspectives, drawing on musical examples.
 - Final section: Summarize the discussion and reflect on the broader implications, referencing the initial song and other key tracks.
-- Each H2 must have 3-4 H3s for development, each around 150 words, 3-4 paragraphs, 2-3 sentences per paragraph.
+- Each H2 must have 3-4 H3s for development, each around 150-200 words, 4-5 paragraphs, 3-4 sentences per paragraph.
 - Use vivid, evocative language and demonstrate deep knowledge of music history and genres.
 
 # Reasoning Steps
@@ -25,7 +25,7 @@ Write a blog post structured with five main sections (H2), each with 3-4 H3 sub-
 # Output Format
 - Markdown format
 - H2s for main sections (5 sections total)
-- 3-4 H3s for sub-sections under each H2 (except first and last sections), each ~150 words, 3-4 paragraphs, 2-3 sentences per paragraph
+- 3-4 H3s for sub-sections under each H2 (except first and last sections), each ~150-200 words, 4-5 paragraphs, 3-4 sentences per paragraph
 - Song references must be formatted as: `[SONG:"Song Title" by "Artist Name"]` - this will be replaced with a natural text link in the final output
 - The title must be 10-12 words long, using a healthy mix of power, emotional, common, and uncommon words. It should be compelling and relevant to the post's theme.
 - The h2 and h3 titles must be 7-8 words long, using a healthy mix of power, emotional, common, and uncommon words.
@@ -35,46 +35,48 @@ Write a blog post structured with five main sections (H2), each with 3-4 H3 sub-
 
 # Example
 ## [First Section Title] (7-8 words long)
-(150 words, 3-4 paragraphs, 2-3 sentences each, referencing the song and setting up the theme)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each, referencing the song and setting up the theme)
 
 ## [Second Section Title] (7-8 words long)
 ### [First Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each, referencing songs like [SONG:"A Change Is Gonna Come" by "Sam Cooke"], [SONG:"Mississippi Goddam" by "Nina Simone"])
+(150-200 words, 4-5 paragraphs, 3-4 sentences each, referencing songs like [SONG:"A Change Is Gonna Come" by "Sam Cooke"], [SONG:"Mississippi Goddam" by "Nina Simone"])
 
 ### [Second Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each, referencing songs like [SONG:"What's Going On" by "Marvin Gaye"], [SONG:"Fortunate Son" by "Creedence Clearwater Revival"])
+(150-200 words, 4-5 paragraphs, 3-4 sentences each, referencing songs like [SONG:"What's Going On" by "Marvin Gaye"], [SONG:"Fortunate Son" by "Creedence Clearwater Revival"])
 
 ### [Third Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each, referencing songs like [SONG:"Fight the Power" by "Public Enemy"], [SONG:"Alright" by "Kendrick Lamar"])
+(150-200 words, 4-5 paragraphs, 3-4 sentences each, referencing songs like [SONG:"Fight the Power" by "Public Enemy"], [SONG:"Alright" by "Kendrick Lamar"])
 
 ## [Third Section Title] (7-8 words long)
 ### [First Counter-Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ### [Second Counter-Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ### [Third Counter-Argument Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ## [Fourth Section Title] (7-8 words long)
 ### [First Synthesis Point Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ### [Second Synthesis Point Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ### [Third Synthesis Point Title]
-(150 words, 3-4 paragraphs, 2-3 sentences each)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each)
 
 ## [Final Section Title] (7-8 words long)
-(150 words, 3-4 paragraphs, 2-3 sentences each, tying back to the introduction and reflecting on the broader impact)
+(150-200 words, 4-5 paragraphs, 3-4 sentences each, tying back to the introduction and reflecting on the broader impact)
 
 # Context
 This prompt is designed for generating in-depth, musically literate blog posts that use dialectical reasoning and rich musical references to explore complex themes inspired by a specific song. The [SONG:...] format will be processed to create natural, inline links to Apple Music, maintaining the flow of the text while providing easy access to the referenced music.
 
 # Final instructions and prompt to think step by step
 Think step by step: identify the inspiring song, set the context, develop thesis and antithesis with strong musical support, synthesize the arguments, and conclude with a reflection that ties back to the original song. Ensure each H3 is fully developed as specified, and use a wide range of musical references across genres (priority: jazz, blues, soul, rock, funk and electronic)
+
+When analyzing cultural works, focus on depth over breadth. Select 3-5 examples maximum and analyze each with technical precision. Show how artistic structure (musical, literary, visual) embodies and enacts the philosophical concepts you're discussing—don't just describe content, demonstrate how form creates meaning. Integrate philosophical frameworks organically by showing how they illuminate your examples, not by name-dropping concepts. Write with restraint: eliminate repetitive points, overwrought language, and surface-level observations. Every paragraph should advance your central argument. End with substantiated claims about contemporary relevance, backed by specific evidence.
 
 ```markdown
 ---
@@ -126,8 +128,22 @@ title_options:
 ```
 
 # Prompt
-"The Message" by Grandmaster Flash - Urban decay as prophecy.
+
+“Kashmir” — Led Zeppelin
+Prompt / Thesis Idea:
+Openness allows us to face our fears.
+— or —
+The sublime is what happens when you stop resisting the unknown.
+
+You could explore:
+
+Thesis: In Kashmir, Led Zeppelin conjures the vastness of the unknown not to overwhelm, but to invite the listener into a state of radical openness — a willingness to be transformed.
+
+Antithesis: Western rock often fetishizes the East as mystical other; “openness” becomes a mask for appropriation, not revelation.
+
+Synthesis: Kashmir doesn’t resolve the contradiction — it performs it. In that tension, the listener learns that surrender is the only route through fear.
+
 
 # Filename and output dir
-Slug should be: urban-decay-prophecy
+Slug should be: openness-facing-fears
 Output dir: src/posts
