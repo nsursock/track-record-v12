@@ -7,33 +7,33 @@ categories:
 - Love
 - Society
 - Entertainment
-comments:
-- avatar: https://i.pravatar.cc/150?u=sophielaurent
-  commented_date: 2024-06-10 14:23:11+00:00
-  name: Sophie Laurent
-  text: The way you connect Gainsbourg's emotional extraction to broader cultural
-    patterns is brilliant. The reference to [SONG:'Ain't No Sunshine' by 'Bill Withers']
-    was especially evocative.
-- avatar: https://i.pravatar.cc/150?u=marcusbell
-  commented_date: 2024-06-10 15:02:47+00:00
-  name: Marcus Bell
-  text: I disagree with the idea that desire is always zero-sum. Sometimes heartbreak
-    leads to growth for everyone involved. Still, the musical analysis is sharp.
-- avatar: https://i.pravatar.cc/150?u=elenarossi
-  commented_date: 2024-06-10 15:45:29+00:00
-  name: Elena Rossi
-  text: Loved the comparison between Gainsbourg and Marvin Gaye. The dialectical structure
-    made the argument really engaging.
-- avatar: https://i.pravatar.cc/150?u=davidkim
-  commented_date: 2024-06-10 16:10:05+00:00
-  name: David Kim
-  text: The synthesis section was a highlight. The way you wove in [SONG:'Love Will
-    Tear Us Apart' by 'Joy Division'] was inspired.
-- avatar: https://i.pravatar.cc/150?u=priyapatel
-  commented_date: 2024-06-10 16:55:18+00:00
-  name: Priya Patel
-  text: A nuanced take on emotional capitalism in music. The references to both classic
-    and modern tracks kept it fresh.
+# comments:
+# - avatar: https://i.pravatar.cc/150?u=sophielaurent
+#   commented_date: 2024-06-10 14:23:11+00:00
+#   name: Sophie Laurent
+#   text: The way you connect Gainsbourg's emotional extraction to broader cultural
+#     patterns is brilliant. The reference to [SONG:'Ain't No Sunshine' by 'Bill Withers']
+#     was especially evocative.
+# - avatar: https://i.pravatar.cc/150?u=marcusbell
+#   commented_date: 2024-06-10 15:02:47+00:00
+#   name: Marcus Bell
+#   text: I disagree with the idea that desire is always zero-sum. Sometimes heartbreak
+#     leads to growth for everyone involved. Still, the musical analysis is sharp.
+# - avatar: https://i.pravatar.cc/150?u=elenarossi
+#   commented_date: 2024-06-10 15:45:29+00:00
+#   name: Elena Rossi
+#   text: Loved the comparison between Gainsbourg and Marvin Gaye. The dialectical structure
+#     made the argument really engaging.
+# - avatar: https://i.pravatar.cc/150?u=davidkim
+#   commented_date: 2024-06-10 16:10:05+00:00
+#   name: David Kim
+#   text: The synthesis section was a highlight. The way you wove in [SONG:'Love Will
+#     Tear Us Apart' by 'Joy Division'] was inspired.
+# - avatar: https://i.pravatar.cc/150?u=priyapatel
+#   commented_date: 2024-06-10 16:55:18+00:00
+#   name: Priya Patel
+#   text: A nuanced take on emotional capitalism in music. The references to both classic
+#     and modern tracks kept it fresh.
 inspired_by: '''Initials B.B.'' by ''Serge Gainsbourg'' on ''Initials B.B.'''
 layout: post
 meta_description: Desire is a zero-sum game—explore how heartbreak, art, and myth

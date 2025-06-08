@@ -128,19 +128,21 @@ title_options:
 ```
 
 # Prompt
-“Initials B.B.” — Serge Gainsbourg
+
+“The Message” — Grandmaster Flash and the Furious Five
 Prompt / Thesis Idea:
-Desire is zero-sum: one man’s heartbreak feeds another’s fantasy.
+Urban decay as prophecy.
 — or —
-Le malheur des uns fait parfois le bonheur des autres: eros is extraction.
+Hip-hop began as a survival manual written in rhyme.
 
-You could take this in multiple directions:
+Expanded Interpretation:
 
-Thesis: Romantic entanglements often operate as a kind of emotional capitalism — one person’s suffering becomes another’s muse, conquest, or salvation.
+Thesis: The Message is not just reportage — it’s foresight. The conditions it describes (poverty, systemic neglect, psychic fracture) weren’t isolated — they were blueprints for what was coming, both socially and artistically.
 
-Antithesis: Love isn’t a battlefield — it’s a marketplace of interchangeable parts, and Gainsbourg knew how to trade in melancholy.
+Antithesis: American pop in the early ‘80s sold fantasy and escapism — The Message shattered that illusion, and many didn’t want to hear it.
 
-Synthesis: Gainsbourg’s provocation isn’t just about love triangles — it’s about how art, fame, and myth thrive on the emotional wreckage of others.
+Synthesis: This song marked a rupture. It foretold not just the rot in the system, but how music would evolve as a weapon, a document, a warning siren from below.
+
 
 # Filename and output dir
 Slug should be: desire-zero-sum
