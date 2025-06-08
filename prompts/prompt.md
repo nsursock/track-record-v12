@@ -128,22 +128,20 @@ title_options:
 ```
 
 # Prompt
-
-“Kashmir” — Led Zeppelin
+“Initials B.B.” — Serge Gainsbourg
 Prompt / Thesis Idea:
-Openness allows us to face our fears.
+Desire is zero-sum: one man’s heartbreak feeds another’s fantasy.
 — or —
-The sublime is what happens when you stop resisting the unknown.
+Le malheur des uns fait parfois le bonheur des autres: eros is extraction.
 
-You could explore:
+You could take this in multiple directions:
 
-Thesis: In Kashmir, Led Zeppelin conjures the vastness of the unknown not to overwhelm, but to invite the listener into a state of radical openness — a willingness to be transformed.
+Thesis: Romantic entanglements often operate as a kind of emotional capitalism — one person’s suffering becomes another’s muse, conquest, or salvation.
 
-Antithesis: Western rock often fetishizes the East as mystical other; “openness” becomes a mask for appropriation, not revelation.
+Antithesis: Love isn’t a battlefield — it’s a marketplace of interchangeable parts, and Gainsbourg knew how to trade in melancholy.
 
-Synthesis: Kashmir doesn’t resolve the contradiction — it performs it. In that tension, the listener learns that surrender is the only route through fear.
-
+Synthesis: Gainsbourg’s provocation isn’t just about love triangles — it’s about how art, fame, and myth thrive on the emotional wreckage of others.
 
 # Filename and output dir
-Slug should be: openness-facing-fears
+Slug should be: desire-zero-sum
 Output dir: src/posts
