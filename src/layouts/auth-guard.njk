@@ -3,7 +3,7 @@ layout: base
 ---
 
 <!-- Auth Guard Wrapper -->
-<div x-data="authGuard()" x-init="init()">
+<div x-data="authGuard()" x-init="init()" class="mt-24 md:mt-6 mb-10">
   <!-- Loading State -->
   <div x-show="$store.auth.loading" class="min-h-screen bg-base-100 flex items-center justify-center">
     <div class="text-center">
