@@ -248,8 +248,8 @@ layout: base
             {% for post in collections.post | reverse %}
               {% if post.url != page.url and relatedCount < 3 %}
                 {% set hasCommonTags = false %}
-                {% for tag in tags %}
-                  {% if tag in post.data.tags %}
+                {% for category in categories %}
+                  {% if category in post.data.categories %}
                     {% set hasCommonTags = true %}
                   {% endif %}
                 {% endfor %}
