@@ -1,0 +1,152 @@
+---
+layout: auth-guard
+eleventyNavigation:
+  key: Profile
+  order: 2
+  parent: app
+meta:
+  title: Profile
+  description: Your personal profile
+---
+
+<section class="min-h-screen bg-base-100 mt-12 py-16 px-4 mx-auto max-w-screen-xl">
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold tracking-tight text-base-content">
+        Profile
+      </h1>
+      <p class="mt-2 text-base-content/70">
+        Manage your account settings and personal information.
+      </p>
+    </div>
+
+    <!-- Profile Information Card -->
+    <div class="card bg-base-200 shadow-lg mb-8" x-data="{ editing: false }">
+      <div class="card-body">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold">Personal Information</h2>
+          <button 
+            @click="editing = !editing" 
+            class="btn btn-outline btn-sm"
+            x-text="editing ? 'Cancel' : 'Edit'"
+          ></button>
+        </div>
+
+        <!-- View Mode -->
+        <div x-show="!editing" class="space-y-4" x-data="{ avatarError: false }">
+          <div class="flex items-center space-x-4">
+            <div class="avatar">
+              <div class="w-16 h-16 rounded-box ring ring-primary ring-offset-base-100 ring-offset-2">
+                <template x-if="$store.auth.userAvatar && !avatarError">
+                  <img 
+                    :src="$store.auth.userAvatar"
+                    :alt="$store.auth.userName"
+                    @error="avatarError = true"
+                    class="w-full h-full object-cover"
+                  />
+                </template>
+                <template x-if="!$store.auth.userAvatar || avatarError">
+                  <div class="bg-primary text-primary-content w-full h-full flex items-center justify-center">
+                    <span class="text-2xl font-semibold leading-none" x-text="$store.auth?.userName?.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase()"></span>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div>
+              <p class="font-medium text-lg" x-text="$store.auth.userName"></p>
+              <p class="text-base-content/70">Authenticated User</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div>
+              <label class="text-sm font-medium text-base-content/70">Email</label>
+              <p class="text-base-content" x-text="$store.auth.userEmail"></p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-base-content/70">Status</label>
+              <p class="text-success">Active</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-base-content/70">Member Since</label>
+              <p class="text-base-content">Recent</p>
+            </div>
+            <div>
+              <label class="text-sm font-medium text-base-content/70">Account Type</label>
+              <p class="text-base-content">Standard</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div x-show="editing" class="space-y-6">
+          <div class="alert alert-info">
+            <span class="icon-[tabler--info-circle] w-5 h-5"></span>
+            <span>Profile editing functionality would be implemented here.</span>
+          </div>
+          
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Display Name</span>
+            </label>
+            <input type="text" class="input input-bordered" placeholder="Enter your display name" />
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Bio</span>
+            </label>
+            <textarea class="textarea textarea-bordered" placeholder="Tell us about yourself"></textarea>
+          </div>
+
+          <div class="flex gap-2">
+            <button class="btn btn-primary">Save Changes</button>
+            <button @click="editing = false" class="btn btn-ghost">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="card bg-base-200 shadow-lg">
+      <div class="card-body">
+        <h2 class="text-xl font-semibold mb-4">Account Actions</h2>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-medium">Sign Out</p>
+              <p class="text-sm text-base-content/70">Sign out from your account</p>
+            </div>
+            <button 
+              @click="async () => {
+                try {
+                  await $store.auth.signOut();
+                  window.location.href = '/';
+                } catch (error) {
+                  console.error('Sign out error:', error);
+                }
+              }" 
+              class="btn btn-outline btn-error"
+            >
+              <span class="icon-[tabler--logout] w-5 h-5"></span>
+              Sign Out
+            </button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-medium">Go to Dashboard</p>
+              <p class="text-sm text-base-content/70">View your main dashboard</p>
+            </div>
+            <a href="/app/dashboard/" class="btn btn-primary">
+              <span class="icon-[tabler--dashboard] w-5 h-5"></span>
+              Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

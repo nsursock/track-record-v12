@@ -138,14 +138,14 @@ Alpine.data('mobileMenu', () => ({
         { href: '/contact/', text: 'Contact' }
     ],
     authLinks1: [
-        { href: '/profile/', text: 'Profile', icon: 'user' },
-        { href: '/settings/', text: 'Settings', icon: 'settings' },
-        { href: '/dashboard/', text: 'Dashboard', icon: 'chart-bar' },
-        { href: '/onboarding/', text: 'Onboarding', icon: 'user-plus' },
+        { href: '/app/profile/', text: 'Profile', icon: 'user' },
+        { href: '/app/settings/', text: 'Settings', icon: 'settings' },
+        { href: '/app/dashboard/', text: 'Dashboard', icon: 'chart-bar' },
+        { href: '/app/onboarding/', text: 'Onboarding', icon: 'user-plus' },
     ],
     authLinks2: [
-        { href: '/collections/', text: 'Collections', icon: 'bookmark' },
-        { href: '/likes/', text: 'Likes', icon: 'heart' },
+        { href: '/app/collections/', text: 'Collections', icon: 'bookmark' },
+        { href: '/app/likes/', text: 'Likes', icon: 'heart' },
     ],
     init() {
         // Close mobile menu on window resize if screen becomes larger than mobile breakpoint
@@ -278,18 +278,54 @@ Alpine.data('articlesGrid', () => ({
     }
 }));
 
-// Simple working Alpine + FullCalendar component
+// Credentials page component
 Alpine.data('credentials', () => ({
+    // Form state
     showLogin: false,
-    signupEmail: '',
-    signupPassword: '',
-    signupConfirmPassword: '',
-    loginEmail: '',
-    loginPassword: '',
     loading: false,
     error: '',
     success: '',
     
+    // Signup form data
+    signupEmail: '',
+    signupPassword: '',
+    signupConfirmPassword: '',
+    
+    // Login form data  
+    loginEmail: '',
+    loginPassword: '',
+
+    init() {
+        // Check URL parameters to determine which form to show
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+        
+        if (mode === 'login') {
+            this.showLogin = true;
+        } else if (mode === 'signup') {
+            this.showLogin = false;
+        }
+        
+        console.log('🔐 Credentials page initialized:', {
+            mode: mode || 'default',
+            showLogin: this.showLogin
+        });
+    },
+
+    toggleForm() {
+        this.showLogin = !this.showLogin;
+        this.error = '';
+        this.success = '';
+        
+        // Update URL to reflect current mode
+        const newMode = this.showLogin ? 'login' : 'signup';
+        const url = new URL(window.location);
+        url.searchParams.set('mode', newMode);
+        window.history.replaceState({}, '', url);
+        
+        console.log('🔄 Toggled form to:', newMode);
+    },
+
     async handleGoogleAuth() {
         this.loading = true;
         this.error = '';
@@ -313,7 +349,7 @@ Alpine.data('credentials', () => ({
             this.loading = false;
         }
     },
-    
+
     async handleGitHubAuth() {
         this.loading = true;
         this.error = '';
@@ -331,7 +367,7 @@ Alpine.data('credentials', () => ({
             this.loading = false;
         }
     },
-    
+
     async handleSignup() {
         if (this.signupPassword !== this.signupConfirmPassword) {
             this.error = 'Passwords do not match';
@@ -354,7 +390,7 @@ Alpine.data('credentials', () => ({
             this.loading = false;
         }
     },
-    
+
     async handleLogin() {
         this.loading = true;
         this.error = '';
@@ -364,19 +400,21 @@ Alpine.data('credentials', () => ({
             this.success = 'Successfully signed in!';
             this.loginEmail = '';
             this.loginPassword = '';
-            // Redirect to dashboard
-            window.location.href = '/app/dashboard/';
+            // Check if there's a return URL to redirect back to
+            const returnUrl = localStorage.getItem('authReturnUrl');
+            if (returnUrl && returnUrl !== '/credentials/' && returnUrl !== '/credentials') {
+                console.log('🔄 Redirecting to stored return URL:', returnUrl);
+                localStorage.removeItem('authReturnUrl');
+                window.location.href = returnUrl;
+            } else {
+                // Redirect to dashboard
+                window.location.href = '/app/dashboard/';
+            }
         } catch (err) {
             this.error = err.message || 'Sign in failed';
         } finally {
             this.loading = false;
         }
-    },
-    
-    toggleForm() {
-        this.showLogin = !this.showLogin;
-        this.error = '';
-        this.success = '';
     }
 }));
 

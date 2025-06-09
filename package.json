@@ -11,7 +11,7 @@
     "watch": "NODE_ENV=development npx @11ty/eleventy --watch",
     "build": "NODE_ENV=production npx @11ty/eleventy",
     "preview": "NODE_ENV=production npx serve dist",
-    "clean": "del-cli _site"
+    "clean": "del-cli dist"
   },
   "keywords": [],
   "author": "",

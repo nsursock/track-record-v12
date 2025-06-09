@@ -50,10 +50,20 @@ export default {
 
             // Check if user is authenticated but on wrong page
             if (this.isAuthenticated && (window.location.pathname === '/' || window.location.pathname.includes('credentials'))) {
+                // Check for stored return URL
+                const returnUrl = localStorage.getItem('authReturnUrl');
+                let redirectUrl = '/app/dashboard/'; // default
+
+                if (returnUrl) {
+                    console.log('🔄 Found return URL during init:', returnUrl);
+                    redirectUrl = returnUrl;
+                    localStorage.removeItem('authReturnUrl'); // Clean up
+                }
+
                 console.log('⚠️ User is authenticated but on landing/credentials page!');
-                console.log('🔄 Auto-redirecting to dashboard...');
+                console.log('🔄 Auto-redirecting to:', redirectUrl);
                 setTimeout(() => {
-                    window.location.href = '/app/dashboard/';
+                    window.location.href = redirectUrl;
                 }, 500);
             }
         }
@@ -93,10 +103,20 @@ export default {
 
                 // Check if we're on a page that should redirect
                 if (window.location.pathname === '/' || window.location.pathname.includes('credentials')) {
+                    // Check for stored return URL
+                    const returnUrl = localStorage.getItem('authReturnUrl');
+                    let redirectUrl = '/app/dashboard/'; // default
+
+                    if (returnUrl) {
+                        console.log('🔄 Found return URL:', returnUrl);
+                        redirectUrl = returnUrl;
+                        localStorage.removeItem('authReturnUrl'); // Clean up
+                    }
+
                     console.log('🔄 User authenticated but on wrong page, should redirect');
-                    console.log('🚀 Redirecting authenticated user to dashboard...');
+                    console.log('🚀 Redirecting authenticated user to:', redirectUrl);
                     setTimeout(() => {
-                        window.location.href = '/app/dashboard/';
+                        window.location.href = redirectUrl;
                     }, 500);
                 }
             } else if (event === 'SIGNED_OUT') {
