@@ -137,6 +137,16 @@ Alpine.data('mobileMenu', () => ({
         { href: '/about/', text: 'About' },
         { href: '/contact/', text: 'Contact' }
     ],
+    authLinks1: [
+        { href: '/profile/', text: 'Profile', icon: 'user' },
+        { href: '/settings/', text: 'Settings', icon: 'settings' },
+        { href: '/dashboard/', text: 'Dashboard', icon: 'chart-bar' },
+        { href: '/onboarding/', text: 'Onboarding', icon: 'user-plus' },
+    ],
+    authLinks2: [
+        { href: '/collections/', text: 'Collections', icon: 'bookmark' },
+        { href: '/likes/', text: 'Likes', icon: 'heart' },
+    ],
     init() {
         // Close mobile menu on window resize if screen becomes larger than mobile breakpoint
         window.addEventListener('resize', () => {

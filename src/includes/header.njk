@@ -84,32 +84,24 @@
                   <span class="block text-sm text-base-content/70 truncate" x-text="$store.auth.userEmail"></span>
                 </div>
                 <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
-                  <li>
-                    <a href="/profile" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
-                      <span class="icon-[tabler--user] size-4 mr-2"></span>
-                      My profile
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/settings" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
-                      <span class="icon-[tabler--settings] size-4 mr-2"></span>
-                      Account settings
-                    </a>
-                  </li>
+                  <template x-for="link in authLinks1" :key="link.href">
+                    <li>
+                      <a :href="link.href" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                        <span :class="`icon-[tabler--${link.icon}] size-4 mr-2`"></span>
+                        <span x-text="link.text"></span>
+                      </a>
+                    </li>
+                  </template>
                 </ul>
                 <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
-                  <li>
-                    <a href="#" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
-                      <span class="icon-[tabler--heart] size-4 mr-2"></span>
-                      My likes
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
-                      <span class="icon-[tabler--bookmark] size-4 mr-2"></span>
-                      Collections
-                    </a>
-                  </li>
+                  <template x-for="link in authLinks2" :key="link.href">
+                    <li>
+                      <a :href="link.href" class="flex items-center py-2 px-4 text-sm hover:bg-base-200">
+                        <span :class="`icon-[tabler--${link.icon}] size-4 mr-2`"></span>
+                        <span x-text="link.text"></span>
+                      </a>
+                    </li>
+                  </template>
                 </ul>
                 <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
                   <li>
@@ -224,22 +216,18 @@
         
         <!-- User Menu Items -->
         <div class="border-t border-base-300 pt-4 space-y-4">
-          <a href="/profile" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
-            <span class="icon-[tabler--user] size-4 mr-3"></span>
-            My profile
-          </a>
-          <a href="/settings" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
-            <span class="icon-[tabler--settings] size-4 mr-3"></span>
-            Account settings
-          </a>
-          <a href="#" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
-            <span class="icon-[tabler--heart] size-4 mr-3"></span>
-            My likes
-          </a>
-          <a href="#" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
-            <span class="icon-[tabler--bookmark] size-4 mr-3"></span>
-            Collections
-          </a>
+          <template x-for="link in authLinks1" :key="link.href">
+            <a :href="link.href" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+              <span :class="`icon-[tabler--${link.icon}] size-4 mr-3`"></span>
+              <span x-text="link.text"></span>
+            </a>
+          </template>
+          <template x-for="link in authLinks2" :key="link.href">
+            <a :href="link.href" class="flex items-center text-base-content/80 hover:text-primary transition-colors">
+              <span :class="`icon-[tabler--${link.icon}] size-4 mr-3`"></span>
+              <span x-text="link.text"></span>
+            </a>
+          </template>
           <button 
             @click="async () => {
               try {
