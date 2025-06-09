@@ -44,6 +44,7 @@ layout: base
             {{ meta_description }}
           </p>
         {% endif %}
+
         <div class="flex items-center space-x-4">
           <div class="flex items-center space-x-2">
             {% if author %}
@@ -99,6 +100,29 @@ layout: base
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Main Content -->
     <div class="lg:col-span-2">
+
+      <!-- Key Takeaways -->
+      {% if key_takeaways %}
+        <div class="mb-8 p-6 bg-base-200/50 rounded-box">
+          <h2 class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
+            <span class="icon-[tabler--key] size-5"></span>
+        Key Takeaways
+      </h2>
+          <ul class="space-y-3">
+            {% for takeaway in key_takeaways %}
+              <li class="flex items-start gap-3">
+                <span class="icon-[tabler--arrow-right] size-5 text-primary mt-1"></span>
+                <div>
+                  <span class="text-base-content/80 font-bold underline">{{ takeaway.title }}</span>
+                  <span class="text-base-content/80">:</span>
+                  <span class="text-base-content/80">{{ takeaway.description }}</span>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
       <!-- Article Content -->
       <div class="prose prose-lg max-w-none dark:prose-invert 
         prose-headings:prose-headings:font-bold

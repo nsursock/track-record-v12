@@ -49,6 +49,15 @@ meta_description_options:
   into jazz, soul, and rock's most poignant tracks.
 - How does one's heartbreak become another's muse? This essay unpacks the zero-sum
   logic of desire in music and myth.
+key_takeaways:
+  - title: "Emotional Capitalism"
+    description: "Gainsbourg reveals how heartbreak becomes a currency in the marketplace of desire and art."
+  - title: "Creative Alchemy"
+    description: "The song shows how personal suffering is transformed into universal art through musical alchemy."
+  - title: "Desire's Economy"
+    description: "Initials B.B. exposes the zero-sum nature of desire, where one's loss becomes another's inspiration."
+  - title: "Mythic Exchange"
+    description: "The track demonstrates how romantic pain is traded for artistic creation in the economy of feeling."
 published_date: '2025-06-08T14:36:03.000Z'
 slug: desire-zero-sum
 tags:
