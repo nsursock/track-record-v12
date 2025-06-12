@@ -13,42 +13,20 @@ layout: base
 </div>
 
 <article class="mt-12 py-12 px-4 mx-auto max-w-screen-xl lg:py-16">
+  <!-- Affiliate Disclosure -->
+  <div class="alert alert-warning mb-6 p-4 rounded-box text-warning-content text-sm flex items-center gap-2">
+    <span class="icon-[tabler--info-circle] size-5"></span>
+    <span>
+      This article contains affiliate links. If you make a purchase, we may earn a commission at no extra cost to you. Thank you for supporting our work!
+    </span>
+  </div>
 
   <!-- Hero Section -->
-  <header class="mb-8 lg:mb-12 -mx-4 px-4">
-    <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-base-100 w-full rounded-box">
-      <!-- Background Image -->
-      {% set heroMatch = content | regexFind('<img[^>]*>') %}
-      {% if heroMatch and heroMatch[0] %}
-        {% set srcMatch = heroMatch[0] | regexFind('src="([^"]+)"') %}
-        {% if srcMatch and srcMatch[1] %}
-          {% set heroImage = srcMatch[1] %}
-          <div class="absolute inset-0">
-            {% if 'unsplash.com' in heroImage %}
-              {% set transformedUrl = heroImage ~ '&w=1600&h=900' %}
-              <img src="{{ transformedUrl }}" 
-                   alt="{{ title }}"
-                   class="w-full h-full object-cover opacity-70"
-                   loading="lazy">
-            {% elif 'res.cloudinary.com' in heroImage %}
-              <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_1600,h_900,g_auto,q_auto,f_auto/') }}" 
-                   alt="{{ title }}"
-                   class="w-full h-full object-cover opacity-70"
-                   loading="lazy">
-            {% else %}
-              <img src="{{ heroImage }}" 
-                   alt="{{ title }}"
-                   class="w-full h-full object-cover opacity-70"
-                   loading="lazy">
-            {% endif %}
-            <div class="absolute inset-0 bg-base-100/80"></div>
-          </div>
-        {% endif %}
-      {% endif %}
-
-      <!-- Hero Content -->
-      <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
-        <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
+  <header class="mb-8 lg:mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+      <!-- Left Column: Content -->
+      <div class="col-span-2">
+        <div class="flex flex-wrap items-center gap-4 mb-4">
           {% if categories %}
             {% for category in categories %}
               <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
@@ -58,21 +36,19 @@ layout: base
             {% endfor %}
           {% endif %}
         </div>
-
-        <h1 class="mb-6 text-4xl font-bold leading-tight text-base-content lg:mb-8 lg:text-6xl">
+        <h1 class="mb-4 text-3xl font-bold leading-tight text-base-content lg:mb-6 lg:text-4xl">
           {{ title }}
         </h1>
-
         {% if meta_description %}
-          <p class="mb-8 text-xl text-base-content/80 max-w-3xl mx-auto">
+          <p class="mb-6 text-lg text-base-content/80">
             {{ meta_description }}
           </p>
         {% endif %}
 
-        <div class="flex items-center justify-center space-x-4">
+        <div class="flex items-center space-x-4">
           <div class="flex items-center space-x-2">
             {% if author %}
-              <img class="w-12 h-12 rounded-box ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
+              <img class="w-10 h-10 rounded-box ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
               <div class="font-medium text-base-content">
                 <div class="flex items-center gap-2">
                   <span class="icon-[tabler--user] size-4"></span>
@@ -89,7 +65,35 @@ layout: base
           </div>
         </div>
       </div>
-    </section>
+
+      <!-- Right Column: Hero Image -->
+      <div class="relative h-[400px] lg:h-[500px] rounded-box overflow-hidden col-span-3">
+        {% set heroMatch = content | regexFind('<img[^>]*>') %}
+        {% if heroMatch and heroMatch[0] %}
+          {% set srcMatch = heroMatch[0] | regexFind('src="([^"]+)"') %}
+          {% if srcMatch and srcMatch[1] %}
+            {% set heroImage = srcMatch[1] %}
+            {% if 'unsplash.com' in heroImage %}
+              {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
+              <img src="{{ transformedUrl }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% elif 'res.cloudinary.com' in heroImage %}
+              <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_800,h_450,g_auto,q_auto,f_auto/') }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% else %}
+              <img src="{{ heroImage }}" 
+                   alt="{{ title }}"
+                   class="object-cover w-full h-full"
+                   loading="lazy">
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
   </header>
 
   <!-- Main Content Grid -->
@@ -118,14 +122,6 @@ layout: base
           </ul>
         </div>
       {% endif %}
-
-      <!-- Affiliate Disclosure -->
-      <div class="alert alert-secondary mb-6 p-4 rounded-box text-secondary text-sm flex items-center gap-2">
-        <span class="icon-[tabler--info-circle] size-5"></span>
-        <span>
-          This article may contain affiliate links. If you click and make a purchase, we may earn a commission at no extra cost to you. Thank you for supporting our work!
-        </span>
-      </div>
 
       <!-- Article Content -->
       <div class="prose prose-lg max-w-none dark:prose-invert 
@@ -277,7 +273,7 @@ layout: base
               {% if post.url != page.url and relatedCount < 3 %}
                 {% set hasCommonTags = false %}
                 {% for category in categories %}
-                  {% if post.data.categories and category in post.data.categories %}
+                  {% if category in post.data.categories %}
                     {% set hasCommonTags = true %}
                   {% endif %}
                 {% endfor %}
