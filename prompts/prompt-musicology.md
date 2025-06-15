@@ -130,19 +130,7 @@ title_options:
 
 # Prompt
 
-“Initials B.B.” — Serge Gainsbourg
-Prompt / Thesis Idea:
-Desire is zero-sum: one man’s heartbreak feeds another’s fantasy.
-— or —
-Le malheur des uns fait parfois le bonheur des autres: eros is extraction.
-
-You could take this in multiple directions:
-
-Thesis: Romantic entanglements often operate as a kind of emotional capitalism — one person’s suffering becomes another’s muse, conquest, or salvation.
-
-Antithesis: Love isn’t a battlefield — it’s a marketplace of interchangeable parts, and Gainsbourg knew how to trade in melancholy.
-
-Synthesis: Gainsbourg’s provocation isn’t just about love triangles — it’s about how art, fame, and myth thrive on the emotional wreckage of others.
+God takes risks and is omniscient — but when nothing seems to happen, it might be because you're in a dark place, unable to perceive the movement. Inspired by the song 'I Need a Dollar' by Aloe Blacc.
 
 
 # Filename and output dir
