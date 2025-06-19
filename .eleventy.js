@@ -136,7 +136,7 @@ export default function (eleventyConfig) {
         minute: '2-digit',
         hour12: false
       };
-      
+
       // If format is specified, use it
       if (format === 'MMM dd, yyyy @ hh:mm') {
         return new Intl.DateTimeFormat('en-US', options).format(new Date(date))
@@ -144,7 +144,7 @@ export default function (eleventyConfig) {
           .replace(/(\d+):(\d+)/, (_, h, m) => `${h.padStart(2, '0')}:${m.padStart(2, '0')}`);
       }
     }
-    
+
     // Default format
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -160,6 +160,12 @@ export default function (eleventyConfig) {
   // Create a collection of all posts
   eleventyConfig.addCollection("post", function (collection) {
     return collection.getFilteredByGlob("src/posts/**/*.md")
+      .sort((a, b) => new Date(b.data.published_date) - new Date(a.data.published_date));
+  });
+
+  // Create a collection of all posts
+  eleventyConfig.addCollection("crit", function (collection) {
+    return collection.getFilteredByGlob("src/app/critique/**/*.md")
       .sort((a, b) => new Date(b.data.published_date) - new Date(a.data.published_date));
   });
 

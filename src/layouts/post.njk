@@ -49,11 +49,11 @@ layout: base
       <!-- Hero Content -->
       <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
         <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
-          {% if categories %}
-            {% for category in categories %}
+          {% if tags %}
+            {% for tag in tags %}
               <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
                 <span class="icon-[tabler--tag] size-4 mr-1"></span>
-                {{ category }}
+                {{ tag }}
               </span>
             {% endfor %}
           {% endif %}
@@ -276,8 +276,8 @@ layout: base
             {% for post in collections.post | reverse %}
               {% if post.url != page.url and relatedCount < 3 %}
                 {% set hasCommonTags = false %}
-                {% for category in categories %}
-                  {% if post.data.categories and category in post.data.categories %}
+                {% for tag in tags %}
+                  {% if post.data.tags and tag in post.data.tags %}
                     {% set hasCommonTags = true %}
                   {% endif %}
                 {% endfor %}

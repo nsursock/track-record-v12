@@ -1,17 +1,18 @@
 ---
 layout: base
 eleventyNavigation:
-  key: Articles
+  key: Critiques
   order: 3
 pagination:
-  data: collections.post
+  data: collections.crit
   size: 10
-  alias: posts
+  reverse: true
+  alias: crit
   addAllPagesToCollections: true
-permalink: "/posts{% if pagination.pageNumber > 0 %}/{{ pagination.pageNumber }}/{% endif %}/"
+permalink: "/app/critique/{% if pagination.pageNumber > 0 %}/{{ pagination.pageNumber }}/{% endif %}/"
 meta:
-  title: Articles Archive
-  description: Explore our collection of thought-provoking articles on culture, society, and human experience.
+  title: Critique Archive
+  description: Explore our collection of thought-provoking critiques on culture, society, and human experience.
 ---
 
 <!-- Pagination data for Alpine.js -->
@@ -100,25 +101,25 @@ meta:
   </div> #}
 
   <div class="grid gap-12" id="articles-grid">
-    {% for post in posts %}
+    {% for crit in crit %}
       {% if loop.index == 1 or loop.index == 2 or loop.index == 6 or loop.index == 7 %}
         {% if loop.index == 1 or loop.index == 6 %}
           <div class="grid gap-12 md:grid-cols-2">
         {% endif %}
         <!-- Horizontal cards for first and third rows (desktop only) -->
         <article class="card md:card-side card-border bg-base-200 shadow-lg group relative overflow-hidden">
-          {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
+          {% set heroMatch = crit.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
             <figure class="h-60 md:h-70 w-full md:w-2/5 overflow-hidden relative">
-              {% if post.data.categories and post.data.categories.length > 0 %}
+              {% if crit.data.categories and crit.data.categories.length > 0 %}
                 <div class="absolute top-4 left-4 z-10 flex gap-2">
                   <span class="badge badge-primary">
-                    {{ post.data.categories[0] }}
+                    {{ crit.data.categories[0] }}
                   </span>
-                  {% if post.data.categories.length > 1 %}
+                  {% if crit.data.categories.length > 1 %}
                     <span class="badge badge-secondary">
-                      +{{ post.data.categories.length - 1 }}
+                      +{{ crit.data.categories.length - 1 }}
                     </span>
                   {% endif %}
                 </div>
@@ -126,13 +127,13 @@ meta:
               {% if 'unsplash.com' in heroImage %}
                 {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
                 <img src="{{ transformedUrl }}" 
-                     alt="{{ post.data.title }}"
+                     alt="{{ crit.data.title }}"
                      class="object-cover w-full h-full transition duration-300 group-hover:scale-105"
                      loading="lazy"
                      decoding="async">
               {% else %}
                 <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_800,h_450,g_auto,q_auto,f_auto/') }}" 
-                     alt="{{ post.data.title }}"
+                     alt="{{ crit.data.title }}"
                      class="object-cover w-full h-full transition duration-300 group-hover:scale-105"
                      loading="lazy"
                      decoding="async">
@@ -141,24 +142,24 @@ meta:
           {% endif %}
           <div class="card-body w-full md:w-3/5">
             <h2 class="card-title mb-3 text-xl font-bold tracking-tighter text-base-content line-clamp-2">
-              <a href="{{post.url}}" class="hover:underline">{{ post.data.title }}</a>
+              <a href="{{crit.url}}" class="hover:underline">{{ crit.data.title }}</a>
             </h2>
             <p class="mb-4 text-base-content/80 tracking-tighter line-clamp-4">
-              {{ post.data.meta_description }}
+              {{ crit.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 {# <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
-                  {{ post.data.published_date | formatDate }}
+                  {{ crit.data.published_date | formatDate }}
                 </div>
                 <span class="text-base-content/40 mx-2">•</span> #}
                 <div class="text-sm text-base-content/60" 
-                     x-data="{ readingTime: Math.ceil({{ post.templateContent | safe | striptags | wordcount }} / 200) }"
+                     x-data="{ readingTime: Math.ceil({{ crit.templateContent | safe | striptags | wordcount }} / 200) }"
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn btn-primary btn-sm">
+              <a href="{{crit.url}}" class="btn btn-primary btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
@@ -174,18 +175,18 @@ meta:
         {% endif %}
         <!-- Vertical cards for second and fourth rows -->
         <article class="card card-border bg-base-200 shadow-lg group relative  overflow-hidden">
-          {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
+          {% set heroMatch = crit.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
             <figure class="h-60 w-full overflow-hidden relative">
-              {% if post.data.categories and post.data.categories.length > 0 %}
+              {% if crit.data.categories and crit.data.categories.length > 0 %}
                 <div class="absolute top-4 left-4 z-10 flex gap-2">
                   <span class="badge badge-primary">
-                    {{ post.data.categories[0] }}
+                    {{ crit.data.categories[0] }}
                   </span>
-                  {% if post.data.categories.length > 1 %}
+                  {% if crit.data.categories.length > 1 %}
                     <span class="badge badge-secondary">
-                      +{{ post.data.categories.length - 1 }}
+                      +{{ crit.data.categories.length - 1 }}
                     </span>
                   {% endif %}
                 </div>
@@ -193,13 +194,13 @@ meta:
               {% if 'unsplash.com' in heroImage %}
                 {% set transformedUrl = heroImage ~ '&w=800&h=600' %}
                 <img src="{{ transformedUrl }}" 
-                     alt="{{ post.data.title }}"
+                     alt="{{ crit.data.title }}"
                      class="object-cover w-full h-full transition duration-300 group-hover:scale-105"
                      loading="lazy"
                      decoding="async">
               {% else %}
                 <img src="{{ heroImage | replace('upload/', 'upload/c_fill,w_800,h_450,g_auto,q_auto,f_auto/') }}" 
-                     alt="{{ post.data.title }}"
+                     alt="{{ crit.data.title }}"
                      class="object-cover w-full h-full transition duration-300 group-hover:scale-105"
                      loading="lazy"
                      decoding="async">
@@ -208,24 +209,24 @@ meta:
           {% endif %}
           <div class="card-body">
             <h2 class="card-title mb-3 text-xl font-bold tracking-tighter text-base-content line-clamp-2">
-              <a href="{{post.url}}" class="hover:underline">{{ post.data.title }}</a>
+              <a href="{{crit.url}}" class="hover:underline">{{ crit.data.title }}</a>
             </h2>
             <p class="mb-4 text-base-content/80 tracking-tighter line-clamp-4">
-              {{ post.data.meta_description }}
+              {{ crit.data.meta_description }}
             </p>
             <div class="card-actions flex items-center justify-between">
               <div class="flex items-center space-x-2">
                 {# <span class="icon-[tabler--clock] w-4 h-4 text-accent"></span>
                 <div class="text-sm text-base-content/60">
-                  {{ post.data.published_date | formatDate }}
+                  {{ crit.data.published_date | formatDate }}
                 </div>
                 <span class="text-base-content/40 mx-2">•</span> #}
                 <div class="text-sm text-base-content/60"
-                     x-data="{ readingTime: Math.ceil({{ post.templateContent | safe | striptags | wordcount }} / 200) }"
+                     x-data="{ readingTime: Math.ceil({{ crit.templateContent | safe | striptags | wordcount }} / 200) }"
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn btn-primary btn-sm">
+              <a href="{{crit.url}}" class="btn btn-primary btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
@@ -265,64 +266,20 @@ meta:
   </div>
 
   <!-- Pagination (desktop only) -->
-  <div class="flex justify-center items-center mt-12" 
+  <div class="flex justify-center items-center space-x-4 mt-12" 
        x-show="!isMobile" 
        x-transition>
-    <nav class="flex items-center gap-x-1">
-      {% if pagination.href.previous %}
-        <a href="{{pagination.href.previous}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Previous Button">
-          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
-        </a>
-      {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Previous Button" disabled>
-          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
-        </button>
-      {% endif %}
-
-      <!-- Page Numbers -->
-      {% set currentPage = pagination.pageNumber %}
-      {% set totalPages = pagination.pages.length %}
-      {% set startPage = currentPage - 1 if currentPage > 2 else 1 %}
-      {% set endPage = currentPage + 3 if currentPage + 3 <= totalPages else totalPages %}
-
-      <!-- First page if not in range -->
-      {% if startPage > 1 %}
-        <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">1</a>
-        {% if startPage > 2 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
-        {% endif %}
-      {% endif %}
-
-      <!-- Page number buttons -->
-      {% for i in range(startPage, endPage + 1) %}
-        {% if i == currentPage + 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-primary-content bg-primary border border-primary rounded-box" aria-current="page">{{ i }}</button>
-        {% else %}
-          {% if i == 1 %}
-            <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
-          {% else %}
-            <a href="/posts/{{ i - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-
-      <!-- Last page if not in range -->
-      {% if endPage < totalPages %}
-        {% if endPage < totalPages - 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
-        {% endif %}
-        <a href="/posts/{{ totalPages - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ totalPages }}</a>
-      {% endif %}
-
-      {% if pagination.href.next %}
-        <a href="{{pagination.href.next}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Next Button">
-          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
-        </a>
-      {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Next Button" disabled>
-          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
-        </button>
-      {% endif %}
-    </nav>
+    {% if pagination.href.previous %}
+      <a href="{{pagination.href.previous}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
+        <span class="icon-[tabler--arrow-left] w-3.5 h-3.5 mr-2"></span>
+        Previous
+      </a>
+    {% endif %}
+    {% if pagination.href.next %}
+      <a href="{{pagination.href.next}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
+        Next
+        <span class="icon-[tabler--arrow-right] w-3.5 h-3.5 ml-2"></span>
+      </a>
+    {% endif %}
   </div>
 </section>
