@@ -22,6 +22,16 @@ meta:
     next: '{{pagination.href.next}}',
     previous: '{{pagination.href.previous}}'
   };
+  
+  // All posts data for random selection
+  window.allPosts = [
+    {% for post in collections.post %}
+    {
+      title: {{ post.data.title | dump | safe }},
+      url: {{ post.url | dump | safe }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ];
   console.log('Pagination info:', window.paginationInfo);
 </script>
 
@@ -69,6 +79,14 @@ meta:
           <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
             Exploring the intersections of culture, society, and human experience
           </p>
+          <div class="mt-8">
+            <button 
+              @click="goToRandomPost()"
+              class="btn btn-primary btn-lg">
+              <span class="icon-[tabler--dice] w-5 h-5 mr-2"></span>
+              Random Article
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -98,6 +116,68 @@ meta:
       </div>
     </div>
   </div> #}
+
+    <!-- Pagination (desktop only) -->
+  <div class="flex justify-center items-center my-12" 
+       x-show="!isMobile" 
+       x-transition>
+    <nav class="flex items-center gap-x-1">
+      {% if pagination.href.previous %}
+        <a href="{{pagination.href.previous}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Previous Button">
+          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
+        </a>
+      {% else %}
+        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Previous Button" disabled>
+          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
+        </button>
+      {% endif %}
+
+      <!-- Page Numbers -->
+      {% set currentPage = pagination.pageNumber %}
+      {% set totalPages = pagination.pages.length %}
+      {% set startPage = currentPage - 1 if currentPage > 2 else 1 %}
+      {% set endPage = currentPage + 3 if currentPage + 3 <= totalPages else totalPages %}
+
+      <!-- First page if not in range -->
+      {% if startPage > 1 %}
+        <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">1</a>
+        {% if startPage > 2 %}
+          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
+        {% endif %}
+      {% endif %}
+
+      <!-- Page number buttons -->
+      {% for i in range(startPage, endPage + 1) %}
+        {% if i == currentPage + 1 %}
+          <button class="inline-flex items-center justify-center w-10 h-10 text-primary-content bg-primary border border-primary rounded-box" aria-current="page">{{ i }}</button>
+        {% else %}
+          {% if i == 1 %}
+            <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
+          {% else %}
+            <a href="/posts/{{ i - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <!-- Last page if not in range -->
+      {% if endPage < totalPages %}
+        {% if endPage < totalPages - 1 %}
+          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
+        {% endif %}
+        <a href="/posts/{{ totalPages - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ totalPages }}</a>
+      {% endif %}
+
+      {% if pagination.href.next %}
+        <a href="{{pagination.href.next}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Next Button">
+          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+        </a>
+      {% else %}
+        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Next Button" disabled>
+          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+        </button>
+      {% endif %}
+    </nav>
+  </div>
 
   <div class="grid gap-12" id="articles-grid">
     {% for post in posts %}
@@ -264,65 +344,5 @@ meta:
     </a>
   </div>
 
-  <!-- Pagination (desktop only) -->
-  <div class="flex justify-center items-center mt-12" 
-       x-show="!isMobile" 
-       x-transition>
-    <nav class="flex items-center gap-x-1">
-      {% if pagination.href.previous %}
-        <a href="{{pagination.href.previous}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Previous Button">
-          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
-        </a>
-      {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Previous Button" disabled>
-          <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
-        </button>
-      {% endif %}
 
-      <!-- Page Numbers -->
-      {% set currentPage = pagination.pageNumber %}
-      {% set totalPages = pagination.pages.length %}
-      {% set startPage = currentPage - 1 if currentPage > 2 else 1 %}
-      {% set endPage = currentPage + 3 if currentPage + 3 <= totalPages else totalPages %}
-
-      <!-- First page if not in range -->
-      {% if startPage > 1 %}
-        <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">1</a>
-        {% if startPage > 2 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
-        {% endif %}
-      {% endif %}
-
-      <!-- Page number buttons -->
-      {% for i in range(startPage, endPage + 1) %}
-        {% if i == currentPage + 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-primary-content bg-primary border border-primary rounded-box" aria-current="page">{{ i }}</button>
-        {% else %}
-          {% if i == 1 %}
-            <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
-          {% else %}
-            <a href="/posts/{{ i - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-
-      <!-- Last page if not in range -->
-      {% if endPage < totalPages %}
-        {% if endPage < totalPages - 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
-        {% endif %}
-        <a href="/posts/{{ totalPages - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ totalPages }}</a>
-      {% endif %}
-
-      {% if pagination.href.next %}
-        <a href="{{pagination.href.next}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Next Button">
-          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
-        </a>
-      {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Next Button" disabled>
-          <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
-        </button>
-      {% endif %}
-    </nav>
-  </div>
 </section>

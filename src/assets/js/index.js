@@ -275,6 +275,17 @@ Alpine.data('articlesGrid', () => ({
         window.addEventListener('resize', () => {
             this.isMobile = window.innerWidth < 768;
         });
+    },
+
+    goToRandomPost() {
+        if (window.allPosts && window.allPosts.length > 0) {
+            const randomIndex = Math.floor(Math.random() * window.allPosts.length);
+            const randomPost = window.allPosts[randomIndex];
+            console.log('Going to random post:', randomPost.title);
+            window.location.href = randomPost.url;
+        } else {
+            console.error('No posts available for random selection');
+        }
     }
 }));
 
