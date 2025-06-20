@@ -429,8 +429,8 @@ Alpine.data('credentials', () => ({
     }
 }));
 
-import calendar from './calendar';
-Alpine.data('calendarComponent', calendar);
+// import calendar from './calendar';
+// Alpine.data('calendarComponent', calendar);
 
 // Start Alpine
 window.Alpine = Alpine;
