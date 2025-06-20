@@ -2,162 +2,80 @@
     name: "tech-light";
     fontFamily: "JetBrains Mono, monospace";
     color-scheme: light;
-}
-
-[data-theme="tech-light"] {
-    /* Base Colors - Clean Light Cyberpunk */
-    --color-base-100: oklch(98% 0.01 240);
-    --color-base-200: oklch(95% 0.02 240);
-    --color-base-300: oklch(92% 0.03 240);
-    --color-base-content: oklch(20% 0.1 240);
-    
-    /* Primary Colors - Electric Blue */
-    --color-primary: oklch(75% 0.25 240);
-    --color-primary-content: oklch(20% 0.1 240);
-    --color-primary-focus: oklch(70% 0.25 240);
-    --color-primary-hover: oklch(80% 0.25 240);
-    
-    /* Secondary Colors - Cyber Purple */
-    --color-secondary: oklch(65% 0.25 280);
-    --color-secondary-content: oklch(20% 0.1 240);
-    --color-secondary-focus: oklch(60% 0.25 280);
-    --color-secondary-hover: oklch(70% 0.25 280);
-    
-    /* Accent Colors - Warm Amber */
-    --color-accent: oklch(70% 0.25 60);
-    --color-accent-content: oklch(20% 0.1 240);
-    --color-accent-focus: oklch(65% 0.25 60);
-    --color-accent-hover: oklch(75% 0.25 60);
-    
-    /* Neutral Colors - Cool Gray */
-    --color-neutral: oklch(85% 0.02 240);
-    --color-neutral-content: oklch(20% 0.1 240);
-    --color-neutral-focus: oklch(80% 0.02 240);
-    --color-neutral-hover: oklch(90% 0.02 240);
-    
-    /* State Colors - Cyberpunk Palette */
-    --color-info: oklch(75% 0.25 240);
-    --color-info-content: oklch(20% 0.1 240);
-    --color-info-focus: oklch(70% 0.25 240);
-    --color-info-hover: oklch(80% 0.25 240);
-    
-    --color-success: oklch(75% 0.25 160);
-    --color-success-content: oklch(20% 0.1 240);
-    --color-success-focus: oklch(70% 0.25 160);
-    --color-success-hover: oklch(80% 0.25 160);
-    
-    --color-warning: oklch(75% 0.25 60);
-    --color-warning-content: oklch(20% 0.1 240);
-    --color-warning-focus: oklch(70% 0.25 60);
-    --color-warning-hover: oklch(80% 0.25 60);
-    
-    --color-error: oklch(75% 0.25 25);
-    --color-error-content: oklch(20% 0.1 240);
-    --color-error-focus: oklch(70% 0.25 25);
-    --color-error-hover: oklch(80% 0.25 25);
-
-    /* Border Radius */
-    --radius-selector: 0.25rem;
-    --radius-field: 0.25rem;
+  }
+  
+  [data-theme="tech-light"] {
+    /* === Base - Clean Tech Surface === */
+    --color-base-100: oklch(99% 0.012 240);   /* near-white with subtle cool tint */
+    --color-base-200: oklch(96% 0.02 240);    /* soft step down */
+    --color-base-300: oklch(92% 0.035 240);   /* gentle depth */
+    --color-base-content: oklch(12% 0.11 240); /* cool dark slate */
+  
+    /* === Primary - Electrolite Blue === */
+    --color-primary: oklch(80% 0.34 245);
+    --color-primary-content: oklch(12% 0.11 240);
+    --color-primary-focus: oklch(75% 0.34 245);
+    --color-primary-hover: oklch(86% 0.34 245);
+  
+    /* === Secondary - Neon Orchid === */
+    --color-secondary: oklch(72% 0.28 300);
+    --color-secondary-content: oklch(12% 0.11 240);
+    --color-secondary-focus: oklch(67% 0.28 300);
+    --color-secondary-hover: oklch(78% 0.28 300);
+  
+    /* === Accent - Digital Amber === */
+    --color-accent: oklch(80% 0.28 85);
+    --color-accent-content: oklch(12% 0.11 240);
+    --color-accent-focus: oklch(75% 0.28 85);
+    --color-accent-hover: oklch(88% 0.28 85);
+  
+    /* === Neutral - Frosted Gray === */
+    --color-neutral: oklch(91% 0.02 240);
+    --color-neutral-content: oklch(12% 0.11 240);
+    --color-neutral-focus: oklch(86% 0.02 240);
+    --color-neutral-hover: oklch(95% 0.02 240);
+  
+    /* === States - Info / Success / Warning / Error === */
+    --color-info: oklch(83% 0.34 245);
+    --color-info-content: oklch(12% 0.11 240);
+    --color-info-focus: oklch(78% 0.34 245);
+    --color-info-hover: oklch(88% 0.34 245);
+  
+    --color-success: oklch(82% 0.28 140);
+    --color-success-content: oklch(12% 0.11 240);
+    --color-success-focus: oklch(77% 0.28 140);
+    --color-success-hover: oklch(89% 0.28 140);
+  
+    --color-warning: oklch(88% 0.28 85);
+    --color-warning-content: oklch(12% 0.11 240);
+    --color-warning-focus: oklch(83% 0.28 85);
+    --color-warning-hover: oklch(94% 0.28 85);
+  
+    --color-error: oklch(80% 0.34 25);
+    --color-error-content: oklch(12% 0.11 240);
+    --color-error-focus: oklch(75% 0.34 25);
+    --color-error-hover: oklch(86% 0.34 25);
+  
+    /* === Radii - Subtle Yet Defined === */
+    --radius-selector: 0.375rem;
+    --radius-field: 0.375rem;
     --radius-box: 0.5rem;
-    --radius-btn: 0.25rem;
+    --radius-btn: 0.375rem;
     --radius-badge: 0.25rem;
-    --radius-tab: 0.25rem;
-
-    /* Effects */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    /* Animation */
-    --animation-btn: 0.25s;
-    --animation-input: 0.2s;
-    --animation-card: 0.3s;
-    --animation-badge: 0.2s;
-    --animation-modal: 0.3s;
-}
-
-/* Custom styles for tech-light theme */
-[data-theme="tech-light"] {
-    /* Gradient and Glow Effects */
-    --gradient-primary: linear-gradient(135deg, oklch(75% 0.25 240), oklch(75% 0.25 280));
-    --gradient-secondary: linear-gradient(135deg, oklch(65% 0.25 280), oklch(65% 0.25 60));
-    --glow-primary: 0 0 15px oklch(75% 0.25 240 / 0.2);
-    --glow-secondary: 0 0 15px oklch(65% 0.25 280 / 0.2);
-    --glow-accent: 0 0 15px oklch(70% 0.25 60 / 0.2);
-    
-    /* Text Effects */
-    --text-shadow: 0 0 1px oklch(75% 0.25 240 / 0.1);
-    --text-glow: 0 0 2px oklch(75% 0.25 240 / 0.2);
-}
-
-[data-theme="tech-light"] .btn-primary {
-    background-image: var(--gradient-primary);
-    text-shadow: var(--text-shadow);
-    box-shadow: var(--glow-primary);
-    border: 1px solid oklch(75% 0.25 240 / 0.1);
-}
-
-[data-theme="tech-light"] .btn-secondary {
-    background-image: var(--gradient-secondary);
-    text-shadow: var(--text-shadow);
-    box-shadow: var(--glow-secondary);
-    border: 1px solid oklch(65% 0.25 280 / 0.1);
-}
-
-[data-theme="tech-light"] .card {
-    background: oklch(98% 0.01 240);
-    border: 1px solid oklch(75% 0.25 240 / 0.1);
-    box-shadow: var(--glow-primary);
-    backdrop-filter: blur(10px);
-}
-
-[data-theme="tech-light"] code {
-    background: oklch(95% 0.02 240);
-    border: 1px solid oklch(75% 0.25 240 / 0.1);
-    border-radius: var(--radius-btn);
-    padding: 0.2em 0.4em;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.9em;
-    text-shadow: var(--text-shadow);
-}
-
-[data-theme="tech-light"] pre {
-    background: oklch(95% 0.02 240);
-    border: 1px solid oklch(75% 0.25 240 / 0.1);
-    border-radius: var(--radius-box);
-    padding: 1em;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.9em;
-    overflow-x: auto;
-    text-shadow: var(--text-shadow);
-}
-
-/* Gradient Text Effect */
-[data-theme="tech-light"] h1, 
-[data-theme="tech-light"] h2, 
-[data-theme="tech-light"] h3 {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: var(--text-glow);
-}
-
-/* Glowing Border Effect */
-[data-theme="tech-light"] .border-glow {
-    position: relative;
-}
-
-[data-theme="tech-light"] .border-glow::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: var(--gradient-primary);
-    border-radius: inherit;
-    z-index: -1;
-    filter: blur(8px);
-    opacity: 0.3;
-} 
+    --radius-tab: 0.375rem;
+  
+    /* === Shadows - Sleek and Ambient === */
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+    --shadow: 0 2px 4px rgb(0 0 0 / 0.06);
+    --shadow-md: 0 4px 8px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 8px 12px rgb(0 0 0 / 0.08);
+    --shadow-xl: 0 16px 24px rgb(0 0 0 / 0.1);
+  
+    /* === Animations - Clean and Responsive === */
+    --animation-btn: 0.25s ease-in-out;
+    --animation-input: 0.2s ease-in-out;
+    --animation-card: 0.3s ease-in-out;
+    --animation-badge: 0.2s ease-in-out;
+    --animation-modal: 0.35s ease-in-out;
+  }
+  

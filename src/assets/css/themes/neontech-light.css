@@ -4,155 +4,73 @@
     prefersdark: false;
     color-scheme: light;
     fontFamily: "'Share Tech Mono', monospace";
-}
-
-[data-theme="neontech-light"] {
-    /* Base Colors */
-    --color-base-100: oklch(98% 0.01 270);
-    --color-base-200: oklch(95% 0.02 270);
-    --color-base-300: oklch(92% 0.03 270);
-    --color-base-content: oklch(20% 0.1 270);
-    
-    /* Primary Colors - Neon Pink */
-    --color-primary: oklch(70% 0.4 330);
-    --color-primary-content: oklch(20% 0.1 270);
-    --color-primary-focus: oklch(65% 0.4 330);
-    --color-primary-hover: oklch(75% 0.4 330);
-    
-    /* Secondary Colors - Neon Cyan */
-    --color-secondary: oklch(70% 0.4 200);
-    --color-secondary-content: oklch(20% 0.1 270);
-    --color-secondary-focus: oklch(65% 0.4 200);
-    --color-secondary-hover: oklch(75% 0.4 200);
-    
-    /* Accent Colors - Neon Pink */
-    --color-accent: oklch(70% 0.4 330);
-    --color-accent-content: oklch(20% 0.1 270);
-    --color-accent-focus: oklch(65% 0.4 330);
-    --color-accent-hover: oklch(75% 0.4 330);
-    
-    /* Neutral Colors */
-    --color-neutral: oklch(85% 0.02 270);
-    --color-neutral-content: oklch(20% 0.1 270);
-    --color-neutral-focus: oklch(80% 0.02 270);
-    --color-neutral-hover: oklch(90% 0.02 270);
-    
-    /* State Colors */
-    --color-info: oklch(70% 0.4 240);
-    --color-info-content: oklch(20% 0.1 270);
-    --color-info-focus: oklch(65% 0.4 240);
-    --color-info-hover: oklch(75% 0.4 240);
-    
-    --color-success: oklch(70% 0.4 160);
-    --color-success-content: oklch(20% 0.1 270);
-    --color-success-focus: oklch(65% 0.4 160);
-    --color-success-hover: oklch(75% 0.4 160);
-    
-    --color-warning: oklch(70% 0.4 80);
-    --color-warning-content: oklch(20% 0.1 270);
-    --color-warning-focus: oklch(65% 0.4 80);
-    --color-warning-hover: oklch(75% 0.4 80);
-    
-    --color-error: oklch(70% 0.4 25);
-    --color-error-content: oklch(20% 0.1 270);
-    --color-error-focus: oklch(65% 0.4 25);
-    --color-error-hover: oklch(75% 0.4 25);
-
-    /* Border Radius */
-    --radius-selector: 0.5rem;
-    --radius-field: 0.25rem;
+  }
+  
+  [data-theme="neontech-light"] {
+    /* Base Colors – Slight blue-purple white */
+    --color-base-100: oklch(98.5% 0.015 270);
+    --color-base-200: oklch(96% 0.025 270);
+    --color-base-300: oklch(92% 0.035 270);
+    --color-base-content: oklch(14% 0.11 270); /* dark graphite purple */
+  
+    /* Primary – Cyberpunk Neon Pink */
+    --color-primary: oklch(78% 0.38 330);
+    --color-primary-hover: oklch(83% 0.38 330);
+    --color-primary-focus: oklch(73% 0.38 330);
+    --color-primary-content: var(--color-base-content);
+  
+    /* Secondary – Neon Cyan */
+    --color-secondary: oklch(78% 0.38 210);
+    --color-secondary-hover: oklch(83% 0.38 210);
+    --color-secondary-focus: oklch(73% 0.38 210);
+    --color-secondary-content: var(--color-base-content);
+  
+    /* Accent – Elevated Pink */
+    --color-accent: oklch(84% 0.38 330);
+    --color-accent-hover: oklch(88% 0.38 330);
+    --color-accent-focus: oklch(78% 0.38 330);
+    --color-accent-content: var(--color-base-content);
+  
+    /* Neutral – Cool tech gray */
+    --color-neutral: oklch(92% 0.02 270);
+    --color-neutral-hover: oklch(96% 0.02 270);
+    --color-neutral-focus: oklch(88% 0.02 270);
+    --color-neutral-content: var(--color-base-content);
+  
+    /* State – Optimized color variants */
+    --color-info: oklch(80% 0.38 245);   /* crisp blue */
+    --color-info-hover: oklch(85% 0.38 245);
+    --color-info-focus: oklch(75% 0.38 245);
+    --color-info-content: var(--color-base-content);
+  
+    --color-success: oklch(80% 0.36 140);  /* rich lime green */
+    --color-success-hover: oklch(85% 0.36 140);
+    --color-success-focus: oklch(75% 0.36 140);
+    --color-success-content: var(--color-base-content);
+  
+    --color-warning: oklch(87% 0.35 90);  /* orange-yellow */
+    --color-warning-hover: oklch(92% 0.35 90);
+    --color-warning-focus: oklch(82% 0.35 90);
+    --color-warning-content: var(--color-base-content);
+  
+    --color-error: oklch(76% 0.38 25);   /* neon red-orange */
+    --color-error-hover: oklch(81% 0.38 25);
+    --color-error-focus: oklch(71% 0.38 25);
+    --color-error-content: var(--color-base-content);
+  
+    /* Border Radius – Rounded tech */
+    --radius-selector: 0.375rem;
+    --radius-field: 0.375rem;
     --radius-box: 0.5rem;
-    --radius-btn: 0.5rem;
-    --radius-badge: 0.5rem;
-    --radius-tab: 0.5rem;
-
-    /* Effects */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-}
-
-/* Custom styles for neontech-light theme */
-[data-theme="neontech-light"] {
-    /* Gradient and Glow Effects */
-    --gradient-primary: linear-gradient(135deg, oklch(70% 0.4 330), oklch(70% 0.4 200));
-    --gradient-secondary: linear-gradient(135deg, oklch(70% 0.4 200), oklch(70% 0.4 330));
-    --glow-primary: 0 0 15px oklch(70% 0.4 330 / 0.3);
-    --glow-secondary: 0 0 15px oklch(70% 0.4 200 / 0.3);
-    --glow-accent: 0 0 15px oklch(70% 0.4 330 / 0.3);
-    
-    /* Text Effects */
-    --text-shadow: 0 0 1px oklch(70% 0.4 330 / 0.2);
-    --text-glow: 0 0 2px oklch(70% 0.4 330 / 0.4);
-}
-
-[data-theme="neontech-light"] .btn-primary {
-    background-image: var(--gradient-primary);
-    text-shadow: var(--text-shadow);
-    box-shadow: var(--glow-primary);
-    border: 1px solid oklch(70% 0.4 330 / 0.2);
-}
-
-[data-theme="neontech-light"] .btn-secondary {
-    background-image: var(--gradient-secondary);
-    text-shadow: var(--text-shadow);
-    box-shadow: var(--glow-secondary);
-    border: 1px solid oklch(70% 0.4 200 / 0.2);
-}
-
-[data-theme="neontech-light"] .card {
-    background: oklch(98% 0.01 270);
-    border: 1px solid oklch(70% 0.4 330 / 0.1);
-    box-shadow: var(--glow-primary);
-    backdrop-filter: blur(10px);
-}
-
-[data-theme="neontech-light"] code {
-    background: oklch(95% 0.02 270);
-    border: 1px solid oklch(70% 0.4 330 / 0.2);
-    border-radius: var(--radius-btn);
-    padding: 0.2em 0.4em;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.9em;
-    text-shadow: var(--text-shadow);
-}
-
-[data-theme="neontech-light"] pre {
-    background: oklch(95% 0.02 270);
-    border: 1px solid oklch(70% 0.4 330 / 0.2);
-    border-radius: var(--radius-box);
-    padding: 1em;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.9em;
-    overflow-x: auto;
-    text-shadow: var(--text-shadow);
-}
-
-/* Gradient Text Effect */
-[data-theme="neontech-light"] h1, 
-[data-theme="neontech-light"] h2, 
-[data-theme="neontech-light"] h3 {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: var(--text-glow);
-}
-
-/* Glowing Border Effect */
-[data-theme="neontech-light"] .border-glow {
-    position: relative;
-}
-
-[data-theme="neontech-light"] .border-glow::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: var(--gradient-primary);
-    border-radius: inherit;
-    z-index: -1;
-    filter: blur(8px);
-    opacity: 0.5;
-} 
+    --radius-btn: 0.375rem;
+    --radius-badge: 0.375rem;
+    --radius-tab: 0.375rem;
+  
+    /* Shadows – Slightly crisper */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.12), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.14), 0 8px 10px -6px rgb(0 0 0 / 0.12);
+  }
+  
