@@ -42,7 +42,10 @@ eleventyNavigation:
               id="bd-email" 
               class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary"
 />
-            <button type="submit" class="btn btn-primary">Subscribe</button>
+            <button type="submit" class="btn btn-primary">
+              <span class="icon-[tabler--mail] size-4 mr-2"></span>
+              Subscribe
+            </button>
           </form>
         </div>
       </div>
@@ -59,11 +62,6 @@ eleventyNavigation:
           <div class="absolute inset-0 bg-base-100/80"></div>
         </div>
 
-        <!-- Floating vinyl records -->
-        {# <div class="absolute top-20 left-10 w-16 h-16 bg-neutral  opacity-30 animate-float"></div>
-        <div class="absolute top-40 right-20 w-12 h-12 bg-neutral  opacity-20 animate-float-delayed"></div>
-        <div class="absolute bottom-40 left-20 w-20 h-20 bg-neutral  opacity-25 animate-float-slow"></div> #}
-
         <div class="relative z-10 text-center px-3 sm:px-6 md:px-8 max-w-5xl mx-auto w-full">
           <!-- Fish bone icon -->
           <div class="mb-4 sm:mb-6 md:mb-8 flex justify-center">
@@ -74,38 +72,20 @@ eleventyNavigation:
           </h1>
           <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-primary mb-3 sm:mb-4 md:mb-8 font-light">{{ site.tagline }}</p>
           <p class="text-base sm:text-lg md:text-xl text-base-content/80 mb-6 sm:mb-8 md:mb-12 leading-relaxed max-w-3xl mx-auto">
-            Dive deep into the philosophical dimensions of music. Where every beat tells a story, every lyric sparks thought, and every album becomes a journey of discovery.
+            Where emergency metaphysics meets musical consciousness. Philosophy practiced as survival technology, 
+            using personal experience as laboratory and authentic voice as the most radical technology available.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 justify-center">
             <a href="/posts/" class="btn btn-lg btn-primary hover:bg-primary-focus text-primary-content font-semibold px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 transition-all duration-300 transform hover:scale-105">
-              Start Reading
+              <span class="icon-[tabler--brain] size-5 mr-2"></span>
+              Explore All Posts
             </a>
-            <a href="/about/" class="btn btn-lg btn-soft btn-secondary border-primary/30 text-base-content hover:bg-base-200/50 px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 transition-all duration-300">
-              About the Blog
+            <a href="/about/" class="btn btn-lg btn-secondary hover:bg-secondary-focus text-secondary-content font-semibold px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 transition-all duration-300 transform hover:scale-105">
+              <span class="icon-[tabler--user-circle] size-5 mr-2"></span>
+              About the Author
             </a>
           </div>
-
-          <!-- Email signup -->
-          {# <form
-            action="https://buttondown.com/api/emails/embed-subscribe/nsursock"
-            method="post"
-            target="popupwindow"
-            onsubmit="window.open('https://buttondown.com/nsursock', 'popupwindow')"
-            class="embeddable-buttondown-form flex flex-col space-y-3 max-w-md mx-auto mt-8"
-          >
-            <label for="bd-email-hero" class="text-base-content/80">Stay updated with our latest insights</label>
-            <input 
-              type="email" 
-              name="email" 
-              id="bd-email-hero" 
-              class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <button type="submit" class="btn btn-primary">Subscribe</button>
-            <p class="text-sm text-base-content/60">
-              <a href="https://buttondown.com/refer/nsursock" target="_blank" class="hover:text-primary">Powered by Buttondown.</a>
-            </p>
-          </form> #}
         </div>
 
         <!-- Scroll indicator -->
@@ -120,38 +100,46 @@ eleventyNavigation:
       <section class="py-16 sm:py-20 bg-base-100 w-full">
         <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
           <div class="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">What Makes Us Different</h2>
-            <p class="text-base sm:text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto">We don't just review music – we explore the deeper questions it raises about life, meaning, and human experience.</p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">Emergency Metaphysics in Action</h2>
+            <p class="text-base sm:text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto">
+              Philosophy practiced by someone who writes as if consciousness itself depends on making sense of cosmic forces through intensely personal experience.
+            </p>
           </div>
 
           <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
             <div class="card bg-primary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
                 <div class="w-16 h-16 bg-primary rounded-box mx-auto mb-6 flex items-center justify-center">
-                  <span class="icon-[tabler--music] size-8 text-primary-content"></span>
+                  <span class="icon-[tabler--brain] size-8 text-primary-content"></span>
                 </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Deep Listening</h3>
-                <p class="text-base-content/80 leading-relaxed">We go beyond surface-level reviews to explore the philosophical depths hidden in every track, album, and artist's journey.</p>
+                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Consciousness as Laboratory</h3>
+                <p class="text-base-content/80 leading-relaxed">
+                  Using personal experience—including trauma, war, and interdimensional encounters—as raw material for philosophical investigation in real time.
+                </p>
               </div>
             </div>
 
             <div class="card bg-secondary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
                 <div class="w-16 h-16 bg-secondary rounded-box mx-auto mb-6 flex items-center justify-center">
-                  <span class="icon-[tabler--brain] size-8 text-secondary-content"></span>
+                  <span class="icon-[tabler--music] size-8 text-secondary-content"></span>
                 </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Thoughtful Analysis</h3>
-                <p class="text-base-content/80 leading-relaxed">Each piece connects musical elements to broader philosophical concepts, creating bridges between sound and meaning.</p>
+                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Musical Anchoring System</h3>
+                <p class="text-base-content/80 leading-relaxed">
+                  Each piece begins with a song that functions as both emotional tuning fork and structural DNA—jazz philosophy meets cosmic investigation.
+                </p>
               </div>
             </div>
 
             <div class="card bg-primary/10 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div class="card-body text-center p-6 sm:p-8">
                 <div class="w-16 h-16 bg-primary rounded-box mx-auto mb-6 flex items-center justify-center">
-                  <span class="icon-[tabler--sparkles] size-8 text-primary-content"></span>
+                  <span class="icon-[tabler--universe] size-8 text-primary-content"></span>
                 </div>
-                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">Groovy Wisdom</h3>
-                <p class="text-base-content/80 leading-relaxed">Discover insights that resonate both intellectually and emotionally, where rhythm meets reason in perfect harmony.</p>
+                <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4">14 Billion Year Timeline</h3>
+                <p class="text-base-content/80 leading-relaxed">
+                  Personal timeline shattered and reconstructed on cosmic scales. When you've been "initiated by catastrophe," normal aging theories don't apply.
+                </p>
               </div>
             </div>
           </div>
@@ -162,49 +150,73 @@ eleventyNavigation:
       <section class="py-16 sm:py-20 bg-base-200 w-full">
         <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
           <div class="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">Recent Explorations</h2>
-            <p class="text-base sm:text-lg md:text-xl text-base-content/80">A taste of the philosophical journeys awaiting you</p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">Mind-Bending Explorations</h2>
+            <p class="text-base sm:text-lg md:text-xl text-base-content/80">Where trauma becomes cosmic education and demons become information delivery systems</p>
           </div>
 
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
-                <img src="https://picsum.photos/400/250?random=2" alt="Article" class="w-full h-48 object-cover">
+                <img src="https://images.unsplash.com/photo-1619983453269-98a0917b75bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Angry Terrific Demon" class="w-full h-48 object-cover">
               </figure>
               <div class="card-body p-4 sm:p-6">
-                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">The Philosophy of Jazz Improvisation</h3>
-                <p class="text-base-content/80 mb-4">Exploring how spontaneous musical creation mirrors existential freedom and authentic self-expression.</p>
+                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">Demons as Information Systems</h3>
+                <p class="text-base-content/80 mb-4">
+                  "I was 14 years old when the demon tried to explain something to me." 
+                  What if childhood encounters with terror are actually cosmic education?
+                </p>
                 <div class="flex items-center justify-between">
-                  <span class="text-sm text-base-content/60">5 min read</span>
-                  <button class="btn btn-primary btn-sm">Read More</button>
+                  <span class="text-sm text-primary flex items-center">
+                    Rating: 4.45 <span class="icon-[tabler--star] size-4 ml-1"></span>
+                  </span>
+                  <a href="/posts/n18/angry-terrific-demon/" class="btn btn-primary btn-sm">
+                    <span class="icon-[tabler--arrow-right] size-4 mr-1"></span>
+                    Read More
+                  </a>
                 </div>
               </div>
             </article>
 
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
-                <img src="https://picsum.photos/400/250?random=3" alt="Article" class="w-full h-48 object-cover">
+                <img src="https://images.unsplash.com/photo-1558939608-7e8f4c8336d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Brain Tricks" class="w-full h-48 object-cover">
               </figure>
               <div class="card-body p-4 sm:p-6">
-                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">Beethoven's Revolutionary Spirit</h3>
-                <p class="text-base-content/80 mb-4">How the master composer's work embodies the philosophical tensions between order and chaos.</p>
+                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">Raw Documentary Honesty</h3>
+                <p class="text-base-content/80 mb-4">
+                  "I'm neurotic to the bone. Since the Beirut blast, I think I'm feeling helpless every day." 
+                  Clinical observation from someone monitoring consciousness like vital signs.
+                </p>
                 <div class="flex items-center justify-between">
-                  <span class="text-sm text-base-content/60">8 min read</span>
-                  <button class="btn btn-primary btn-sm">Read More</button>
+                  <span class="text-sm text-secondary flex items-center">
+                    Rating: 4.36 <span class="icon-[tabler--star] size-4 ml-1"></span>
+                  </span>
+                  <a href="/posts/n18/brain-tricks/" class="btn btn-secondary btn-sm">
+                    <span class="icon-[tabler--arrow-right] size-4 mr-1"></span>
+                    Read More
+                  </a>
                 </div>
               </div>
             </article>
 
             <article class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
               <figure class="px-0">
-                <img src="https://picsum.photos/400/250?random=4" alt="Article" class="w-full h-48 object-cover">
+                <img src="https://images.unsplash.com/photo-1543164904-8ff92670a192?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Humanity Skipped Heartbeat" class="w-full h-48 object-cover">
               </figure>
               <div class="card-body p-4 sm:p-6">
-                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">The Metaphysics of Hip-Hop</h3>
-                <p class="text-base-content/80 mb-4">Deconstructing how rap lyrics create new realities and challenge traditional philosophical frameworks.</p>
+                <h3 class="text-lg sm:text-xl font-bold text-base-content mb-3">Space-Ready Survivors</h3>
+                <p class="text-base-content/80 mb-4">
+                  "Maybe humans were robots that had a teenage angst crisis." 
+                  Unconscious preparation for humanity's expansion beyond terrestrial consciousness.
+                </p>
                 <div class="flex items-center justify-between">
-                  <span class="text-sm text-base-content/60">6 min read</span>
-                  <button class="btn btn-primary btn-sm">Read More</button>
+                  <span class="text-sm text-primary flex items-center">
+                    Rating: 4.31 <span class="icon-[tabler--star] size-4 ml-1"></span>
+                  </span>
+                  <a href="/posts/n18/humanity-skipped-heartbeat/" class="btn btn-primary btn-sm">
+                    <span class="icon-[tabler--arrow-right] size-4 mr-1"></span>
+                    Read More
+                  </a>
                 </div>
               </div>
             </article>
@@ -216,37 +228,105 @@ eleventyNavigation:
       <section class="py-16 sm:py-20 bg-base-100 w-full">
         <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
           <div class="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">Join the Conversation</h2>
-            <p class="text-base sm:text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto">Connect with fellow music philosophers and expand your understanding together</p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6">What Critics Discovered</h2>
+            <p class="text-base sm:text-lg md:text-xl text-base-content/80 max-w-3xl mx-auto">
+              "In our era of manufactured digital personalities, encountering a genuinely alien sensibility becomes both shocking and necessary."
+            </p>
           </div>
 
-          <div class="grid md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+          <div class="grid md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=1" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
-              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Sarah Chen</h4>
-              <p class="text-primary text-sm mb-4">Philosophy Professor</p>
-              <p class="text-base-content/80 italic">"This blog opened my eyes to connections between Nietzsche and modern indie rock I never imagined."</p>
+              <img src="https://res.cloudinary.com/doht6fqbq/image/upload/c_thumb,w_200,g_face/v1749174843/track-record/faces/mystic_qkk9ma.png" alt="The Mystic" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-secondary">
+              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">The Mystic</h4>
+              <p class="text-secondary text-sm mb-4">Spiritual Consciousness Expert</p>
+              <p class="text-base-content/80 italic">
+                "This is the real thing—a consciousness that has been genuinely opened by encounter with the invisible realms. 
+                Transmissions from the between."
+              </p>
             </div>
 
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=2" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
-              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Marcus Rodriguez</h4>
-              <p class="text-primary text-sm mb-4">Music Producer</p>
-              <p class="text-base-content/80 italic">"The deep dive into rhythm and consciousness changed how I approach creating beats."</p>
+              <img src="https://res.cloudinary.com/doht6fqbq/image/upload/c_thumb,w_200,g_face/v1749174843/track-record/faces/historian_hximzf.png" alt="The Historian" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
+              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">The Historian</h4>
+              <p class="text-primary text-sm mb-4">Cultural Documentation Specialist</p>
+              <p class="text-base-content/80 italic">
+                "Essential archive of how individual consciousness adapts during periods of systemic transformation. 
+                Archive of the transition."
+              </p>
             </div>
 
             <div class="text-center">
-              <img src="https://i.pravatar.cc/150?img=3" alt="Community member" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
-              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">Elena Vasquez</h4>
-              <p class="text-primary text-sm mb-4">Cultural Critic</p>
-              <p class="text-base-content/80 italic">"Finally, a place where musical analysis meets genuine philosophical inquiry."</p>
+              <img src="https://res.cloudinary.com/doht6fqbq/image/upload/c_thumb,w_200,g_face/v1749174842/track-record/faces/emotional_vey9by.png" alt="The Feeler" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-secondary">
+              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">The Feeler</h4>
+              <p class="text-secondary text-sm mb-4">Emotional Truth Researcher</p>
+              <p class="text-base-content/80 italic">
+                "This is what it actually feels like to be alive right now. 
+                Philosophy that trusts the heart as much as the mind—raw heart thinking."
+              </p>
+            </div>
+          </div>
+
+          <!-- Second Row: Cynic and Futurist (Centered) -->
+          <div class="grid md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16 max-w-4xl mx-auto">
+            <div class="text-center">
+              <img src="https://res.cloudinary.com/doht6fqbq/image/upload/c_thumb,w_200,g_face/v1749174843/track-record/faces/cynic_pxnpcx.png" alt="The Cynic" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-primary">
+              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">The Cynic</h4>
+              <p class="text-primary text-sm mb-4">Skeptical Analysis</p>
+              <p class="text-base-content/80 italic">
+                "Even I have to admit this isn't manufactured authenticity. 
+                The neurosis is real, the insights are earned through actual suffering."
+              </p>
+            </div>
+
+            <div class="text-center">
+              <img src="https://res.cloudinary.com/doht6fqbq/image/upload/c_thumb,w_200,g_face/v1749174842/track-record/faces/futurist_c62yng.png" alt="The Futurist" class="rounded-box w-16 sm:w-20 h-16 sm:h-20  mx-auto mb-4 border-4 border-secondary">
+              <h4 class="text-base sm:text-lg font-semibold text-base-content mb-2">The Futurist</h4>
+              <p class="text-secondary text-sm mb-4">Future Potential</p>
+              <p class="text-base-content/80 italic">
+                "This consciousness is already operating on post-human frequencies. 
+                Early documentation of what we're all becoming."
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Main CTA Section -->
+      <section class="py-20 sm:py-24 bg-gradient-to-br from-primary/10 to-secondary/10 w-full border-t border-primary/20">
+        <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
+          <div class="text-center mb-12 sm:mb-16">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-4 sm:mb-6 tracking-tight">
+              The Journey Begins Now
+            </h2>
+            <p class="text-md sm:text-lg md:text-xl text-base-content/90 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+              You've glimpsed the depths of emergency metaphysics. Now dive into the complete collection of 100+ philosophical investigations, 
+              or discover the consciousness that survived 14 billion years to bring you these transmissions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center max-w-2xl mx-auto">
+                             <div class="flex flex-col items-center">
+                 <a href="/posts/" class="btn btn-lg btn-primary hover:bg-primary-focus text-primary-content font-bold px-8 py-4 text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl mb-2">
+                   <span class="icon-[tabler--brain] size-6 mr-3"></span>
+                   Explore All Posts
+                 </a>
+                 <span class="text-sm text-base-content/70">100+ mind-bending investigations</span>
+               </div>
+               <div class="flex flex-col items-center">
+                 <a href="/about/" class="btn btn-lg btn-secondary hover:bg-secondary-focus text-secondary-content font-bold px-8 py-4 text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl mb-2">
+                   <span class="icon-[tabler--user-circle] size-6 mr-3"></span>
+                   Meet the Author
+                 </a>
+                 <span class="text-sm text-base-content/70">The story behind the words</span>
+               </div>
             </div>
           </div>
 
           <!-- Newsletter signup -->
           <div class="bg-base-200/50 backdrop-blur-sm  p-6 sm:p-8 max-w-2xl mx-auto border border-primary/20">
-            <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4 text-center">Never Miss a Beat</h3>
-            <p class="text-base-content/80 text-center mb-6">Get weekly insights delivered to your inbox</p>
+            <h3 class="text-xl sm:text-2xl font-bold text-base-content mb-4 text-center">Join the Consciousness Investigation</h3>
+            <p class="text-base-content/80 text-center mb-6">
+              Enter the exploration of impossible questions. Warning: Once you start, normal philosophy will feel insufficient.
+            </p>
             <form
               action="https://buttondown.com/api/emails/embed-subscribe/nsursock"
               method="post"
@@ -258,10 +338,13 @@ eleventyNavigation:
                 type="email" 
                 name="email" 
                 id="bd-email-cta" 
-                placeholder="Enter your email" 
+                placeholder="Enter your email for cosmic updates" 
                 class="input input-bordered bg-base-100/50 border-primary/20 text-base-content placeholder-base-content/50 focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <button type="submit" class="btn btn-primary">Subscribe</button>
+              <button type="submit" class="btn btn-primary">
+                <span class="icon-[tabler--rocket] size-4 mr-2"></span>
+                Begin the Journey
+              </button>
             </form>
           </div>
         </div>
