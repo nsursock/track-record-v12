@@ -16,7 +16,7 @@ layout: base
 
   <!-- Hero Section -->
   <header class="mb-8 lg:mb-12 -mx-4 px-4">
-    <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-base-100 w-full rounded-box">
+    <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-base-100 w-full rounded-box border border-primary/20">
       <!-- Background Image -->
       {% set heroMatch = content | regexFind('<img[^>]*>') %}
       {% if heroMatch and heroMatch[0] %}
@@ -51,7 +51,7 @@ layout: base
         <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
           {% if tags %}
             {% for tag in tags %}
-              <span class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
+              <span class="badge {% if loop.first %}bg-primary text-primary-content{% else %}bg-secondary text-secondary-content{% endif %} border-0 shadow-md">
                 <span class="icon-[tabler--tag] size-4 mr-1"></span>
                 {{ tag }}
               </span>
@@ -59,12 +59,12 @@ layout: base
           {% endif %}
         </div>
 
-        <h1 class="mb-6 text-4xl font-bold leading-tight text-base-content lg:mb-8 lg:text-6xl">
+        <h1 class="mb-6 text-4xl font-bold leading-tight text-base-content lg:mb-8 lg:text-6xl drop-shadow-lg">
           {{ title }}
         </h1>
 
         {% if meta_description %}
-          <p class="mb-8 text-xl text-base-content/80 max-w-3xl mx-auto">
+          <p class="mb-8 text-xl text-base-content/80 max-w-3xl mx-auto drop-shadow-md">
             {{ meta_description }}
           </p>
         {% endif %}
@@ -72,14 +72,14 @@ layout: base
         <div class="flex items-center justify-center space-x-4">
           <div class="flex items-center space-x-2">
             {% if author %}
-              <img class="w-12 h-12 rounded-box ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
+              <img class="w-12 h-12 rounded-box ring-2 ring-primary/30 shadow-lg" src="/assets/images/profile.jpeg" alt="{{ author }}">
               <div class="font-medium text-base-content">
                 <div class="flex items-center gap-2">
-                  <span class="icon-[tabler--user] size-4"></span>
+                  <span class="icon-[tabler--user] size-4 text-primary"></span>
                   {{ author }}
                 </div>
-                <div class="text-sm text-base-content/80 flex items-center gap-2">
-                  <span class="icon-[tabler--calendar] size-4"></span>
+                <div class="text-sm text-base-content/70 flex items-center gap-2">
+                  <span class="icon-[tabler--calendar] size-4 text-primary"></span>
                   {% if published_date %}
                     {{ published_date | formatDate("MMM dd, yyyy @ hh:mm") }}
                   {% endif %}
@@ -99,18 +99,18 @@ layout: base
 
       <!-- Key Takeaways -->
       {% if key_takeaways %}
-        <div class="mb-8 p-6 bg-base-200/50 rounded-box">
-          <h2 class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
-            <span class="icon-[tabler--key] size-5"></span>
-        Key Takeaways
-      </h2>
+        <div class="mb-8 p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box border border-primary/20">
+          <h2 class="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+            <span class="icon-[tabler--key] size-5 text-primary"></span>
+            Key Takeaways
+          </h2>
           <ul class="space-y-3">
             {% for takeaway in key_takeaways %}
               <li class="flex items-start gap-3">
                 <span class="icon-[tabler--arrow-right] size-5 text-primary mt-1"></span>
                 <div>
-                  <span class="text-base-content/80 font-bold underline">{{ takeaway.title }}</span>
-                  <span class="text-base-content/80">:</span>
+                  <span class="text-primary font-bold underline decoration-primary/50">{{ takeaway.title }}</span>
+                  <span class="text-primary/80">:</span>
                   <span class="text-base-content/80">{{ takeaway.description }}</span>
                 </div>
               </li>
@@ -120,28 +120,29 @@ layout: base
       {% endif %}
 
       <!-- Affiliate Disclosure -->
-      <div class="alert alert-info mb-6 p-4 rounded-box text-info-content/80 text-sm flex items-center gap-2">
-        <span class="icon-[tabler--info-circle] size-5"></span>
-        <span>
+      <div class="alert bg-secondary/10 border border-secondary/30 mb-6 p-4 rounded-box text-secondary flex items-center gap-2">
+        <span class="icon-[tabler--info-circle] size-5 text-secondary"></span>
+        <span class="text-secondary/90">
           This article may contain affiliate links. If you click and make a purchase, I may earn a commission at no extra cost to you. Thank you for supporting my work!
         </span>
       </div>
 
       <!-- Article Content -->
       <div class="prose prose-lg max-w-none dark:prose-invert 
-        prose-headings:prose-headings:font-bold
-        prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl
+        prose-headings:font-bold prose-headings:text-primary
+        prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-primary prose-h5:text-primary prose-h6:text-primary
         prose-p:text-base-content/80
-        prose-a:text-primary dark:prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-base-content
-        prose-code:text-primary dark:prose-code:text-primary
-        prose-pre:bg-base-200 dark:prose-pre:bg-base-200
-        prose-blockquote:border-l-primary prose-blockquote:bg-base-200/50 dark:prose-blockquote:bg-base-200/50
-        prose-img:rounded-box prose-img:shadow-md
-        prose-hr:border-primary/20
+        prose-a:text-primary dark:prose-a:text-primary prose-a:no-underline hover:prose-a:underline hover:prose-a:text-primary/80
+        prose-strong:text-primary
+        prose-code:text-primary dark:prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1 prose-code:rounded
+        prose-pre:bg-base-200 dark:prose-pre:bg-base-200 prose-pre:border prose-pre:border-primary/20
+        prose-blockquote:border-l-primary prose-blockquote:bg-primary/5 dark:prose-blockquote:bg-primary/5 prose-blockquote:text-primary/90
+        prose-img:rounded-box prose-img:shadow-md prose-img:border prose-img:border-primary/20
+        prose-hr:border-primary/30
         prose-li:marker:text-primary
         prose-table:border-primary/20
-        prose-th:bg-base-200/50 dark:prose-th:bg-base-200/50"
+        prose-th:bg-primary/10 dark:prose-th:bg-primary/10 prose-th:text-primary
+        prose-td:border-primary/10"
         x-data="{ imageCount: 0 }"
         x-init="$el.querySelectorAll('p > img').forEach(img => {
           const p = img.parentElement;
@@ -177,13 +178,13 @@ layout: base
         <!-- Tags -->
         {% if tags %}
           <div class="mb-8">
-            <h2 class="mb-4 text-xl font-bold text-base-content flex items-center gap-2">
-              <span class="icon-[tabler--tags] size-5"></span>
+            <h2 class="mb-4 text-xl font-bold text-primary flex items-center gap-2">
+              <span class="icon-[tabler--tags] size-5 text-primary"></span>
               Tags
             </h2>
             <div class="flex flex-wrap gap-2">
               {% for tag in tags %}
-                <a href="/tags/{{ tag | urlencode }}" class="badge badge-soft {% if loop.first %}badge-primary{% else %}badge-secondary{% endif %}">
+                <a href="/tags/{{ tag | urlencode }}" class="badge {% if loop.first %}bg-primary text-primary-content hover:bg-primary/80{% else %}bg-secondary text-secondary-content hover:bg-secondary/80{% endif %} border-0 transition-colors">
                   <span class="icon-[tabler--tag] size-4 mr-1"></span>
                   {{ tag }}
                 </a>
@@ -195,21 +196,21 @@ layout: base
         <!-- Comments Section -->
         {% if comments %}
           <div class="mt-12">
-            <h2 class="mb-8 text-2xl font-bold text-base-content flex items-center gap-2">
-              <span class="icon-[tabler--messages] size-6"></span>
+            <h2 class="mb-8 text-2xl font-bold text-primary flex items-center gap-2">
+              <span class="icon-[tabler--messages] size-6 text-primary"></span>
               Comments
             </h2>
             <div class="space-y-6">
               {% for comment in comments %}
-                <article class="p-6 text-base bg-base-200/50 rounded-box shadow-sm">
+                <article class="p-6 text-base bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
                   <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
-                      <img class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/20" src="{{ comment.avatar }}" alt="{{ comment.name }}">
-                      <div class="inline-flex items-center mr-3 text-sm text-base-content">
-                        <span class="icon-[tabler--user] size-4 mr-1"></span>
+                      <img class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30" src="{{ comment.avatar }}" alt="{{ comment.name }}">
+                      <div class="inline-flex items-center mr-3 text-sm text-primary">
+                        <span class="icon-[tabler--user] size-4 mr-1 text-primary"></span>
                         <cite class="font-semibold">{{ comment.name }}</cite>
                       </div>
-                      <p class="text-sm text-base-content/80 flex items-center gap-1">
+                      <p class="text-sm text-primary/70 flex items-center gap-1">
                         <span class="icon-[tabler--calendar] size-4"></span>
                         {% if comment.commented_date %}
                           {{ comment.commented_date | formatDate("MMM dd, yyyy @ hh:mm") }}
@@ -226,11 +227,11 @@ layout: base
 
         <!-- Navigation -->
         <div class="mt-12 flex items-center justify-between">
-          <a href="/posts/" class="inline-flex items-center font-medium text-primary hover:text-primary/80 transition-colors">
+          <a href="/posts/" class="inline-flex items-center font-medium text-primary hover:text-primary/70 transition-colors">
             <span class="icon-[tabler--arrow-left] size-4 mr-2"></span>
             Back to Articles
           </a>
-          <div class="text-base-content/80 flex items-center gap-2">
+          <div class="text-secondary flex items-center gap-2">
             <span class="icon-[tabler--writing] size-4"></span>
             {{ content | striptags | wordcount }} words
           </div>
@@ -243,32 +244,32 @@ layout: base
       <div class="sticky top-24">
         <!-- Author Bio -->
         {% if author %}
-          <div class="p-6 bg-base-200/50 rounded-box shadow-sm mb-8">
-            <h3 class="text-lg font-bold text-base-content mb-4 flex items-center gap-2">
-              <span class="icon-[tabler--user-circle] size-5"></span>
+          <div class="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box shadow-sm mb-8 border border-primary/20">
+            <h3 class="text-lg font-bold text-primary mb-4 flex items-center gap-2">
+              <span class="icon-[tabler--user-circle] size-5 text-primary"></span>
               About the Author
             </h3>
             <div class="flex items-center space-x-4 mb-4">
-              <img class="w-16 h-16 rounded-box ring-2 ring-primary/20" src="https://i.pravatar.cc/150?u={{ author | urlencode }}" alt="{{ author }}">
+              <img class="w-16 h-16 rounded-box ring-2 ring-primary/30" src="/assets/images/profile.jpeg" alt="{{ author }}">
               <div>
-                <h4 class="text-lg font-bold text-base-content flex items-center gap-2">
+                <h4 class="text-lg font-bold text-primary flex items-center gap-2">
                   <span class="icon-[tabler--user] size-4"></span>
                   {{ author }}
                 </h4>
-                <p class="text-sm text-base-content/80 flex items-center gap-2">
+                <p class="text-sm text-secondary flex items-center gap-2">
                   <span class="icon-[tabler--pencil] size-4"></span>
                   Author
                 </p>
               </div>
             </div>
-            <p class="text-base-content/80">{{ author_bio or "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." }}</p>
+            <p class="text-base-content/80">{{ author_bio or "Nicolas Sursock is a web developer, musician, and philosopher who transforms chaos into systems—born in Beirut during bombardments, shaped by noise, refined by choice. He builds real things that matter, believing execution trumps potential and dangerous truth beats comfortable lies." }}</p>
           </div>
         {% endif %}
 
         <!-- Related Posts -->
-        <div class="p-6 bg-base-200/50 rounded-box shadow-sm">
-          <h3 class="text-lg font-bold text-base-content mb-4 flex items-center gap-2">
-            <span class="icon-[tabler--article] size-5"></span>
+        <div class="p-6 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-box shadow-sm border border-secondary/20">
+          <h3 class="text-lg font-bold text-secondary mb-4 flex items-center gap-2">
+            <span class="icon-[tabler--article] size-5 text-secondary"></span>
             Related Posts
           </h3>
           <div class="space-y-4">
@@ -282,8 +283,8 @@ layout: base
                   {% endif %}
                 {% endfor %}
                 {% if hasCommonTags %}
-                  <a href="{{ post.url }}" class="block hover:bg-base-200/50 p-4 rounded-box">
-                    <h4 class="font-medium text-base-content flex items-center gap-2">
+                  <a href="{{ post.url }}" class="block hover:bg-primary/10 p-4 rounded-box transition-colors border border-transparent hover:border-primary/20">
+                    <h4 class="font-medium text-primary flex items-center gap-2">
                       <span class="icon-[tabler--chevron-right] size-4"></span>
                       {{ post.data.title }}
                     </h4>

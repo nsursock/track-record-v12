@@ -73,7 +73,7 @@ meta:
     <div class="relative px-6 py-12 sm:px-12 sm:py-16 lg:py-20">
       <div class="grid lg:grid-cols-2 gap-8 items-center">
         <div class="text-center lg:text-left">
-          <h1 class="text-4xl font-bold tracking-tight text-base-content sm:text-5xl lg:text-6xl">
+          <h1 class="text-4xl font-bold tracking-tight text-secondary sm:text-5xl lg:text-6xl">
             Articles
           </h1>
           <p class="mt-6 text-lg leading-8 text-base-content/70 sm:text-xl">
@@ -238,7 +238,7 @@ meta:
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn btn-primary btn-sm">
+              <a href="{{post.url}}" class="btn {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
@@ -305,7 +305,7 @@ meta:
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn btn-primary btn-sm">
+              <a href="{{post.url}}" class="btn {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
