@@ -35,9 +35,9 @@ Of course, that's until you meet someone called Domino. Domino seems to be someo
 ![red and blue fire digital wallpaper](https://images.unsplash.com/photo-1578885136359-16c8bd4d3a8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80&w=800&h=600)
 
 Yesterday I stumbled upon an art called "the art of stopping." It seems BDSM people who like discipline have agreed upon two words to make their games enjoyable:
+ - a safe word meaning the game must be stopped right now,
+ - a slow word indicating the intensity of the game must be reduced.
 
-a safe word meaning the game must be stopped right now,
-a slow word indicating the intensity of the game must be reduced.
 Discipline is a fascinating topic because it's the art of living afraid of punishment. It bothers me that you don't talk about rewards. In the game I play, the premium for killing monsters is the awesome gear with extraordinary power.
 
 Readers of that blog know I did a few experiments in my life, some with a little pain. And I must say teleportation fascinates me. You can travel without having to face or be corrupt by the environment.
