@@ -193,37 +193,292 @@ layout: base
           </div>
         {% endif %}
 
-        <!-- Comments Section -->
-        {% if comments %}
-          <div class="mt-12">
+        <!-- Comment Form -->
+        <div class="mt-12" x-data="commentForm()" id="comment-form">
+          <!-- Comments Section -->
+          <div class="mb-12" x-show="comments.length > 0 || loadingComments">
             <h2 class="mb-8 text-2xl font-bold text-primary flex items-center gap-2">
               <span class="icon-[tabler--messages] size-6 text-primary"></span>
               Comments
+              <span class="badge badge-secondary badge-sm" x-text="comments.length" x-show="comments.length > 0"></span>
             </h2>
-            <div class="space-y-6">
-              {% for comment in comments %}
+            
+            <!-- Loading State -->
+            <div x-show="loadingComments" class="flex justify-center py-8">
+              <div class="loading loading-spinner loading-lg text-primary"></div>
+            </div>
+            
+            <!-- Comments List -->
+            <div class="space-y-6" x-show="!loadingComments">
+              <template x-for="comment in comments" :key="comment.id">
                 <article class="p-6 text-base bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
                   <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
-                      <img class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30" src="{{ comment.avatar }}" alt="{{ comment.name }}">
+                      <template x-if="comment.avatar">
+                        <img class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30" 
+                             :src="comment.avatar" 
+                             :alt="comment.name"
+                             loading="lazy">
+                      </template>
+                      <template x-if="!comment.avatar">
+                        <div class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30 bg-primary text-white flex items-center justify-center">
+                          <span class="text-sm font-semibold" x-text="comment.name.charAt(0).toUpperCase()"></span>
+                        </div>
+                      </template>
                       <div class="inline-flex items-center mr-3 text-sm text-primary">
                         <span class="icon-[tabler--user] size-4 mr-1 text-primary"></span>
-                        <cite class="font-semibold">{{ comment.name }}</cite>
+                        <cite class="font-semibold" x-text="comment.name"></cite>
                       </div>
                       <p class="text-sm text-primary/70 flex items-center gap-1">
                         <span class="icon-[tabler--calendar] size-4"></span>
-                        {% if comment.commented_date %}
-                          {{ comment.commented_date | formatDate("MMM dd, yyyy @ hh:mm") }}
-                        {% endif %}
+                        <span x-text="new Date(comment.created_at).toLocaleDateString('en-US', { 
+                          month: 'short', 
+                          day: 'numeric', 
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })"></span>
                       </p>
                     </div>
                   </footer>
-                  <p class="text-base-content/80">{{ comment.text }}</p>
+                  <p class="text-base-content/80" x-text="comment.comment"></p>
                 </article>
-              {% endfor %}
+              </template>
+              
+              <!-- No Comments State -->
+              <div x-show="comments.length === 0 && !loadingComments" class="text-center py-8 text-base-content/60">
+                <span class="icon-[tabler--message-off] size-12 mx-auto mb-2 block text-base-content/40"></span>
+                <p>No comments yet. Be the first to share your thoughts!</p>
+              </div>
             </div>
           </div>
-        {% endif %}
+
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-primary flex items-center gap-2">
+              <span class="icon-[tabler--message-plus] size-6 text-primary"></span>
+              Leave a Comment
+            </h2>
+            {# <!-- Debug toggle -->
+            <button @click="toggleDebug()" 
+                    class="btn btn-ghost btn-xs opacity-20 hover:opacity-100">
+              Debug
+            </button> #}
+          </div>
+          
+          {# <!-- Debug info -->
+          <div x-show="debug" x-cloak class="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-box text-sm">
+            <p><strong>Debug Info:</strong></p>
+            <p>User: <span x-text="user ? 'Logged in as ' + user.name : 'Not logged in'"></span></p>
+            <p>Auth Store: <span x-text="window.Alpine?.store?.('auth')?.isAuthenticated ? 'Authenticated' : 'Not authenticated'"></span></p>
+            <p>LocalStorage: <span x-text="localStorage.getItem('user') ? 'Has user data' : 'No user data'"></span></p>
+          </div> #}
+
+          <!-- Logged In User Form -->
+          <div x-show="user" x-cloak>
+            <!-- User Profile Card -->
+            <div class="mb-6 p-6 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-box border border-primary/30 shadow-sm" 
+                 x-data="{ avatarError: false }">
+              <div class="flex items-center gap-4">
+                <div class="relative">
+                  <div class="w-16 h-16 rounded-box ring-2 ring-primary/50 shadow-lg overflow-hidden">
+                    <template x-if="user?.avatar && !avatarError">
+                      <img :src="user.avatar" 
+                           :alt="user?.name || 'User'"
+                           @error="avatarError = true"
+                           class="w-full h-full object-cover">
+                    </template>
+                    <template x-if="!user?.avatar || avatarError">
+                      <div class="bg-primary text-white w-full h-full flex items-center justify-center">
+                        <span class="text-xl font-semibold leading-none" 
+                              x-text="user?.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase() : (user?.email ? user.email.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase() : 'U')"></span>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-primary rounded-full border-2 border-white flex items-center justify-center">
+                    <span class="icon-[tabler--check] size-3 text-white"></span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-lg font-bold text-primary flex items-center gap-2 mb-1">
+                    <span class="icon-[tabler--user-check] size-5"></span>
+                    <span x-text="user?.name || 'User'"></span>
+                  </p>
+                  <p class="text-sm text-base-content/70 flex items-center gap-2">
+                    <span class="icon-[tabler--mail] size-4"></span>
+                    <span x-text="user?.email || 'No email'"></span>
+                  </p>
+                  <p class="text-xs text-primary/80 font-medium mt-1">✓ Ready to comment</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <button @click="signOut()" 
+                          class="btn btn-soft btn-sm btn-error">
+                    <span class="icon-[tabler--logout] size-4 mr-1"></span>
+                    Sign out
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <form class="p-6 bg-gradient-to-r from-secondary/5 to-primary/5 rounded-box shadow-sm border border-secondary/20" 
+                  action="/api/comments" 
+                  method="POST"
+                  @submit="submitAuthForm">
+              
+              <!-- Hidden fields for authenticated user -->
+              <input type="hidden" name="post_url" value="{{ page.url }}">
+              <input type="hidden" name="post_title" value="{{ title }}">
+              <input type="hidden" name="user_id" :value="user?.id">
+              <input type="hidden" name="name" :value="user?.name">
+              <input type="hidden" name="email" :value="user?.email">
+              <input type="hidden" name="avatar" :value="user?.avatar">
+              
+              <!-- Comment Field -->
+              <div class="form-control mb-6">
+                <label class="label" for="comment-text-auth">
+                  <span class="label-text text-primary font-medium flex items-center gap-2">
+                    <span class="icon-[tabler--message-2] size-4"></span>
+                    Your Comment *
+                  </span>
+                </label>
+                <textarea id="comment-text-auth"
+                          name="comment" 
+                          required 
+                          rows="5" 
+                          class="textarea textarea-bordered textarea-primary w-full focus:border-primary focus:ring-2 focus:ring-primary/20" 
+                          placeholder="Share your thoughts about this article..."></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="flex justify-end">
+                <button type="submit" 
+                        class="btn btn-primary btn-soft shadow-lg min-w-32"
+                        :disabled="isSubmittingAuth">
+                  <span class="icon-[tabler--send] size-4 mr-2" x-show="!isSubmittingAuth"></span>
+                  <span class="loading loading-spinner loading-sm mr-2" x-show="isSubmittingAuth"></span>
+                  <span x-text="isSubmittingAuth ? 'Publishing...' : 'Publish Comment'"></span>
+                </button>
+              </div>
+
+              <!-- primary/Error Messages -->
+              <div class="mt-4" id="comment-messages-auth">
+                <!-- Messages will be injected here via JavaScript -->
+              </div>
+            </form>
+          </div>
+
+          <!-- Guest User Form -->
+          <div x-show="!user" x-cloak>
+            <!-- Login Prompt -->
+            <div class="mb-6 p-4 bg-info/10 rounded-box border border-info/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <span class="icon-[tabler--info-circle] size-5 text-info"></span>
+                  <div>
+                    <p class="font-medium text-info">Have an account?</p>
+                    <p class="text-sm text-base-content/70">Sign in for a faster commenting experience</p>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <a href="/credentials/?mode=login&redirect={{ page.url + '#comment-form' | urlencode }}" class="btn btn-info btn-sm">
+                    <span class="icon-[tabler--login] size-4 mr-1"></span>
+                    Sign In
+                  </a>
+                  <a href="/credentials/?mode=signup&redirect={{ page.url + '#comment-form' | urlencode }}" class="btn btn-outline btn-info btn-sm">
+                    <span class="icon-[tabler--user-plus] size-4 mr-1"></span>
+                    Sign Up
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <form class="p-6 bg-gradient-to-r from-secondary/5 to-primary/5 rounded-box shadow-sm border border-secondary/20" 
+                  action="/api/comments" 
+                  method="POST"
+                  @submit="submitGuestForm">
+              
+              <!-- Hidden field for post URL -->
+              <input type="hidden" name="post_url" value="{{ page.url }}">
+              <input type="hidden" name="post_title" value="{{ title }}">
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <!-- Name Field -->
+                <div class="form-control">
+                  <label class="label" for="comment-name">
+                    <span class="label-text text-primary font-medium flex items-center gap-2">
+                      <span class="icon-[tabler--user] size-4"></span>
+                      Name *
+                    </span>
+                  </label>
+                  <input type="text" 
+                         id="comment-name"
+                         name="name" 
+                         required 
+                         class="input input-bordered input-primary w-full focus:border-primary focus:ring-2 focus:ring-primary/20" 
+                         placeholder="Your name">
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-control">
+                  <label class="label" for="comment-email">
+                    <span class="label-text text-primary font-medium flex items-center gap-2">
+                      <span class="icon-[tabler--mail] size-4"></span>
+                      Email (optional)
+                    </span>
+                  </label>
+                  <input type="email" 
+                         id="comment-email"
+                         name="email" 
+                         class="input input-bordered input-primary w-full focus:border-primary focus:ring-2 focus:ring-primary/20" 
+                         placeholder="your.email@example.com">
+                </div>
+              </div>
+
+              <!-- Comment Field -->
+              <div class="form-control mb-6">
+                <label class="label" for="comment-text">
+                  <span class="label-text text-primary font-medium flex items-center gap-2">
+                    <span class="icon-[tabler--message-2] size-4"></span>
+                    Comment *
+                  </span>
+                </label>
+                <textarea id="comment-text"
+                          name="comment" 
+                          required 
+                          rows="5" 
+                          class="textarea textarea-bordered textarea-primary w-full focus:border-primary focus:ring-2 focus:ring-primary/20" 
+                          placeholder="Share your thoughts about this article..."></textarea>
+              </div>
+
+              <!-- Terms and Submit -->
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="form-control">
+                  <label class="label cursor-pointer justify-start gap-3">
+                    <input type="checkbox" 
+                           name="terms" 
+                           required 
+                           class="checkbox checkbox-primary">
+                    <span class="label-text text-base-content/80">
+                      I agree to the <a href="/privacy" class="link link-primary">privacy policy</a> and <a href="/terms" class="link link-primary">terms of service</a>
+                    </span>
+                  </label>
+                </div>
+
+                <button type="submit" 
+                        class="btn btn-primary shadow-lg min-w-32"
+                        :disabled="isSubmittingGuest">
+                  <span class="icon-[tabler--send] size-4 mr-2" x-show="!isSubmittingGuest"></span>
+                  <span class="loading loading-spinner loading-sm mr-2" x-show="isSubmittingGuest"></span>
+                  <span x-text="isSubmittingGuest ? 'Submitting...' : 'Post Comment'"></span>
+                </button>
+              </div>
+
+              <!-- primary/Error Messages -->
+              <div class="mt-4" id="comment-messages">
+                <!-- Messages will be injected here via JavaScript -->
+              </div>
+            </form>
+          </div>
+        </div>
 
         <!-- Navigation -->
         <div class="mt-12 flex items-center justify-between">

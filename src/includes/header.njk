@@ -110,6 +110,19 @@
                     </li>
                   </template>
                 </ul>
+                <!-- Admin Links (Desktop) -->
+                <div x-show="$store.auth.user?.email === 'nicolas.sursock@gmail.com'">
+                  <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
+                    <template x-for="link in adminLinks" :key="link.href">
+                      <li>
+                        <a :href="link.href" class="flex items-center py-2 px-4 text-sm hover:bg-base-200 text-warning">
+                          <span :class="`icon-[tabler--${link.icon}] size-4 mr-2`"></span>
+                          <span x-text="link.text"></span>
+                        </a>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
                 <ul class="py-1 text-base-content/70" aria-labelledby="dropdown">
                   <li>
                     <button 
@@ -235,6 +248,15 @@
               <span x-text="link.text"></span>
             </a>
           </template>
+          <!-- Admin Links (Mobile) -->
+          <div x-show="$store.auth.user?.email === 'nicolas.sursock@gmail.com'" class="border-t border-warning/20 pt-4 mt-4">
+            <template x-for="link in adminLinks" :key="link.href">
+              <a :href="link.href" class="flex items-center text-warning hover:text-warning-focus transition-colors mb-4">
+                <span :class="`icon-[tabler--${link.icon}] size-4 mr-3`"></span>
+                <span x-text="link.text"></span>
+              </a>
+            </template>
+          </div>
           <button 
             @click="async () => {
               try {

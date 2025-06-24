@@ -48,6 +48,18 @@ export default {
                 currentPage: window.location.pathname
             });
 
+            // Store user data if authenticated
+            if (this.isAuthenticated && this.user) {
+                const userData = {
+                    id: this.user.id,
+                    email: this.user.email,
+                    name: this.userName,
+                    avatar: this.userAvatar
+                };
+                localStorage.setItem('user', JSON.stringify(userData));
+                console.log('💾 Stored initial user data in localStorage:', userData);
+            }
+
             // Check if user is authenticated but on wrong page
             if (this.isAuthenticated && (window.location.pathname === '/' || window.location.pathname.includes('credentials'))) {
                 // Check for stored return URL
@@ -101,6 +113,18 @@ export default {
                     currentPage: window.location.pathname
                 });
 
+                // Store user data in localStorage for comment form usage
+                if (this.user) {
+                    const userData = {
+                        id: this.user.id,
+                        email: this.user.email,
+                        name: this.userName,
+                        avatar: this.userAvatar
+                    };
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    console.log('💾 Stored user data in localStorage:', userData);
+                }
+
                 // Check if we're on a page that should redirect
                 if (window.location.pathname === '/' || window.location.pathname.includes('credentials')) {
                     // Check for stored return URL
@@ -121,6 +145,10 @@ export default {
                 }
             } else if (event === 'SIGNED_OUT') {
                 console.log('👋 User signed out')
+                // Clear user data from localStorage
+                localStorage.removeItem('user');
+                sessionStorage.removeItem('user');
+                console.log('🧹 Cleared user data from storage');
             }
 
             // Force Alpine to update reactivity

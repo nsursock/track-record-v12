@@ -1,0 +1,195 @@
+---
+layout: admin-guard
+title: Admin Dashboard
+---
+
+<div class="min-h-screen py-12 px-4 mx-auto max-w-screen-xl">
+  <!-- Header -->
+  <header class="mb-12 text-center">
+    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center mb-6">
+      <span class="icon-[tabler--shield-check] size-12 text-primary"></span>
+    </div>
+    <h1 class="text-4xl font-bold text-primary mb-3">Admin Dashboard</h1>
+    <p class="text-base-content/70 text-lg max-w-2xl mx-auto">
+      Welcome to the administrative control panel. Manage your blog content and user interactions.
+    </p>
+  </header>
+
+  <!-- Admin Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+    <div class="stat bg-base-200 shadow rounded-box">
+      <div class="stat-figure text-primary">
+        <span class="icon-[tabler--message-circle] size-8"></span>
+      </div>
+      <div class="stat-title">Total Comments</div>
+      <div class="stat-value text-primary">--</div>
+      <div class="stat-desc">Across all posts</div>
+    </div>
+    
+    <div class="stat bg-base-200 shadow rounded-box">
+      <div class="stat-figure text-warning">
+        <span class="icon-[tabler--clock] size-8"></span>
+      </div>
+      <div class="stat-title">Pending Review</div>
+      <div class="stat-value text-warning">--</div>
+      <div class="stat-desc">Awaiting moderation</div>
+    </div>
+    
+    <div class="stat bg-base-200 shadow rounded-box">
+      <div class="stat-figure text-success">
+        <span class="icon-[tabler--check-circle] size-8"></span>
+      </div>
+      <div class="stat-title">Approved</div>
+      <div class="stat-value text-success">--</div>
+      <div class="stat-desc">Published comments</div>
+    </div>
+  </div>
+
+  <!-- Admin Functions -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
+    <!-- Comment Moderation -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 hover:shadow-xl transition-all duration-200">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--message-circle-2] size-8 text-primary"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">Comment Moderation</h2>
+        <p class="text-base-content/70 mb-6">
+          Review, approve, and manage user comments across all blog posts.
+        </p>
+        <div class="card-actions justify-center">
+          <a href="/app/admin/comments/" class="btn btn-primary">
+            <span class="icon-[tabler--arrow-right] size-4 mr-1"></span>
+            Manage Comments
+          </a>
+        </div>
+        <div class="flex justify-between text-sm text-base-content/50 mt-4 pt-4 border-t border-base-300">
+          <span>Pending: <span class="text-warning font-semibold">--</span></span>
+          <span>Approved: <span class="text-success font-semibold">--</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Analytics (Future) -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 opacity-60">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--chart-bar] size-8 text-secondary"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">Content Analytics</h2>
+        <p class="text-base-content/70 mb-6">
+          View detailed statistics about your blog posts and user engagement.
+        </p>
+        <div class="card-actions justify-center">
+          <button class="btn btn-disabled">
+            <span class="icon-[tabler--clock] size-4 mr-1"></span>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Management (Future) -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 opacity-60">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-accent/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--users] size-8 text-accent"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">User Management</h2>
+        <p class="text-base-content/70 mb-6">
+          Manage registered users, view profiles, and handle user-related issues.
+        </p>
+        <div class="card-actions justify-center">
+          <button class="btn btn-disabled">
+            <span class="icon-[tabler--clock] size-4 mr-1"></span>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Settings (Future) -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 opacity-60">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-warning/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--settings] size-8 text-warning"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">System Settings</h2>
+        <p class="text-base-content/70 mb-6">
+          Configure blog settings, manage themes, and update system preferences.
+        </p>
+        <div class="card-actions justify-center">
+          <button class="btn btn-disabled">
+            <span class="icon-[tabler--clock] size-4 mr-1"></span>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Management (Future) -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 opacity-60">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-info/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--file-text] size-8 text-info"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">Content Management</h2>
+        <p class="text-base-content/70 mb-6">
+          Create, edit, and manage blog posts directly from the admin panel.
+        </p>
+        <div class="card-actions justify-center">
+          <button class="btn btn-disabled">
+            <span class="icon-[tabler--clock] size-4 mr-1"></span>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backup & Maintenance (Future) -->
+    <div class="card bg-base-100 shadow-lg border border-base-300 opacity-60">
+      <div class="card-body text-center">
+        <div class="w-16 h-16 mx-auto bg-error/10 rounded-full flex items-center justify-center mb-4">
+          <span class="icon-[tabler--database] size-8 text-error"></span>
+        </div>
+        <h2 class="card-title justify-center text-xl mb-2">Backup & Maintenance</h2>
+        <p class="text-base-content/70 mb-6">
+          Manage database backups, run maintenance tasks, and monitor system health.
+        </p>
+        <div class="card-actions justify-center">
+          <button class="btn btn-disabled">
+            <span class="icon-[tabler--clock] size-4 mr-1"></span>
+            Coming Soon
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="mt-12 pt-8 border-t border-base-300">
+    <h3 class="text-2xl font-bold text-base-content mb-6 text-center">Quick Actions</h3>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/app/admin/comments/" class="btn btn-outline btn-sm">
+        <span class="icon-[tabler--message-circle] size-4 mr-1"></span>
+        View All Comments
+      </a>
+      <button class="btn btn-outline btn-sm" onclick="window.location.reload()">
+        <span class="icon-[tabler--refresh] size-4 mr-1"></span>
+        Refresh Dashboard
+      </button>
+      <a href="/" class="btn btn-outline btn-sm">
+        <span class="icon-[tabler--home] size-4 mr-1"></span>
+        Return to Site
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer Info -->
+  <div class="mt-12 text-center text-sm text-base-content/50">
+    <p>Logged in as: <span class="font-semibold">nicolas.sursock@gmail.com</span></p>
+    <p class="mt-1">Admin Dashboard v1.0 - Last updated: January 06, 2025</p>
+  </div>
+</div> 

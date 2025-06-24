@@ -147,6 +147,10 @@ Alpine.data('mobileMenu', () => ({
         { href: '/app/collections/', text: 'Collections', icon: 'bookmark' },
         { href: '/app/likes/', text: 'Likes', icon: 'heart' },
     ],
+    adminLinks: [
+        { href: '/app/admin/', text: 'Admin Dashboard', icon: 'shield-check' },
+        { href: '/app/admin/comments/', text: 'Moderate Comments', icon: 'message-circle' },
+    ],
     init() {
         // Close mobile menu on window resize if screen becomes larger than mobile breakpoint
         window.addEventListener('resize', () => {
@@ -307,9 +311,16 @@ Alpine.data('credentials', () => ({
     loginPassword: '',
 
     init() {
-        // Check URL parameters to determine which form to show
+        // Check URL parameters to determine which form to show and redirect URL
         const urlParams = new URLSearchParams(window.location.search);
         const mode = urlParams.get('mode');
+        const redirect = urlParams.get('redirect');
+        
+        // Store redirect URL for later use
+        if (redirect && redirect !== '/credentials' && redirect !== '/credentials/') {
+            localStorage.setItem('authReturnUrl', redirect);
+            console.log('📍 Stored redirect URL:', redirect);
+        }
         
         if (mode === 'login') {
             this.showLogin = true;
@@ -319,7 +330,8 @@ Alpine.data('credentials', () => ({
         
         console.log('🔐 Credentials page initialized:', {
             mode: mode || 'default',
-            showLogin: this.showLogin
+            showLogin: this.showLogin,
+            redirectUrl: redirect || 'none'
         });
     },
 
@@ -328,10 +340,15 @@ Alpine.data('credentials', () => ({
         this.error = '';
         this.success = '';
         
-        // Update URL to reflect current mode
+        // Update URL to reflect current mode while preserving redirect parameter
         const newMode = this.showLogin ? 'login' : 'signup';
         const url = new URL(window.location);
         url.searchParams.set('mode', newMode);
+        // Keep the redirect parameter if it exists
+        const redirect = url.searchParams.get('redirect');
+        if (redirect) {
+            url.searchParams.set('redirect', redirect);
+        }
         window.history.replaceState({}, '', url);
         
         console.log('🔄 Toggled form to:', newMode);
@@ -393,8 +410,17 @@ Alpine.data('credentials', () => ({
             this.signupEmail = '';
             this.signupPassword = '';
             this.signupConfirmPassword = '';
-            // Redirect to onboarding page
-            window.location.href = '/app/onboarding/';
+            
+            // Check if there's a return URL to redirect back to
+            const returnUrl = localStorage.getItem('authReturnUrl');
+            if (returnUrl && returnUrl !== '/credentials/' && returnUrl !== '/credentials') {
+                console.log('🔄 Redirecting to stored return URL after signup:', returnUrl);
+                localStorage.removeItem('authReturnUrl');
+                window.location.href = returnUrl;
+            } else {
+                // Redirect to onboarding page
+                window.location.href = '/app/onboarding/';
+            }
         } catch (err) {
             this.error = err.message || 'Sign up failed';
         } finally {
@@ -427,6 +453,533 @@ Alpine.data('credentials', () => ({
             this.loading = false;
         }
     }
+}));
+
+// Comment form component
+Alpine.data('commentForm', () => ({
+  user: null,
+  debug: false,
+  isSubmittingAuth: false,
+  isSubmittingGuest: false,
+  comments: [],
+  loadingComments: false,
+  
+  init() {
+    this.checkUser();
+    this.loadComments();
+    
+    // Retry after Alpine is fully initialized
+    setTimeout(() => {
+      this.checkUser();
+    }, 100);
+    
+    // Watch for auth changes using a different approach
+    setTimeout(() => {
+      if (window.Alpine && Alpine.store('auth')) {
+        // Set up interval to check for auth changes
+        setInterval(() => {
+          this.checkUser();
+        }, 1000);
+      }
+    }, 500);
+    
+    // Listen for storage changes
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'user') {
+        this.checkUser();
+      }
+    });
+  },
+  
+  checkUser() {
+    if (this.debug) console.log('🔍 Checking user state...');
+    
+    // First try localStorage (more reliable for immediate access)
+    const userData = localStorage.getItem('user') || sessionStorage.getItem('user');
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        if (parsedUser && parsedUser.id) {
+          this.user = parsedUser;
+          if (this.debug) console.log('💾 User from localStorage:', this.user);
+          return;
+        }
+      } catch (e) {
+        if (this.debug) console.log('❌ Error parsing user data:', e);
+      }
+    }
+    
+    // Fallback to Alpine auth store
+    if (window.Alpine && Alpine.store('auth')) {
+      const authStore = Alpine.store('auth');
+      if (this.debug) console.log('🔐 Auth store state:', {
+        isAuthenticated: authStore.isAuthenticated,
+        hasUser: !!authStore.user,
+        userName: authStore.userName,
+        userEmail: authStore.userEmail
+      });
+      
+      if (authStore.isAuthenticated && authStore.user) {
+        this.user = {
+          id: authStore.user.id,
+          email: authStore.userEmail,
+          name: authStore.userName,
+          avatar: authStore.userAvatar || '/assets/images/profile.jpeg'
+        };
+        if (this.debug) console.log('🔐 User from auth store:', this.user);
+        
+        // Also update localStorage to sync
+        localStorage.setItem('user', JSON.stringify(this.user));
+        return;
+      }
+    }
+    
+    // No user found
+    this.user = null;
+    if (this.debug) console.log('👤 No user found in any source');
+  },
+  
+  toggleDebug() {
+    this.debug = !this.debug;
+    this.checkUser();
+  },
+  
+  signOut() {
+    this.user = null;
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+    if (Alpine.store('auth')) {
+      Alpine.store('auth').signOut();
+    }
+  },
+  
+  async loadComments() {
+    if (this.loadingComments) return;
+    
+    const postUrl = window.location.pathname;
+    this.loadingComments = true;
+    
+    try {
+      const response = await fetch(`/api/comments?post_url=${encodeURIComponent(postUrl)}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API response error:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText
+        });
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        this.comments = result.comments || [];
+        if (this.debug) console.log('📝 Loaded comments:', this.comments);
+      } else {
+        console.error('Failed to load comments:', result.error);
+        this.comments = [];
+      }
+    } catch (error) {
+      console.error('Error loading comments:', {
+        message: error.message,
+        stack: error.stack
+      });
+      this.comments = [];
+      
+      // Show user-friendly error if needed
+      if (this.debug) {
+        console.log('💡 Debug: Check that your API environment variables are set correctly');
+      }
+    } finally {
+      this.loadingComments = false;
+    }
+  },
+  
+  async submitAuthForm(event) {
+    event.preventDefault();
+    this.isSubmittingAuth = true;
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const messageContainer = document.getElementById('comment-messages-auth');
+    
+    const requestData = {
+      post_url: formData.get('post_url'),
+      post_title: formData.get('post_title'),
+      user_id: formData.get('user_id'),
+      name: formData.get('name'),
+      email: formData.get('email'),
+      avatar: formData.get('avatar'),
+      comment: formData.get('comment')
+    };
+    
+    console.log('🚀 Submitting comment with data:', requestData);
+    
+    try {
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        messageContainer.innerHTML = `
+          <div class="alert alert-success">
+            <span class="icon-[tabler--check-circle] size-5"></span>
+            <span>${result.message}</span>
+          </div>
+        `;
+        form.reset();
+        // Reload comments to show the new one (if auto-approved)
+        setTimeout(() => this.loadComments(), 1000);
+      } else {
+        throw new Error(result.error || 'Failed to submit comment');
+      }
+    } catch (error) {
+      console.error('Comment submission error:', error);
+      messageContainer.innerHTML = `
+        <div class="alert alert-error">
+          <span class="icon-[tabler--x-circle] size-5"></span>
+          <span>Error: ${error.message}</span>
+        </div>
+      `;
+    } finally {
+      this.isSubmittingAuth = false;
+    }
+  },
+  
+  async submitGuestForm(event) {
+    event.preventDefault();
+    this.isSubmittingGuest = true;
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const messageContainer = document.getElementById('comment-messages');
+    
+    try {
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          post_url: formData.get('post_url'),
+          post_title: formData.get('post_title'),
+          name: formData.get('name'),
+          email: formData.get('email'),
+          comment: formData.get('comment'),
+          terms: formData.get('terms') === 'on'
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        messageContainer.innerHTML = `
+          <div class="alert alert-success">
+            <span class="icon-[tabler--check-circle] size-5"></span>
+            <span>${result.message}</span>
+          </div>
+        `;
+        form.reset();
+        // Reload comments to show the new one (if auto-approved)
+        setTimeout(() => this.loadComments(), 1000);
+      } else {
+        throw new Error(result.error || 'Failed to submit comment');
+      }
+    } catch (error) {
+      console.error('Comment submission error:', error);
+      messageContainer.innerHTML = `
+        <div class="alert alert-error">
+          <span class="icon-[tabler--x-circle] size-5"></span>
+          <span>Error: ${error.message}</span>
+        </div>
+      `;
+    } finally {
+      this.isSubmittingGuest = false;
+    }
+  }
+}));
+
+// Admin Comments Component
+Alpine.data('commentAdmin', () => ({
+  // State
+  comments: [],
+  filteredComments: [],
+  loading: true,
+  processing: false,
+  
+  // Filters
+  filterStatus: 'all', // 'all', 'pending', 'approved'
+  searchQuery: '',
+  searchTimeout: null,
+
+  // Stats
+  pendingCount: 0,
+  approvedCount: 0,
+  totalCount: 0,
+
+  // Toast messages
+  toast: {
+    show: false,
+    message: '',
+    type: 'success'
+  },
+
+  async init() {
+    // Admin check is handled by admin-guard layout
+    // Wait for auth to be ready before loading comments
+    await this.waitForAuth();
+    await this.loadComments();
+
+    // Watch for auth changes and reload comments
+    this.$watch('$store.auth.session', () => {
+      if (Alpine.store('auth').session?.access_token) {
+        this.loadComments();
+      }
+    });
+  },
+
+  async waitForAuth() {
+    return new Promise((resolve) => {
+      const checkAuth = () => {
+        if (!Alpine.store('auth').loading && Alpine.store('auth').session?.access_token) {
+          resolve();
+        } else {
+          setTimeout(checkAuth, 100);
+        }
+      };
+      checkAuth();
+    });
+  },
+
+  async loadComments() {
+    this.loading = true;
+    
+    try {
+      const authStore = Alpine.store('auth');
+      const token = authStore.session?.access_token;
+      
+      if (!token) {
+        console.error('Admin loadComments - No access token available:', {
+          hasSession: !!authStore.session,
+          isAuthenticated: authStore.isAuthenticated,
+          loading: authStore.loading,
+          user: authStore.user
+        });
+        throw new Error('No access token available. Please sign in again.');
+      }
+
+      const params = new URLSearchParams({
+        status: this.filterStatus,
+        limit: 100,
+        offset: 0
+      });
+
+      if (this.searchQuery.trim()) {
+        params.append('search', this.searchQuery.trim());
+      }
+
+      const response = await fetch(`/api/admin-comments?${params}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to load comments');
+      }
+
+      const data = await response.json();
+      this.comments = data.comments || [];
+      this.filteredComments = this.comments;
+      
+      // Update stats
+      if (data.stats) {
+        this.totalCount = data.stats.total;
+        this.approvedCount = data.stats.approved;
+        this.pendingCount = data.stats.pending;
+      }
+
+    } catch (error) {
+      console.error('Error loading comments:', error);
+      this.showToast('Failed to load comments: ' + error.message, 'error');
+    } finally {
+      this.loading = false;
+    }
+  },
+
+  async approveComment(commentId) {
+    await this.updateComment(commentId, 'approve');
+  },
+
+  async unapproveComment(commentId) {
+    await this.updateComment(commentId, 'unapprove');
+  },
+
+  async updateComment(commentId, action) {
+    if (this.processing) return;
+    
+    this.processing = true;
+    
+    try {
+      const token = Alpine.store('auth').session?.access_token;
+      if (!token) {
+        throw new Error('No access token');
+      }
+
+      const response = await fetch('/api/admin-comments', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: commentId,
+          action: action
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update comment');
+      }
+
+      const data = await response.json();
+      
+      // Update the comment in our local state
+      const commentIndex = this.comments.findIndex(c => c.id === commentId);
+      if (commentIndex !== -1) {
+        this.comments[commentIndex] = data.comment;
+        this.filterComments();
+        this.updateStats();
+      }
+
+      this.showToast(
+        action === 'approve' ? 'Comment approved successfully' : 'Comment unapproved successfully', 
+        'success'
+      );
+
+    } catch (error) {
+      console.error('Error updating comment:', error);
+      this.showToast('Failed to update comment: ' + error.message, 'error');
+    } finally {
+      this.processing = false;
+    }
+  },
+
+  async deleteComment(commentId) {
+    if (this.processing) return;
+    
+    if (!confirm('Are you sure you want to delete this comment? This action cannot be undone.')) {
+      return;
+    }
+    
+    this.processing = true;
+    
+    try {
+      const token = Alpine.store('auth').session?.access_token;
+      if (!token) {
+        throw new Error('No access token');
+      }
+
+      const response = await fetch('/api/admin-comments', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: commentId
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete comment');
+      }
+
+      // Remove the comment from our local state
+      this.comments = this.comments.filter(c => c.id !== commentId);
+      this.filterComments();
+      this.updateStats();
+
+      this.showToast('Comment deleted successfully', 'success');
+
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+      this.showToast('Failed to delete comment: ' + error.message, 'error');
+    } finally {
+      this.processing = false;
+    }
+  },
+
+  filterComments() {
+    let filtered = [...this.comments];
+
+    // Apply status filter
+    if (this.filterStatus === 'approved') {
+      filtered = filtered.filter(c => c.approved);
+    } else if (this.filterStatus === 'pending') {
+      filtered = filtered.filter(c => !c.approved);
+    }
+
+    // Apply search filter
+    if (this.searchQuery.trim()) {
+      const query = this.searchQuery.toLowerCase();
+      filtered = filtered.filter(c => 
+        c.comment.toLowerCase().includes(query) ||
+        c.name.toLowerCase().includes(query) ||
+        c.email.toLowerCase().includes(query) ||
+        c.post_title.toLowerCase().includes(query)
+      );
+    }
+
+    this.filteredComments = filtered;
+  },
+
+  debounceSearch() {
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      this.filterComments();
+    }, 300);
+  },
+
+  updateStats() {
+    this.totalCount = this.comments.length;
+    this.approvedCount = this.comments.filter(c => c.approved).length;
+    this.pendingCount = this.comments.filter(c => !c.approved).length;
+  },
+
+  formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  },
+
+  showToast(message, type = 'success') {
+    this.toast = {
+      show: true,
+      message: message,
+      type: type
+    };
+    
+    setTimeout(() => {
+      this.toast.show = false;
+    }, 5000);
+  }
 }));
 
 // import calendar from './calendar';

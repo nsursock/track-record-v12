@@ -69,7 +69,7 @@ meta:
 
   <!-- Page header - Variation 2: Split Layout with Decorative Elements -->
   <div class="relative mb-16">
-    <div class="absolute inset-0 bg-base-200/50 rounded-box"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20"></div>
     <div class="relative px-6 py-12 sm:px-12 sm:py-16 lg:py-20">
       <div class="grid lg:grid-cols-2 gap-8 items-center">
         <div class="text-center lg:text-left">
@@ -82,7 +82,7 @@ meta:
           <div class="mt-8">
             <button 
               @click="goToRandomPost()"
-              class="btn btn-primary btn-lg">
+              class="btn btn-soft btn-primary btn-lg">
               <span class="icon-[tabler--dice] w-5 h-5 mr-2"></span>
               Random Article
             </button>
@@ -123,11 +123,11 @@ meta:
        x-transition>
     <nav class="flex items-center gap-x-1">
       {% if pagination.href.previous %}
-        <a href="{{pagination.href.previous}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Previous Button">
+        <a href="{{pagination.href.previous}}" class="btn btn-soft btn-primary btn-square" aria-label="Previous Button">
           <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
         </a>
       {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Previous Button" disabled>
+        <button class="btn btn-neutral btn-square" aria-label="Previous Button" disabled>
           <span class="icon-[tabler--chevron-left] size-5 rtl:rotate-180"></span>
         </button>
       {% endif %}
@@ -140,21 +140,21 @@ meta:
 
       <!-- First page if not in range -->
       {% if startPage > 1 %}
-        <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">1</a>
+        <a href="/posts/" class="btn btn-soft btn-secondary btn-square">1</a>
         {% if startPage > 2 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
+          <button class="btn btn-neutral btn-square" disabled>…</button>
         {% endif %}
       {% endif %}
 
       <!-- Page number buttons -->
       {% for i in range(startPage, endPage + 1) %}
         {% if i == currentPage + 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-primary-content bg-primary border border-primary rounded-box" aria-current="page">{{ i }}</button>
+          <button class="btn btn-primary btn-square" aria-current="page">{{ i }}</button>
         {% else %}
           {% if i == 1 %}
-            <a href="/posts/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
+            <a href="/posts/" class="btn btn-soft {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-square">{{ i }}</a>
           {% else %}
-            <a href="/posts/{{ i - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ i }}</a>
+            <a href="/posts/{{ i - 1 }}/" class="btn btn-soft {% if loop.index is odd %}btn-secondary{% else %}btn-primary{% endif %} btn-square">{{ i }}</a>
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -162,17 +162,17 @@ meta:
       <!-- Last page if not in range -->
       {% if endPage < totalPages %}
         {% if endPage < totalPages - 1 %}
-          <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" disabled>…</button>
+          <button class="btn btn-neutral btn-square" disabled>…</button>
         {% endif %}
-        <a href="/posts/{{ totalPages - 1 }}/" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">{{ totalPages }}</a>
+        <a href="/posts/{{ totalPages - 1 }}/" class="btn btn-soft btn-primary btn-square">{{ totalPages }}</a>
       {% endif %}
 
       {% if pagination.href.next %}
-        <a href="{{pagination.href.next}}" class="inline-flex items-center justify-center w-10 h-10 text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content" aria-label="Next Button">
+        <a href="{{pagination.href.next}}" class="btn btn-soft btn-secondary btn-square" aria-label="Next Button">
           <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
         </a>
       {% else %}
-        <button class="inline-flex items-center justify-center w-10 h-10 text-base-content/30 bg-base-100 border border-base-300 rounded-box cursor-not-allowed" aria-label="Next Button" disabled>
+        <button class="btn btn-neutral btn-square" aria-label="Next Button" disabled>
           <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
         </button>
       {% endif %}
@@ -186,7 +186,7 @@ meta:
           <div class="grid gap-12 md:grid-cols-2">
         {% endif %}
         <!-- Horizontal cards for first and third rows (desktop only) -->
-        <article class="card md:card-side card-border bg-base-200 shadow-lg group relative overflow-hidden">
+        <article class="card md:card-side bg-gradient-to-br {% if loop.index == 1 or loop.index == 6 %}from-primary/5 to-secondary/5 border border-primary/20{% else %}from-secondary/5 to-primary/5 border border-secondary/20{% endif %} shadow-sm group relative overflow-hidden rounded-box">
           {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
@@ -238,7 +238,7 @@ meta:
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+              <a href="{{post.url}}" class="btn btn-soft {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
@@ -253,7 +253,7 @@ meta:
           <div class="grid gap-12 md:grid-cols-3">
         {% endif %}
         <!-- Vertical cards for second and fourth rows -->
-        <article class="card card-border bg-base-200 shadow-lg group relative  overflow-hidden">
+        <article class="card bg-gradient-to-br {% if loop.index is odd %}from-primary/5 to-secondary/5 border border-primary/20{% else %}from-secondary/5 to-primary/5 border border-secondary/20{% endif %} shadow-sm group relative overflow-hidden rounded-box">
           {% set heroMatch = post.templateContent | regexFind('<img[^>]+src="([^">]+)"') %}
           {% set heroImage = heroMatch and heroMatch[1] %}
           {% if heroImage %}
@@ -305,7 +305,7 @@ meta:
                      x-text="readingTime + ' min read'">
                 </div>
               </div>
-              <a href="{{post.url}}" class="btn {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
+              <a href="{{post.url}}" class="btn btn-soft {% if loop.index is odd %}btn-primary{% else %}btn-secondary{% endif %} btn-sm">
                 Read more
                 <span class="icon-[tabler--arrow-right] ml-2 h-4 w-4"></span>
               </a>
@@ -338,7 +338,7 @@ meta:
        class="flex justify-center items-center mt-8">
     <a href="#" 
        @click.prevent="window.scrollTo({top: 0, behavior: 'smooth'})"
-       class="inline-flex items-center px-4 py-2 text-sm font-medium text-base-content/70 bg-base-200 border border-base-300 rounded-box hover:bg-base-300 hover:text-base-content">
+       class="btn btn-soft btn-primary">
       <span class="icon-[tabler--arrow-up] w-3.5 h-3.5 mr-2"></span>
       Back to top
     </a>

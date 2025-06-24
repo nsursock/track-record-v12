@@ -1,0 +1,215 @@
+---
+layout: admin-guard
+title: Comment Moderation - Admin
+---
+
+<div class="min-h-screen py-6 lg:py-12 px-4 mx-auto max-w-screen-xl" x-data="commentAdmin()">
+
+  <!-- Header -->
+  <header class="mb-6 lg:mb-8">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+      <div>
+        <h1 class="text-3xl lg:text-4xl font-bold text-primary mb-2 drop-shadow-lg">Comment Moderation</h1>
+        <p class="text-base-content/70">Manage and moderate blog comments</p>
+      </div>
+      <div class="flex w-full sm:w-auto stats stats-horizontal bg-gradient-to-r from-primary/5 to-secondary/5 shadow-sm border border-primary/20 rounded-box">
+        <div class="stat flex-1 sm:w-36">
+          <div class="stat-title text-primary/70 text-xs lg:text-sm">Pending</div>
+          <div class="stat-value text-warning text-lg lg:text-2xl" x-text="pendingCount">0</div>
+        </div>
+        <div class="stat flex-1 sm:w-36">
+          <div class="stat-title text-primary/70 text-xs lg:text-sm">Approved</div>
+          <div class="stat-value text-success text-lg lg:text-2xl" x-text="approvedCount">0</div>
+        </div>
+        <div class="stat flex-1 sm:w-36">
+          <div class="stat-title text-primary/70 text-xs lg:text-sm">Total</div>
+          <div class="stat-value text-primary text-lg lg:text-2xl" x-text="totalCount">0</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Loading State -->
+  <div x-show="loading" class="flex justify-center py-16">
+    <div class="loading loading-spinner loading-lg text-primary"></div>
+  </div>
+
+  <!-- Admin Interface -->
+  <div x-show="!loading">
+    <!-- Filters -->
+    <div class="mb-6 p-4 lg:p-6 bg-gradient-to-r from-secondary/5 to-primary/5 rounded-box shadow-sm border border-secondary/20">
+      <div class="flex flex-col lg:flex-row gap-4 lg:items-center">
+        <!-- Filter Buttons -->
+        <div class="flex flex-col sm:flex-row gap-2 flex-1">
+          <div class="flex gap-2 flex-wrap">
+            <button @click="filterStatus = 'all'; loadComments()" 
+                    :class="filterStatus === 'all' ? 'btn-primary shadow-lg' : ''"
+                    class="btn btn-sm flex-1 sm:flex-none">
+              All
+            </button>
+            <button @click="filterStatus = 'pending'; loadComments()" 
+                    :class="filterStatus === 'pending' ? 'btn-warning shadow-lg' : ''"
+                    class="btn btn-sm flex-1 sm:flex-none">
+              Pending
+            </button>
+            <button @click="filterStatus = 'approved'; loadComments()" 
+                    :class="filterStatus === 'approved' ? 'btn-success shadow-lg' : ''"
+                    class="btn btn-sm flex-1 sm:flex-none">
+              Approved
+            </button>
+          </div>
+          
+          <div class="flex gap-2">
+            <button @click="loadComments()" class="btn btn-sm">
+              <span class="icon-[tabler--refresh] size-4 mr-1"></span>
+              <span class="hidden sm:inline">Refresh</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Input -->
+        <div class="w-full lg:w-auto lg:ml-auto">
+          <input type="search" 
+                 x-model="searchQuery"
+                 @input="debounceSearch()"
+                 placeholder="Search comments..."
+                 class="input input-bordered input-primary input-sm w-full lg:w-64 focus:border-primary focus:ring-2 focus:ring-primary/20">
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments List -->
+    <div class="space-y-4 lg:space-y-6">
+      <template x-for="comment in filteredComments" :key="comment.id">
+        <div class="p-4 lg:p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
+          <!-- Comment Header -->
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-4">
+            <div class="flex items-center gap-3">
+              <template x-if="comment.avatar">
+                <img class="w-10 h-10 lg:w-12 lg:h-12 rounded-box ring-2 ring-primary/30 shadow-lg flex-shrink-0" 
+                     :src="comment.avatar" 
+                     :alt="comment.name"
+                     loading="lazy">
+              </template>
+              <template x-if="!comment.avatar">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-box ring-2 ring-primary/30 bg-primary text-white flex items-center justify-center shadow-lg flex-shrink-0">
+                  <span class="font-semibold text-sm lg:text-base" x-text="comment.name.charAt(0).toUpperCase()"></span>
+                </div>
+              </template>
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                  <span class="font-semibold text-primary flex items-center gap-1 truncate">
+                    <span class="icon-[tabler--user] size-4 flex-shrink-0"></span>
+                    <span x-text="comment.name" class="truncate"></span>
+                  </span>
+                  <div class="flex gap-1">
+                    <template x-if="comment.user_id">
+                      <span class="badge badge-soft badge-info badge-xs sm:badge-sm">Authenticated</span>
+                    </template>
+                    <template x-if="!comment.user_id">
+                      <span class="badge badge-soft badge-ghost badge-xs sm:badge-sm">Guest</span>
+                    </template>
+                  </div>
+                </div>
+                <div class="text-xs lg:text-sm text-primary/70 space-y-1">
+                  <div class="flex items-center gap-1">
+                    <span class="icon-[tabler--mail] size-3 lg:size-4 flex-shrink-0"></span>
+                    <span x-text="comment.email" class="truncate"></span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <span class="icon-[tabler--calendar] size-3 lg:size-4 flex-shrink-0"></span>
+                    <span x-text="formatDate(comment.created_at)"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <template x-if="comment.approved">
+                <span class="badge badge-soft badge-success shadow-sm">Approved</span>
+              </template>
+              <template x-if="!comment.approved">
+                <span class="badge badge-soft badge-warning shadow-sm">Pending</span>
+              </template>
+            </div>
+          </div>
+
+          <!-- Post Info -->
+          <div class="mb-4 p-3 lg:p-4 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-box border border-secondary/20">
+            <div class="text-xs lg:text-sm text-primary/70 mb-1 flex items-center gap-1">
+              <span class="icon-[tabler--article] size-4 flex-shrink-0"></span>
+              Comment on:
+            </div>
+            <a :href="comment.post_url" 
+               class="text-primary hover:underline font-medium hover:text-primary/80 transition-colors text-sm lg:text-base break-words" 
+               target="_blank"
+               x-text="comment.post_title"></a>
+          </div>
+
+          <!-- Comment Content -->
+          <div class="mb-4 lg:mb-6 p-3 lg:p-4 bg-base-100/50 rounded-box border border-base-300/50">
+            <p class="text-base-content/80 text-sm lg:text-base break-words" x-text="comment.comment"></p>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <template x-if="!comment.approved">
+                <button @click="approveComment(comment.id)" 
+                        :disabled="processing"
+                        class="btn btn-success btn-sm shadow-lg">
+                  <span class="icon-[tabler--check] size-4 mr-1"></span>
+                  Approve
+                </button>
+              </template>
+              
+              <template x-if="comment.approved">
+                <button @click="unapproveComment(comment.id)" 
+                        :disabled="processing"
+                        class="btn btn-warning btn-sm shadow-lg">
+                  <span class="icon-[tabler--x] size-4 mr-1"></span>
+                  Unapprove
+                </button>
+              </template>
+
+              <button @click="deleteComment(comment.id)" 
+                      :disabled="processing"
+                      class="btn btn-error btn-sm shadow-lg">
+                <span class="icon-[tabler--trash] size-4 mr-1"></span>
+                Delete
+              </button>
+            </div>
+
+            <div class="text-xs text-primary/50 bg-primary/5 px-2 py-1 rounded self-start sm:self-center">
+              ID: <span x-text="comment.id"></span>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Empty State -->
+      <div x-show="filteredComments.length === 0 && !loading" 
+           class="text-center py-12 lg:py-16 text-base-content/60">
+        <div class="p-6 lg:p-8 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box border border-primary/20">
+          <span class="icon-[tabler--message-off] size-12 lg:size-16 mx-auto mb-4 block text-primary/40"></span>
+          <h3 class="text-lg lg:text-xl font-semibold mb-2 text-primary">No Comments Found</h3>
+          <p class="text-base-content/70 text-sm lg:text-base">No comments match your current filter criteria.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Messages -->
+  <div x-show="toast.show" 
+       x-transition:enter="transition ease-out duration-300"
+       x-transition:enter-start="opacity-0 transform translate-y-2"
+       x-transition:enter-end="opacity-100 transform translate-y-0"
+       x-transition:leave="transition ease-in duration-200"
+       x-transition:leave-start="opacity-100 transform translate-y-0"
+       x-transition:leave-end="opacity-0 transform translate-y-2"
+       class="toast toast-top toast-end">
+    <div :class="toast.type === 'success' ? 'alert-success shadow-lg' : 'alert-error shadow-lg'" class="alert">
+      <span x-text="toast.message"></span>
+    </div>
+  </div>
+</div> 
