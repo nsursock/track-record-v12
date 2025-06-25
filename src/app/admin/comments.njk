@@ -172,7 +172,7 @@ title: Comment Moderation - Admin
                 </button>
               </template>
 
-              <button @click="deleteComment(comment.id)" 
+              <button @click="openDeleteModal(comment)" 
                       :disabled="processing"
                       class="btn btn-error btn-sm shadow-lg">
                 <span class="icon-[tabler--trash] size-4 mr-1"></span>
@@ -194,6 +194,56 @@ title: Comment Moderation - Admin
           <span class="icon-[tabler--message-off] size-12 lg:size-16 mx-auto mb-4 block text-primary/40"></span>
           <h3 class="text-lg lg:text-xl font-semibold mb-2 text-primary">No Comments Found</h3>
           <p class="text-base-content/70 text-sm lg:text-base">No comments match your current filter criteria.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-modal" class="overlay modal modal-middle overlay-open:opacity-100 overlay-open:duration-300 hidden" role="dialog" tabindex="-1">
+    <div class="modal-dialog overlay-open:opacity-100 overlay-open:duration-300">
+      <div class="modal-content bg-gradient-to-r from-primary/15 to-secondary/15 rounded-box border border-primary/20">
+        <div class="modal-header">
+          <h3 class="modal-title text-error">
+            <span class="icon-[tabler--trash] size-5 mr-2"></span>
+            Confirm Deletion
+          </h3>
+          <button type="button" class="btn btn-text btn-circle btn-sm absolute end-3 top-3" aria-label="Close" @click="closeDeleteModal()">
+            <span class="icon-[tabler--x] size-4"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-error/10 rounded-full flex items-center justify-center">
+              <span class="icon-[tabler--alert-triangle] size-6 text-error"></span>
+            </div>
+            <div class="flex-1">
+              <p class="text-base-content mb-2">
+                Are you sure you want to delete this comment? This action cannot be undone.
+              </p>
+              <template x-if="commentToDelete">
+                <div class="p-3 bg-base-200 rounded-box border text-sm">
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="font-medium" x-text="commentToDelete.name"></span>
+                    <span class="text-base-content/60" x-text="'(' + commentToDelete.email + ')'"></span>
+                  </div>
+                  <p class="text-base-content/80 line-clamp-2" x-text="commentToDelete.comment"></p>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" @click="closeDeleteModal()">
+            Cancel
+          </button>
+          <button type="button" 
+                  @click="confirmDelete()" 
+                  :disabled="processing"
+                  class="btn btn-error">
+            <span class="icon-[tabler--trash] size-4 mr-1"></span>
+            Delete Comment
+          </button>
         </div>
       </div>
     </div>

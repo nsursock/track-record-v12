@@ -11,7 +11,7 @@ title: "Should You Read Suitable Biographies To Understand Your Life?"
 
 ![featured image](https://images.unsplash.com/photo-1627828940707-39a6b115b205?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop)
 
-I Lived and learned from fools and from sages. That lyric from Aerosmith opens up a lot of possibilities, saying that even the weirdest person can teach you something. For example, when I was young, we had someone in our class who used to play xylophone at his window to contact aliens.
+I lived and learned from fools and from sages. That lyric from Aerosmith opens up a lot of possibilities, saying that even the weirdest person can teach you something. For example, when I was young, we had someone in our class who used to play xylophone at his window to contact aliens.
 
 Needless to say he had no chance against NASA. He was talking about it with a smile upon his face. We dismissed him as the weirdest person we know. And now I'm almost in his place.
 

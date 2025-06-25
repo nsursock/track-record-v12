@@ -2,8 +2,12 @@ import '../css/index.css';
 
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
+import 'flyonui/flyonui'
  
 Alpine.plugin(intersect)
+
+// Make sure HSOverlay is available globally
+window.HSOverlay = window.HSOverlay || window.FlyonUI?.HSOverlay;
 
 import auth from './auth';
 Alpine.store('auth', auth);
@@ -725,6 +729,10 @@ Alpine.data('commentAdmin', () => ({
   approvedCount: 0,
   totalCount: 0,
 
+  // Delete modal state
+  commentToDelete: null,
+  deleteModalInstance: null,
+
   // Toast messages
   toast: {
     show: false,
@@ -876,13 +884,29 @@ Alpine.data('commentAdmin', () => ({
     }
   },
 
-  async deleteComment(commentId) {
-    if (this.processing) return;
+  openDeleteModal(comment) {
+    this.commentToDelete = comment;
     
-    if (!confirm('Are you sure you want to delete this comment? This action cannot be undone.')) {
-      return;
+    // Initialize modal if not already done
+    if (!this.deleteModalInstance) {
+      this.deleteModalInstance = new HSOverlay(document.querySelector('#delete-modal'));
     }
     
+    // Open the modal
+    this.deleteModalInstance.open();
+  },
+
+  closeDeleteModal() {
+    if (this.deleteModalInstance) {
+      this.deleteModalInstance.close();
+    }
+    this.commentToDelete = null;
+  },
+
+  async confirmDelete() {
+    if (!this.commentToDelete || this.processing) return;
+    
+    const commentId = this.commentToDelete.id;
     this.processing = true;
     
     try {
@@ -912,6 +936,9 @@ Alpine.data('commentAdmin', () => ({
       this.filterComments();
       this.updateStats();
 
+      // Close the modal
+      this.closeDeleteModal();
+
       this.showToast('Comment deleted successfully', 'success');
 
     } catch (error) {
@@ -919,6 +946,15 @@ Alpine.data('commentAdmin', () => ({
       this.showToast('Failed to delete comment: ' + error.message, 'error');
     } finally {
       this.processing = false;
+    }
+  },
+
+  async deleteComment(commentId) {
+    // Legacy method - kept for backwards compatibility
+    // Now redirects to modal approach
+    const comment = this.comments.find(c => c.id === commentId);
+    if (comment) {
+      this.openDeleteModal(comment);
     }
   },
 
