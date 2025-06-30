@@ -1,0 +1,293 @@
+---
+layout: base
+title: Purchase Complete Life Principles Guide
+description: Get instant access to the complete 6 Life Principles ebook
+---
+
+<article class="mt-12 py-12 px-4 mx-auto max-w-screen-lg lg:py-16">
+  <div x-data="ebookPurchase()" x-init="init()">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <div class="flex justify-center items-center gap-3 mb-6">
+        <div class="badge badge-primary badge-soft">
+          <span class="icon-[tabler--book] size-4 mr-2"></span>
+          Complete Guide
+        </div>
+        <div class="badge badge-secondary badge-soft">
+          <span class="icon-[tabler--shield-check] size-4 mr-2"></span>
+          Secure Purchase
+        </div>
+      </div>
+
+      <h1 class="text-4xl font-bold leading-tight text-base-content lg:text-5xl mb-6">
+        9 Life Principles for Maximum Impact
+      </h1>
+      
+      <p class="text-xl text-base-content/70 max-w-2xl mx-auto leading-relaxed">
+        Complete digital guide with instant access to all principles, downloadable PDF, and lifetime access to the interactive web version.
+      </p>
+    </header>
+
+    <!-- What You Get -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-8 text-center text-primary">What You Get</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--file-text] w-6 h-6 text-primary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-primary">30+ Page PDF</h3>
+          <p class="text-base-content/70 text-sm">Complete downloadable guide with detailed explanations, case studies, and implementation strategies.</p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-2xl border border-secondary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--world] w-6 h-6 text-secondary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-secondary">Interactive Web Access</h3>
+          <p class="text-base-content/70 text-sm">Lifetime access to the beautifully designed web version with search, bookmarks, and updates.</p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--download] w-6 h-6 text-primary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-primary">Instant Download</h3>
+          <p class="text-base-content/70 text-sm">Immediate access after purchase. Download up to 3 times within 24 hours for backup.</p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-2xl border border-secondary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--map] w-6 h-6 text-secondary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-secondary">Implementation Plan</h3>
+          <p class="text-base-content/70 text-sm">Step-by-step 6-week foundation plan plus long-term mastery building strategies.</p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--users] w-6 h-6 text-primary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-primary">Real Case Studies</h3>
+          <p class="text-base-content/70 text-sm">Detailed examples of how each principle works in real-world scenarios.</p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-br from-secondary/5 to-primary/5 rounded-2xl border border-secondary/20 backdrop-blur-sm">
+          <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4">
+            <span class="icon-[tabler--shield-check] w-6 h-6 text-secondary"></span>
+          </div>
+          <h3 class="text-lg font-semibold mb-2 text-secondary">Secure Payment</h3>
+          <p class="text-base-content/70 text-sm">Powered by Stripe with industry-standard security and privacy protection.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Purchase Form -->
+    <section class="max-w-md mx-auto">
+      <div class="p-8 bg-gradient-to-br from-base-100 to-base-200/50 rounded-2xl border border-base-300/50 backdrop-blur-sm">
+        <div class="text-center mb-6">
+          <div class="text-5xl font-bold text-primary mb-2">$29</div>
+          <p class="text-base-content/60">One-time purchase • No subscriptions</p>
+        </div>
+
+        <form @submit.prevent="processPurchase()" class="space-y-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email Address</span>
+            </label>
+            <input 
+              type="email" 
+              x-model="email" 
+              placeholder="your@email.com" 
+              class="input input-bordered w-full" 
+              required
+              :readonly="isLoggedIn"
+            >
+            <label class="label" x-show="isLoggedIn">
+              <span class="label-text-alt text-info">✓ Using your logged-in account</span>
+            </label>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">First Name</span>
+              </label>
+              <input 
+                type="text" 
+                x-model="firstName" 
+                placeholder="John" 
+                class="input input-bordered w-full"
+              >
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Last Name</span>
+              </label>
+              <input 
+                type="text" 
+                x-model="lastName" 
+                placeholder="Doe" 
+                class="input input-bordered w-full"
+              >
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-lg w-full"
+            :disabled="loading"
+          >
+            <span x-show="!loading" class="flex items-center gap-2">
+              <span class="icon-[tabler--credit-card] w-5 h-5"></span>
+              Continue to Payment
+            </span>
+            <span x-show="loading" class="loading loading-spinner loading-sm"></span>
+          </button>
+        </form>
+
+        <div class="text-center mt-6">
+          <p class="text-sm text-base-content/60">
+            Powered by <strong>Stripe</strong> • Secure SSL encryption
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mt-16">
+      <h2 class="text-2xl font-bold mb-8 text-center text-secondary">Frequently Asked Questions</h2>
+      <div class="max-w-2xl mx-auto">
+        <div class="accordion divide-neutral/20 divide-y">
+          <div class="accordion-item active" id="faq-access">
+            <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full py-4" aria-controls="faq-access-collapse" aria-expanded="true">
+              <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span>
+              <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span>
+              <span class="text-lg font-medium">How do I access the content after purchase?</span>
+            </button>
+            <div id="faq-access-collapse" class="accordion-content w-full overflow-hidden transition-[height] duration-300" aria-labelledby="faq-access" role="region">
+              <div class="px-5 pb-4">
+                <p class="text-base-content/80 font-normal">
+                  After successful payment, you'll receive immediate access to download the PDF and browse the interactive web version. If you're logged in, access is automatically granted to your account.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="faq-download">
+            <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full py-4" aria-controls="faq-download-collapse" aria-expanded="false">
+              <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span>
+              <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span>
+              <span class="text-lg font-medium">Can I download the PDF multiple times?</span>
+            </button>
+            <div id="faq-download-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="faq-download" role="region">
+              <div class="px-5 pb-4">
+                <p class="text-base-content/80 font-normal">
+                  Yes, you can download the PDF up to 3 times within 24 hours of purchase. This gives you time to save backup copies on your devices.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="faq-security">
+            <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full py-4" aria-controls="faq-security-collapse" aria-expanded="false">
+              <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span>
+              <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span>
+              <span class="text-lg font-medium">Is my payment information secure?</span>
+            </button>
+            <div id="faq-security-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="faq-security" role="region">
+              <div class="px-5 pb-4">
+                <p class="text-base-content/80 font-normal">
+                  Absolutely. We use Stripe for payment processing, which handles millions of transactions with bank-level security. We never store your payment information.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="faq-support">
+            <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full py-4" aria-controls="faq-support-collapse" aria-expanded="false">
+              <span class="icon-[tabler--plus] accordion-item-active:hidden text-base-content size-4.5 block shrink-0"></span>
+              <span class="icon-[tabler--minus] accordion-item-active:block text-base-content size-4.5 hidden shrink-0"></span>
+              <span class="text-lg font-medium">What if I have technical issues?</span>
+            </button>
+            <div id="faq-support-collapse" class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" aria-labelledby="faq-support" role="region">
+              <div class="px-5 pb-4">
+                <p class="text-base-content/80 font-normal">
+                  If you experience any issues with download or access, contact us at support@track-record.com and we'll resolve it quickly.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</article>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('ebookPurchase', () => ({
+      email: '',
+      firstName: '',
+      lastName: '',
+      loading: false,
+      isLoggedIn: false,
+
+      init() {
+        // Check if user is logged in and prefill email
+        if (Alpine.store('auth')?.isAuthenticated) {
+          this.isLoggedIn = true;
+          this.email = Alpine.store('auth').userEmail || '';
+          this.firstName = Alpine.store('auth').user?.user_metadata?.first_name || '';
+          this.lastName = Alpine.store('auth').user?.user_metadata?.last_name || '';
+        }
+      },
+
+      async processPurchase() {
+        if (!this.email) {
+          alert('Please enter your email address');
+          return;
+        }
+
+        this.loading = true;
+
+        try {
+          const headers = {
+            'Content-Type': 'application/json'
+          };
+
+          // Include auth token if user is logged in
+          if (this.isLoggedIn && Alpine.store('auth')?.session?.access_token) {
+            headers['Authorization'] = `Bearer ${Alpine.store('auth').session.access_token}`;
+          }
+
+          const response = await fetch('/api/stripe-create-session', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              email: this.email,
+              firstName: this.firstName,
+              lastName: this.lastName
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.checkout_url) {
+            // Redirect to Stripe Checkout
+            window.location.href = data.checkout_url;
+          } else {
+            console.error('Purchase error:', data);
+            alert('Failed to create checkout session. Please try again.');
+          }
+        } catch (error) {
+          console.error('Purchase error:', error);
+          alert('An error occurred. Please try again.');
+        } finally {
+          this.loading = false;
+        }
+      }
+    }));
+  });
+</script> 

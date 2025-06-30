@@ -1,6 +1,6 @@
 -- Fix admin policy for comments table
 -- Drop the existing admin policy that depends on users table
-DROP POLICY IF EXISTS "Admins can manage all comments" ON "public"."comments";
+DROP POLICY IF EXISTS "Admin can manage all comments" ON "public"."comments";
 
 -- Create a new admin policy that checks email directly
 CREATE POLICY "Admin can manage all comments"

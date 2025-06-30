@@ -1,0 +1,240 @@
+---
+layout: base
+---
+
+<!-- Ebook Auth Guard Wrapper -->
+<div x-data="ebookAuthGuard()" x-init="init()" class="mt-24 md:mt-6 mb-10">
+  <!-- Loading State -->
+  <div x-show="loading" class="min-h-screen bg-base-100 flex items-center justify-center">
+    <div class="text-center">
+      <div class="loading loading-spinner loading-lg text-primary mb-4"></div>
+      <p class="text-base-content/70">Checking access permissions...</p>
+    </div>
+  </div>
+
+  <!-- Not Authenticated State -->
+  <div x-show="!loading && !isAuthenticated" class="min-h-screen bg-base-100 flex items-center justify-center p-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <!-- Animated Lock Icon -->
+      <div class="relative mb-8">
+        <div class="w-32 h-32 mx-auto bg-gradient-to-br from-error/10 to-warning/10 rounded-full flex items-center justify-center relative overflow-hidden">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+          
+          <!-- Main Lock Icon -->
+          <div class="relative z-10 w-16 h-16 bg-error/20 rounded-full flex items-center justify-center">
+            <span class="icon-[tabler--lock] w-8 h-8 text-error"></span>
+          </div>
+          
+          <!-- Floating Elements -->
+          <div class="absolute top-4 right-4 w-3 h-3 bg-warning/30 rounded-full animate-pulse"></div>
+          <div class="absolute bottom-6 left-6 w-2 h-2 bg-error/40 rounded-full animate-bounce"></div>
+          <div class="absolute top-8 left-4 w-1.5 h-1.5 bg-primary/30 rounded-full animate-ping"></div>
+        </div>
+      </div>
+
+      <!-- Error Code Style -->
+      <div class="mb-6">
+        <h1 class="text-6xl sm:text-8xl font-bold text-error/20 mb-2 tracking-wider">
+          401
+        </h1>
+        <div class="h-1 w-24 bg-gradient-to-r from-error to-warning mx-auto rounded-full mb-4"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-4 mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-base-content">
+          Sign In Required
+        </h2>
+        <p class="text-base-content/70 text-lg max-w-md mx-auto leading-relaxed">
+          Please sign in to access the Life Principles guide.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button 
+          @click="redirectToAuth()" 
+          class="btn btn-primary btn-lg group"
+        >
+          <span class="icon-[tabler--login] w-5 h-5 group-hover:scale-110 transition-transform"></span>
+          Sign In to Continue
+        </button>
+        
+        <button 
+          @click="redirectToSignup()" 
+          class="btn btn-secondary btn-lg"
+        >
+          <span class="icon-[tabler--user-plus] w-5 h-5"></span>
+          Create New Account
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authenticated but No Ebook Access State -->
+  <div x-show="!loading && isAuthenticated && !hasEbookAccess" class="min-h-screen bg-base-100 flex items-center justify-center p-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <!-- Animated Book Icon -->
+      <div class="relative mb-8">
+        <div class="w-32 h-32 mx-auto bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full flex items-center justify-center relative overflow-hidden">
+          <!-- Background Pattern -->
+          <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
+          
+          <!-- Main Book Icon -->
+          <div class="relative z-10 w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+            <span class="icon-[tabler--book-2] w-8 h-8 text-primary"></span>
+          </div>
+          
+          <!-- Floating Elements -->
+          <div class="absolute top-4 right-4 w-3 h-3 bg-secondary/30 rounded-full animate-pulse"></div>
+          <div class="absolute bottom-6 left-6 w-2 h-2 bg-primary/40 rounded-full animate-bounce"></div>
+          <div class="absolute top-8 left-4 w-1.5 h-1.5 bg-secondary/30 rounded-full animate-ping"></div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-4 mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-base-content">
+          Ebook Purchase Required
+        </h2>
+        <p class="text-base-content/70 text-lg max-w-md mx-auto leading-relaxed">
+          This content is part of the "6 Life Principles for Maximum Impact" ebook. 
+          Purchase the complete guide to access all principles and get the downloadable PDF.
+        </p>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div class="text-center p-4 bg-gradient-to-br from-base-200/40 to-primary/5 rounded-xl border border-primary/15">
+          <span class="icon-[tabler--file-text] w-8 h-8 text-primary mx-auto mb-2"></span>
+          <h4 class="font-semibold text-sm mb-1 text-primary">30+ Pages</h4>
+          <p class="text-xs text-base-content/60">Complete PDF guide</p>
+        </div>
+        <div class="text-center p-4 bg-gradient-to-br from-base-200/40 to-secondary/5 rounded-xl border border-secondary/15">
+          <span class="icon-[tabler--world] w-8 h-8 text-secondary mx-auto mb-2"></span>
+          <h4 class="font-semibold text-sm mb-1 text-secondary">Interactive Web</h4>
+          <p class="text-xs text-base-content/60">Full online access</p>
+        </div>
+        <div class="text-center p-4 bg-gradient-to-br from-base-200/40 to-primary/5 rounded-xl border border-primary/15">
+          <span class="icon-[tabler--download] w-8 h-8 text-primary mx-auto mb-2"></span>
+          <h4 class="font-semibold text-sm mb-1 text-primary">Instant Access</h4>
+          <p class="text-xs text-base-content/60">Immediate download</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-4">
+        <div class="text-4xl font-bold text-primary mb-2">$29</div>
+        <a href="/ebook/purchase/" class="btn btn-primary btn-lg">
+          <span class="icon-[tabler--shopping-cart] w-5 h-5"></span>
+          Purchase Complete Guide
+        </a>
+        <p class="text-sm text-base-content/60">One-time purchase • Instant access • 3 downloads</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authenticated and Has Ebook Access Content -->
+  <div x-show="!loading && isAuthenticated && hasEbookAccess">
+    {{ content | safe }}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('ebookAuthGuard', () => ({
+      loading: true,
+      isAuthenticated: false,
+      hasEbookAccess: false,
+
+      async init() {
+        console.log('📚 Ebook Auth Guard initialized');
+
+        // Wait for auth to be ready
+        await this.waitForAuth();
+        
+        this.isAuthenticated = this.$store.auth.isAuthenticated;
+        
+        if (this.isAuthenticated) {
+          // Check ebook access
+          await this.checkEbookAccess();
+        }
+        
+        this.loading = false;
+
+        // Watch for auth changes
+        this.$watch('$store.auth.isAuthenticated', async (isAuthenticated) => {
+          this.isAuthenticated = isAuthenticated;
+          if (isAuthenticated) {
+            await this.checkEbookAccess();
+          } else {
+            this.hasEbookAccess = false;
+          }
+        });
+      },
+
+      async waitForAuth() {
+        return new Promise((resolve) => {
+          const checkAuth = () => {
+            if (!this.$store.auth.loading) {
+              resolve();
+            } else {
+              setTimeout(checkAuth, 100);
+            }
+          };
+          checkAuth();
+        });
+      },
+
+      async checkEbookAccess() {
+        try {
+          console.log('🔍 Checking ebook access...');
+          
+          // Get the current user's session
+          const session = this.$store.auth.session;
+          if (!session?.access_token) {
+            console.log('❌ No valid session found');
+            this.hasEbookAccess = false;
+            return;
+          }
+
+          // Call Supabase function to check ebook access
+          const response = await fetch('/api/check-ebook-access', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${session.access_token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            this.hasEbookAccess = data.hasAccess;
+            console.log('✅ Ebook access check:', this.hasEbookAccess);
+          } else {
+            console.error('❌ Failed to check ebook access:', response.status);
+            this.hasEbookAccess = false;
+          }
+        } catch (error) {
+          console.error('❌ Error checking ebook access:', error);
+          this.hasEbookAccess = false;
+        }
+      },
+
+      redirectToAuth() {
+        console.log('🔄 Redirecting to login page...');
+        const returnUrl = window.location.pathname + window.location.search;
+        localStorage.setItem('authReturnUrl', returnUrl);
+        window.location.href = '/credentials/?mode=login';
+      },
+
+      redirectToSignup() {
+        console.log('🔄 Redirecting to signup page...');
+        const returnUrl = window.location.pathname + window.location.search;
+        localStorage.setItem('authReturnUrl', returnUrl);
+        window.location.href = '/credentials/?mode=signup';
+      }
+    }));
+  });
+</script> 

@@ -139,7 +139,8 @@ Alpine.data('mobileMenu', () => ({
     navigationLinks: [
         { href: '/posts/', text: 'Blog' },
         { href: '/about/', text: 'About' },
-        { href: '/contact/', text: 'Contact' }
+        { href: '/contact/', text: 'Contact' },
+        { href: '/ebook/purchase/', text: 'Products' },
     ],
     authLinks1: [
         { href: '/app/profile/', text: 'Profile', icon: 'user' },
@@ -150,6 +151,7 @@ Alpine.data('mobileMenu', () => ({
     authLinks2: [
         { href: '/app/collections/', text: 'Collections', icon: 'bookmark' },
         { href: '/app/likes/', text: 'Likes', icon: 'heart' },
+        { href: '/app/principles/', text: 'Principles', icon: 'book' },
     ],
     adminLinks: [
         { href: '/app/admin/', text: 'Admin Dashboard', icon: 'shield-check' },

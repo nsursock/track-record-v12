@@ -1,0 +1,242 @@
+---
+layout: base
+title: Purchase Complete - Download Your Ebook
+description: Your purchase is complete! Download your 6 Life Principles ebook now.
+---
+
+<main class="min-h-screen py-12 px-4">
+  <div class="max-w-3xl mx-auto">
+    
+    <!-- Success State -->
+    <div id="success-state" class="hidden text-center space-y-8">
+      <div class="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto">
+        <span class="icon-[tabler--check] size-10 text-white"></span>
+      </div>
+      
+      <div>
+        <h1 class="text-4xl font-bold text-base-content mb-4">
+          Payment Successful!
+        </h1>
+        <p class="text-xl text-base-content/70">
+          Your ebook is ready for download
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 p-8 max-w-md mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Your Download</h2>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="icon-[tabler--book] size-6 text-primary"></span>
+            <div>
+              <div class="font-medium">6 Life Principles for Maximum Impact</div>
+              <div class="text-sm text-base-content/60">PDF Ebook - 30+ pages</div>
+            </div>
+          </div>
+          
+          <button id="download-btn" class="btn btn-primary w-full" disabled>
+            <span class="icon-[tabler--download] size-5"></span>
+            Download PDF
+          </button>
+          
+          <div id="download-info" class="text-sm text-base-content/60 text-center">
+            <p>Downloads remaining: <span id="downloads-remaining">3</span></p>
+            <p>Link expires in 24 hours</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-xl border border-base-300/50 p-6">
+        <h3 class="font-semibold mb-4 flex items-center gap-2">
+          <span class="icon-[tabler--lightbulb] size-5 text-secondary"></span>
+          What's Next?
+        </h3>
+        <ul class="space-y-2 text-sm text-base-content/70">
+          <li class="flex items-center gap-2">
+            <span class="icon-[tabler--circle-check] size-4 text-primary"></span>
+            <span>Save the PDF to your device for offline reading</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="icon-[tabler--calendar] size-4 text-primary"></span>
+            <span>Start with the 6-week foundation plan</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="icon-[tabler--target] size-4 text-primary"></span>
+            <span>Pick one principle to focus on this week</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="icon-[tabler--share] size-4 text-primary"></span>
+            <span>Apply strategic detachment in your next conflict situation</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="text-center">
+        <a href="/app/principles/" class="btn btn-ghost">
+          <span class="icon-[tabler--arrow-left] size-4"></span>
+          Back to Principles Overview
+        </a>
+      </div>
+    </div>
+
+    <!-- Processing State -->
+    <div id="processing-state" class="text-center space-y-8">
+      <div class="w-20 h-20 bg-gradient-to-br from-secondary/20 to-primary/10 rounded-full flex items-center justify-center mx-auto">
+        <div class="loading loading-spinner loading-lg text-secondary"></div>
+      </div>
+      
+      <div>
+        <h1 class="text-4xl font-bold text-base-content mb-4">
+          Processing Your Order
+        </h1>
+        <p class="text-xl text-base-content/70">
+          Please wait while we confirm your payment...
+        </p>
+      </div>
+
+      <div class="bg-gradient-to-br from-secondary/5 to-base-200/50 rounded-xl border border-secondary/20 p-6 max-w-md mx-auto">
+        <p class="text-base-content/70">
+          This usually takes just a few seconds. Your download will be available once payment is confirmed.
+        </p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden text-center space-y-8">
+      <div class="w-20 h-20 bg-gradient-to-br from-error/20 to-warning/10 rounded-full flex items-center justify-center mx-auto">
+        <span class="icon-[tabler--alert-triangle] size-10 text-error"></span>
+      </div>
+      
+      <div>
+        <h1 class="text-4xl font-bold text-base-content mb-4">
+          Order Not Found
+        </h1>
+        <p class="text-xl text-base-content/70">
+          We couldn't find your order or it's still being processed
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <button id="retry-btn" class="btn btn-primary">
+          <span class="icon-[tabler--refresh] size-4"></span>
+          Check Again
+        </button>
+        
+        <div class="text-center">
+          <a href="/ebook/purchase" class="btn btn-ghost">
+            <span class="icon-[tabler--arrow-left] size-4"></span>
+            Back to Purchase
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('order_id');
+  
+  const successState = document.getElementById('success-state');
+  const processingState = document.getElementById('processing-state');
+  const errorState = document.getElementById('error-state');
+  const downloadBtn = document.getElementById('download-btn');
+  const downloadsRemainingEl = document.getElementById('downloads-remaining');
+  const retryBtn = document.getElementById('retry-btn');
+
+  let downloadUrl = null;
+  let checkAttempts = 0;
+  const maxAttempts = 12; // Check for 2 minutes max
+
+  if (!orderId) {
+    showError();
+    return;
+  }
+
+  function showProcessing() {
+    successState.classList.add('hidden');
+    processingState.classList.remove('hidden');
+    errorState.classList.add('hidden');
+  }
+
+  function showSuccess(data) {
+    successState.classList.remove('hidden');
+    processingState.classList.add('hidden');
+    errorState.classList.add('hidden');
+    
+    downloadUrl = data.download_url;
+    downloadsRemainingEl.textContent = data.downloads_remaining || 3;
+    downloadBtn.disabled = false;
+  }
+
+  function showError() {
+    successState.classList.add('hidden');
+    processingState.classList.add('hidden');
+    errorState.classList.remove('hidden');
+  }
+
+  function checkOrder() {
+    fetch('/api/validate-order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ order_id: orderId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showSuccess(data);
+      } else {
+        checkAttempts++;
+        if (checkAttempts < maxAttempts && data.status === 'pending') {
+          // Still processing, check again in 10 seconds
+          setTimeout(checkOrder, 10000);
+        } else {
+          showError();
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Error checking order:', error);
+      checkAttempts++;
+      if (checkAttempts < maxAttempts) {
+        setTimeout(checkOrder, 10000);
+      } else {
+        showError();
+      }
+    });
+  }
+
+  // Handle download button click
+  downloadBtn.addEventListener('click', function() {
+    if (downloadUrl) {
+      // Track download attempt
+      window.open(downloadUrl, '_blank');
+      
+      // Update downloads remaining
+      setTimeout(() => {
+        const current = parseInt(downloadsRemainingEl.textContent);
+        if (current > 1) {
+          downloadsRemainingEl.textContent = current - 1;
+        } else {
+          downloadBtn.disabled = true;
+          downloadBtn.innerHTML = '<span class="icon-[tabler--check] size-5"></span> Download Complete';
+        }
+      }, 2000);
+    }
+  });
+
+  // Handle retry button
+  retryBtn.addEventListener('click', function() {
+    checkAttempts = 0;
+    showProcessing();
+    checkOrder();
+  });
+
+  // Start checking order status
+  showProcessing();
+  checkOrder();
+});
+</script> 
