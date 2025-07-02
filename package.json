@@ -33,12 +33,15 @@
   },
   "dependencies": {
     "@alpinejs/intersect": "^3.14.9",
+    "@stripe/stripe-js": "^7.4.0",
     "@supabase/supabase-js": "^2.49.10",
     "@tailwindcss/typography": "^0.5.16",
     "alpinejs": "^3.14.9",
     "flyonui": "^2.1.0",
     "fullcalendar": "^6.1.17",
+    "notyf": "^3.10.0",
     "nunjucks": "^3.2.4",
-    "playwright": "^1.53.0"
+    "playwright": "^1.53.0",
+    "stripe": "^18.2.1"
   }
 }

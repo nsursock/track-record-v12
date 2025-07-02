@@ -1,0 +1,226 @@
+---
+layout: base.njk
+title: Notification System Demo
+description: Demo page to test the Notyf notification system
+eleventyExcludeFromCollections: true
+---
+
+<div class="container mx-auto p-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Notification System Demo</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Basic Notifications -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Basic Notifications</h2>
+          <div class="space-y-3">
+            <button 
+              x-notify="{ message: 'Success! Operation completed.', type: 'success' }"
+              class="btn btn-success btn-block">
+              Success
+            </button>
+            <button 
+              x-notify="{ message: 'Error! Something went wrong.', type: 'error' }"
+              class="btn btn-error btn-block">
+              Error
+            </button>
+            <button 
+              x-notify="{ message: 'Warning! Please check your input.', type: 'warning' }"
+              class="btn btn-warning btn-block">
+              Warning
+            </button>
+            <button 
+              x-notify="{ message: 'Info: Here is some information.', type: 'info' }"
+              class="btn btn-info btn-block">
+              Info
+            </button>
+            <button 
+              x-notify="{ message: 'Primary notification message.', type: 'primary' }"
+              class="btn btn-primary btn-block">
+              Primary
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Duration -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Custom Duration</h2>
+          <div class="space-y-3">
+            <button 
+              x-notify="{ message: 'Quick message (1s)', type: 'info', options: { duration: 1000 } }"
+              class="btn btn-outline btn-block">
+              1 Second
+            </button>
+            <button 
+              x-notify="{ message: 'Standard message (4s)', type: 'success', options: { duration: 4000 } }"
+              class="btn btn-outline btn-block">
+              4 Seconds
+            </button>
+            <button 
+              x-notify="{ message: 'Long message (10s)', type: 'warning', options: { duration: 10000 } }"
+              class="btn btn-outline btn-block">
+              10 Seconds
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Ripple Effect -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">No Ripple Effect</h2>
+          <div class="space-y-3">
+            <button 
+              x-notify="{ message: 'Success without ripple', type: 'success', options: { ripple: false } }"
+              class="btn btn-success btn-outline btn-block">
+              No Ripple Success
+            </button>
+            <button 
+              x-notify="{ message: 'Error without ripple', type: 'error', options: { ripple: false } }"
+              class="btn btn-error btn-outline btn-block">
+              No Ripple Error
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Debug Tests -->
+    <div class="card bg-base-100 shadow-xl mb-8">
+      <div class="card-body">
+        <h2 class="card-title">🐛 Debug Tests (Without Alpine)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button 
+            onclick="if(window.notificationStore) { window.notificationStore.success('Direct success test!'); } else { alert('Store not available'); }"
+            class="btn btn-success">
+            Direct Success Test
+          </button>
+          <button 
+            onclick="if(window.notificationStore) { window.notificationStore.error('Direct error test!'); } else { alert('Store not available'); }"
+            class="btn btn-error">
+            Direct Error Test
+          </button>
+          <button 
+            onclick="console.log('notificationStore:', window.notificationStore);"
+            class="btn btn-ghost">
+            Log Store to Console
+          </button>
+          <button 
+            onclick="console.log('Alpine:', window.Alpine); console.log('Alpine directives:', window.Alpine?.directives);"
+            class="btn btn-ghost">
+            Log Alpine to Console
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Examples -->
+    <div class="card bg-base-100 shadow-xl mb-8">
+      <div class="card-body">
+        <h2 class="card-title">Advanced Examples</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button 
+            onclick="showDonationSuccess()"
+            class="btn btn-primary">
+            Donation Success Simulation
+          </button>
+          <button 
+            onclick="showFormErrors()"
+            class="btn btn-error">
+            Form Error Simulation
+          </button>
+          <button 
+            onclick="showProgressUpdates()"
+            class="btn btn-info">
+            Progress Updates
+          </button>
+          <button 
+            onclick="window.notificationStore?.dismissAll()"
+            class="btn btn-ghost">
+            Dismiss All Notifications
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Testing -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Theme Integration Test</h2>
+        <p class="text-base-content/70 mb-4">
+          The notifications automatically adapt to your current theme. Try changing themes while testing notifications.
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <button 
+            x-notify="{ message: 'Theme-adapted success message', type: 'success' }"
+            class="btn btn-success btn-sm">
+            Test Current Theme
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Advanced notification examples
+function showDonationSuccess() {
+  console.log('showDonationSuccess called');
+  if (window.notificationStore) {
+    window.notificationStore.success('Thank you! Your donation of $25 has been processed successfully.', {
+      duration: 6000
+    });
+  } else {
+    console.error('Notification store not available');
+    alert('Notification store not available - check console');
+  }
+}
+
+function showFormErrors() {
+  console.log('showFormErrors called');
+  if (window.notificationStore) {
+    window.notificationStore.error('Please fill in all required fields correctly.', {
+      duration: 5000
+    });
+  } else {
+    console.error('Notification store not available');
+    alert('Notification store not available - check console');
+  }
+}
+
+function showProgressUpdates() {
+  console.log('showProgressUpdates called');
+  if (window.notificationStore) {
+    window.notificationStore.info('Processing your request...');
+    
+    setTimeout(() => {
+      window.notificationStore.warning('Please wait, this may take a moment...');
+    }, 2000);
+    
+    setTimeout(() => {
+      window.notificationStore.success('Request completed successfully!');
+    }, 4000);
+  } else {
+    console.error('Notification store not available');
+    alert('Notification store not available - check console');
+  }
+}
+
+// Simple test function that runs on page load
+window.addEventListener('load', () => {
+  console.log('Demo page loaded');
+  console.log('notificationStore available:', !!window.notificationStore);
+  
+  // Add a simple test button
+  setTimeout(() => {
+    if (window.notificationStore) {
+      console.log('✅ Notification store is working');
+    } else {
+      console.error('❌ Notification store is not available');
+    }
+  }, 2000);
+});
+</script> 

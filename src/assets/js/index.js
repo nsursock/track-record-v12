@@ -2,12 +2,21 @@ import '../css/index.css';
 
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
+import { Notyf } from 'notyf';
 import 'flyonui/flyonui'
- 
+import notificationStore from './notificationStore.js'
+
+// Register Alpine plugins
 Alpine.plugin(intersect)
 
 // Make sure HSOverlay is available globally
 window.HSOverlay = window.HSOverlay || window.FlyonUI?.HSOverlay;
+
+// Make notification store available globally
+window.notificationStore = notificationStore;
+
+// Import components
+import donationForm from './donationForm.js';
 
 import auth from './auth';
 Alpine.store('auth', auth);
@@ -139,7 +148,8 @@ Alpine.data('mobileMenu', () => ({
     navigationLinks: [
         { href: '/posts/', text: 'Blog' },
         { href: '/about/', text: 'About' },
-        { href: '/contact/', text: 'Contact' }
+        { href: '/contact/', text: 'Contact' },
+        { href: '/donate/', text: 'Donate' }
     ],
     authLinks1: [
         { href: '/app/profile/', text: 'Profile', icon: 'user' },
@@ -174,6 +184,9 @@ Alpine.data('landingPage', () => ({
         Alpine.store('landing').init();
     }
 }));
+
+// Donation form component
+Alpine.data('donationForm', donationForm);
 
 Alpine.data('articlesGrid', () => ({
     isMobile: window.innerWidth < 768,
@@ -633,6 +646,13 @@ Alpine.data('commentForm', () => ({
       const result = await response.json();
       
       if (response.ok && result.success) {
+        // Show success toast
+        if (window.notificationStore) {
+          window.notificationStore.success('Comment published successfully! 🎉', {
+            duration: 5000
+          });
+        }
+        
         messageContainer.innerHTML = `
           <div class="alert alert-success">
             <span class="icon-[tabler--check-circle] size-5"></span>
@@ -647,6 +667,14 @@ Alpine.data('commentForm', () => ({
       }
     } catch (error) {
       console.error('Comment submission error:', error);
+      
+      // Show error toast
+      if (window.notificationStore) {
+        window.notificationStore.error(`Failed to submit comment: ${error.message}`, {
+          duration: 6000
+        });
+      }
+      
       messageContainer.innerHTML = `
         <div class="alert alert-error">
           <span class="icon-[tabler--x-circle] size-5"></span>
@@ -685,6 +713,13 @@ Alpine.data('commentForm', () => ({
       const result = await response.json();
       
       if (response.ok && result.success) {
+        // Show success toast
+        if (window.notificationStore) {
+          window.notificationStore.success('Comment submitted successfully! 📝 It will be visible after moderation.', {
+            duration: 6000
+          });
+        }
+        
         messageContainer.innerHTML = `
           <div class="alert alert-success">
             <span class="icon-[tabler--check-circle] size-5"></span>
@@ -699,6 +734,14 @@ Alpine.data('commentForm', () => ({
       }
     } catch (error) {
       console.error('Comment submission error:', error);
+      
+      // Show error toast
+      if (window.notificationStore) {
+        window.notificationStore.error(`Failed to submit comment: ${error.message}`, {
+          duration: 6000
+        });
+      }
+      
       messageContainer.innerHTML = `
         <div class="alert alert-error">
           <span class="icon-[tabler--x-circle] size-5"></span>
@@ -1006,20 +1049,28 @@ Alpine.data('commentAdmin', () => ({
   },
 
   showToast(message, type = 'success') {
-    this.toast = {
-      show: true,
-      message: message,
-      type: type
-    };
-    
-    setTimeout(() => {
-      this.toast.show = false;
-    }, 5000);
+    // Use the new notification store instead of custom toast
+    notificationStore.show(message, type);
   }
 }));
 
 // import calendar from './calendar';
 // Alpine.data('calendarComponent', calendar);
+
+// Make notificationStore globally available
+window.notificationStore = notificationStore;
+
+// Register global Alpine directive for notification testing BEFORE Alpine.start()
+Alpine.directive('notify', (el, { expression }, { evaluate }) => {
+    el.addEventListener('click', () => {
+        const config = evaluate(expression);
+        const message = config.message || 'Test notification';
+        const type = config.type || 'info';
+        const options = config.options || {};
+        
+        notificationStore.show(message, type, options);
+    });
+});
 
 // Start Alpine
 window.Alpine = Alpine;
@@ -1031,3 +1082,17 @@ document.addEventListener('alpine:init', () => {
     Alpine.store('landing').init();
     Alpine.store('auth').init();
 });
+
+console.log('Track Record app initialized with notification system');
+
+// Debug: Test notification store after a short delay
+setTimeout(() => {
+    console.log('Testing notification store:', window.notificationStore);
+    if (window.notificationStore) {
+        console.log('Notification store is available');
+        // Uncomment the line below to test if notifications work at all
+        // window.notificationStore.info('Notification system loaded successfully!');
+    } else {
+        console.error('Notification store is not available!');
+    }
+}, 1000);

@@ -1,0 +1,441 @@
+---
+layout: base.njk
+title: Support Our Work
+description: Help us continue creating meaningful content by making a donation
+---
+
+<div class="min-h-screen bg-base-100" x-data="donationForm">
+    <!-- Hero Section -->
+    <section class="relative py-16 sm:py-20">
+        <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
+            <div class="text-center">
+                <div class="mb-6 flex justify-center">
+                    <span class="icon-[tabler--heart] size-16 text-primary"></span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl font-bold text-primary mb-4">Support Our Mission</h1>
+                <p class="text-xl text-secondary mb-6">Emergency Metaphysics Fund</p>
+                <p class="text-base-content/80 text-lg mb-8 leading-relaxed max-w-3xl mx-auto">
+                    Your donation helps us continue creating emergency metaphysics for space-ready survivors. 
+                    Every contribution supports authentic philosophical investigation in real-time.
+                </p>
+                <div class="flex flex-wrap gap-2 justify-center mb-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-box text-primary font-medium text-sm border border-primary/20">
+                        <span class="icon-[tabler--calendar] size-4"></span>
+                        Publishing Since: 2017
+                    </div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-secondary/10 rounded-box text-secondary font-medium text-sm border border-secondary/20">
+                        <span class="icon-[tabler--article] size-4"></span>
+                        Articles Published: 100+
+                    </div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-box text-primary font-medium text-sm border border-primary/20">
+                        <span class="icon-[tabler--book] size-4"></span>
+                        Pages of Content: 300+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Form Section -->
+    <section class="py-16 sm:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-primary mb-4">Make a Donation</h2>
+                <p class="text-base-content/80 text-lg max-w-2xl mx-auto">
+                    Choose your donation amount and type. Every contribution helps us continue our emergency metaphysics mission.
+                </p>
+            </div>
+            
+            <div class="card bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
+                <div class="card-body p-6 sm:p-8">
+                    
+                    <!-- Donation Type Toggle - Pills -->
+                    <div class="form-control mb-6">
+                        <label class="label">
+                            <span class="label-text text-lg font-semibold text-primary">Donation Type</span>
+                        </label>
+                        <nav class="w-full grid grid-cols-2 tabs bg-base-200/80 rounded-field space-x-1 overflow-x-auto p-1" aria-label="Donation Type" role="tablist" aria-orientation="horizontal">
+                            <button 
+                                type="button" 
+                                class="w-full btn btn-text active-tab:bg-primary active-tab:text-white hover:text-primary hover:bg-primary/10 text-base-content"
+                                :class="donationType === 'one-time' ? 'bg-primary text-white' : 'text-base-content'"
+                                @click="donationType = 'one-time'"
+                                role="tab"
+                                aria-selected="true"
+                            >
+                                <span class="icon-[tabler--coins] w-5 h-5 mr-2"></span>
+                                Single
+                            </button>
+                            <button 
+                                type="button" 
+                                class="w-full btn btn-text active-tab:bg-primary active-tab:text-white hover:text-primary hover:bg-primary/10 text-base-content"
+                                :class="donationType === 'monthly' ? 'bg-primary text-white' : 'text-base-content'"
+                                @click="donationType = 'monthly'"
+                                role="tab"
+                                aria-selected="false"
+                            >
+                                <span class="icon-[tabler--refresh] w-5 h-5 mr-2"></span>
+                                Monthly
+                            </button>
+                        </nav>
+                        <label class="label">
+                            <span class="label-text-alt" x-show="donationType === 'monthly'">
+                                <span class="icon-[tabler--info-circle] w-4 h-4 inline mr-1 text-secondary"></span>
+                                Monthly donations provide sustained support for our work
+                            </span>
+                            <span class="label-text-alt" x-show="donationType === 'one-time'">
+                                <span class="icon-[tabler--bolt] w-4 h-4 inline mr-1 text-primary"></span>
+                                Single donations help us with immediate needs
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Amount Selection - Iconic Custom Radios -->
+                    <div class="form-control mb-6">
+                        <label class="label">
+                            <span class="label-text text-lg font-semibold text-primary">Choose Amount</span>
+                        </label>
+                        
+                        <!-- Preset Amounts with Iconic Custom Radios -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                            <template x-for="(amount, index) in presetAmounts" :key="amount">
+                                <label class="custom-option flex flex-col items-center gap-3 cursor-pointer">
+                                    <!-- Icon based on amount -->
+                                    <span 
+                                        class="size-10"
+                                        :class="{
+                                            'icon-[tabler--coin] text-base-content/70': amount == 10,
+                                            'icon-[tabler--coins] text-base-content/70': amount == 25,
+                                            'icon-[tabler--wallet] text-base-content/70': amount == 50,
+                                            'icon-[tabler--diamond] text-base-content/70': amount == 100
+                                        }"
+                                    ></span>
+                                    
+                                    <div class="label-text text-center">
+                                        <h6 class="text-base font-medium mb-1">$<span x-text="amount"></span></h6>
+                                        <span class="text-base-content/80 text-sm" x-show="donationType === 'monthly'">per month</span>
+                                        <span class="text-base-content/80 text-sm" x-show="donationType === 'one-time'">one-time</span>
+                                    </div>
+                                    
+                                    <input 
+                                        type="radio" 
+                                        name="donation-amount" 
+                                        class="radio radio-primary hidden" 
+                                        :value="amount"
+                                        @change="selectedAmount = amount; customAmount = ''"
+                                        :checked="selectedAmount === amount && !customAmount"
+                                    />
+                                </label>
+                            </template>
+                        </div>
+
+                        <!-- Custom Amount with Leading and Trailing Icons -->
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text text-sm font-medium">Custom Amount</span>
+                            </label>
+                            <div class="input input-bordered h-12 flex items-center gap-2 border border-primary/20 focus-within:border-primary">
+                                <span class="icon-[tabler--currency-dollar] size-5 text-primary shrink-0"></span>
+                                <input 
+                                    type="number" 
+                                    class="grow" 
+                                    placeholder="Enter your amount" 
+                                    x-model="customAmount"
+                                    @input="selectedAmount = null"
+                                    min="1"
+                                />
+                                <span class="text-sm text-base-content/70 shrink-0" x-show="donationType === 'monthly'">
+                                    <span class="icon-[tabler--calendar-month] size-4 mr-1"></span>
+                                    monthly
+                                </span>
+                                <span class="text-sm text-base-content/70 shrink-0" x-show="donationType === 'one-time'">
+                                    <span class="icon-[tabler--zap] size-4 mr-1"></span>
+                                    once
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donor Information -->
+                    <div class="form-control mb-6">
+                        <label class="label">
+                            <span class="label-text text-lg font-semibold text-primary">Your Information</span>
+                        </label>
+                       
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-sm font-medium">First Name *</span>
+                                </label>
+                                <div class="input input-bordered h-12 flex items-center gap-2 border border-primary/20 focus-within:border-primary">
+                                    <span class="icon-[tabler--user] size-5 text-base-content/70 shrink-0"></span>
+                                    <input 
+                                        type="text" 
+                                        class="grow"
+                                        placeholder="First Name" 
+                                        x-model="donorInfo.firstName"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-sm font-medium">Last Name *</span>
+                                </label>
+                                <div class="input input-bordered h-12 flex items-center gap-2 border border-primary/20 focus-within:border-primary">
+                                    <span class="icon-[tabler--user] size-5 text-base-content/70 shrink-0"></span>
+                                    <input 
+                                        type="text" 
+                                        class="grow"
+                                        placeholder="Last Name" 
+                                        x-model="donorInfo.lastName"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text text-sm font-medium">Email Address *</span>
+                            </label>
+                            <div class="input input-bordered h-12 flex items-center gap-2 border border-primary/20 focus-within:border-primary">
+                                <span class="icon-[tabler--mail] size-5 text-base-content/70 shrink-0"></span>
+                                <input 
+                                    type="email" 
+                                    class="grow"
+                                    placeholder="your@email.com" 
+                                    x-model="donorInfo.email"
+                                    required
+                                />
+                                <span class="icon-[tabler--at] size-4 text-base-content/50 shrink-0"></span>
+                            </div>
+                        </div>
+                   </div>
+
+                    <!-- Payment Information -->
+                    <div class="form-control mb-6">
+                        <label class="label">
+                            <span class="label-text text-lg font-semibold text-primary">Payment Information</span>
+                        </label>
+                        
+                        <!-- Card Number -->
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text text-sm font-medium">Card Number *</span>
+                            </label>
+                            <div class="h-12 px-3 py-2 border border-primary/20 rounded-box bg-base-100 focus-within:border-primary transition-colors shadow-sm flex items-center">
+                                <div id="card-number-element" class="flex-1 text-base-content">
+                                    <!-- Stripe card number element will be created here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expiry and CVC Row -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Expiry Date -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-sm font-medium">Expiry Date *</span>
+                                </label>
+                                <div class="h-12 px-3 py-2 border border-primary/20 rounded-box bg-base-100 focus-within:border-primary transition-colors shadow-sm flex items-center">
+                                    <div id="card-expiry-element" class="flex-1 text-base-content">
+                                        <!-- Stripe card expiry element will be created here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CVC -->
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-sm font-medium">CVC *</span>
+                                </label>
+                                <div class="h-12 px-3 py-2 border border-primary/20 rounded-box bg-base-100 focus-within:border-primary transition-colors shadow-sm flex items-center">
+                                    <div id="card-cvc-element" class="flex-1 text-base-content">
+                                        <!-- Stripe card CVC element will be created here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Combined error display -->
+                        <div id="card-errors" class="text-error text-sm mt-2" role="alert"></div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="p-4 rounded-box border mb-6" 
+                         :class="donationType === 'monthly' ? 'bg-secondary/10 border-secondary/20' : 'bg-primary/10 border-primary/20'">
+                        <div class="flex items-center gap-3">
+                            <span class="icon-[tabler--info-circle] w-5 h-5" 
+                                  :class="donationType === 'monthly' ? 'text-secondary' : 'text-primary'"></span>
+                            <div>
+                                <span x-show="donationType === 'one-time'">
+                                    You are making a single donation of <strong class="text-lg text-primary">$<span x-text="getFinalAmount()"></span></strong>
+                                </span>
+                                <span x-show="donationType === 'monthly'">
+                                    You are setting up a monthly donation of <strong class="text-lg text-secondary">$<span x-text="getFinalAmount()"></span></strong> per month
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="card-actions justify-center">
+                        <button 
+                            class="btn btn-soft btn-primary btn-lg w-full transition-all duration-200"
+                            @click="submitDonation()"
+                            :disabled="loading || !isFormValid()"
+                        >
+                            <span x-show="!loading" class="flex items-center justify-center">
+                                <span class="icon-[tabler--heart] w-5 h-5 mr-2"></span>
+                                <span x-show="donationType === 'one-time'">Donate $<span x-text="getFinalAmount()"></span></span>
+                                <span x-show="donationType === 'monthly'">Start Monthly Support</span>
+                            </span>
+                            <span x-show="loading" class="flex items-center">
+                                <span class="loading loading-spinner loading-sm mr-2"></span>
+                                Processing...
+                            </span>
+                        </button>
+                    </div>
+
+                   <!-- Security Notice -->
+                   <div class="text-center text-sm opacity-70 mt-4">
+                       <span class="icon-[tabler--shield-check] w-4 h-4 inline-block mr-1"></span>
+                       Your payment is secured by Stripe. We never store your payment information.
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+
+   <!-- Impact Section -->
+   <section class="py-16 sm:py-20 bg-gradient-to-br from-secondary/5 to-primary/5">
+       <div class="container mx-auto px-4 sm:px-8 max-w-7xl">
+           <div class="text-center mb-12">
+               <h2 class="text-3xl sm:text-4xl font-bold text-primary mb-4">How Your Donation Helps</h2>
+               <p class="text-base-content/80 text-lg">Supporting emergency metaphysics for space-ready survivors</p>
+           </div>
+           
+           <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
+               <div class="card bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
+                   <div class="card-body text-center p-6 sm:p-8">
+                       <div class="w-16 h-16 bg-primary/20 rounded-box mx-auto mb-6 flex items-center justify-center">
+                           <span class="icon-[tabler--brain] w-8 h-8 text-primary"></span>
+                       </div>
+                       <h3 class="text-xl font-bold text-primary mb-4">Consciousness Research</h3>
+                       <p class="text-base-content/80">Support philosophical investigation using personal experience as laboratory and authentic voice as technology.</p>
+                   </div>
+               </div>
+               
+               <div class="card bg-gradient-to-br from-secondary/5 to-primary/5 rounded-box shadow-sm border border-secondary/20">
+                   <div class="card-body text-center p-6 sm:p-8">
+                       <div class="w-16 h-16 bg-secondary/20 rounded-box mx-auto mb-6 flex items-center justify-center">
+                           <span class="icon-[tabler--music] w-8 h-8 text-secondary"></span>
+                       </div>
+                       <h3 class="text-xl font-bold text-secondary mb-4">Musical Anchoring</h3>
+                       <p class="text-base-content/80">Fund the musical foundation that makes each piece of emergency metaphysics possible and grounded.</p>
+                   </div>
+               </div>
+               
+               <div class="card bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
+                   <div class="card-body text-center p-6 sm:p-8">
+                       <div class="w-16 h-16 bg-primary/20 rounded-box mx-auto mb-6 flex items-center justify-center">
+                           <span class="icon-[tabler--universe] w-8 h-8 text-primary"></span>
+                       </div>
+                       <h3 class="text-xl font-bold text-primary mb-4">Platform Independence</h3>
+                       <p class="text-base-content/80">Maintain editorial independence and keep this space free from commercial influence or institutional capture.</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+
+   <!-- FAQ Section -->
+   <section class="py-16 sm:py-20 bg-base-100">
+       <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+           <div class="text-center mb-12">
+               <h2 class="text-3xl sm:text-4xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
+               <p class="text-base-content/80 text-lg">Everything you need to know about supporting our mission</p>
+           </div>
+           
+           <div class="accordion divide-primary/10 divide-y bg-gradient-to-br from-primary/5 to-secondary/5 rounded-box border border-primary/20 shadow-sm">
+               <div class="accordion-item active" id="faq-secure">
+                   <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-6 text-lg font-semibold text-primary hover:text-primary/80 transition-colors" 
+                           aria-controls="faq-secure-collapse" 
+                           aria-expanded="true">
+                       <span class="icon-[tabler--plus] accordion-item-active:hidden text-primary size-5 block shrink-0"></span>
+                       <span class="icon-[tabler--minus] accordion-item-active:block text-primary size-5 hidden shrink-0"></span>
+                       Is my donation secure?
+                   </button>
+                   <div id="faq-secure-collapse" 
+                        class="accordion-content w-full overflow-hidden transition-[height] duration-300" 
+                        aria-labelledby="faq-secure" 
+                        role="region">
+                       <div class="px-6 pb-6">
+                           <p class="text-base-content/80">Yes, absolutely. We use Stripe for payment processing, which is the same secure platform used by millions of businesses worldwide. We never store your payment information on our servers.</p>
+                       </div>
+                   </div>
+               </div>
+               
+               <div class="accordion-item" id="faq-cancel">
+                   <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-6 text-lg font-semibold text-secondary hover:text-secondary/80 transition-colors" 
+                           aria-controls="faq-cancel-collapse" 
+                           aria-expanded="false">
+                       <span class="icon-[tabler--plus] accordion-item-active:hidden text-secondary size-5 block shrink-0"></span>
+                       <span class="icon-[tabler--minus] accordion-item-active:block text-secondary size-5 hidden shrink-0"></span>
+                       Can I cancel my monthly donation?
+                   </button>
+                   <div id="faq-cancel-collapse" 
+                        class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" 
+                        aria-labelledby="faq-cancel" 
+                        role="region">
+                       <div class="px-6 pb-6">
+                           <p class="text-base-content/80">Yes, you can cancel your monthly donation at any time. Contact us or manage your subscription through the link in your donation confirmation email.</p>
+                       </div>
+                   </div>
+               </div>
+               
+               <div class="accordion-item" id="faq-receipt">
+                   <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-6 text-lg font-semibold text-primary hover:text-primary/80 transition-colors" 
+                           aria-controls="faq-receipt-collapse" 
+                           aria-expanded="false">
+                       <span class="icon-[tabler--plus] accordion-item-active:hidden text-primary size-5 block shrink-0"></span>
+                       <span class="icon-[tabler--minus] accordion-item-active:block text-primary size-5 hidden shrink-0"></span>
+                       Will I receive a receipt?
+                   </button>
+                   <div id="faq-receipt-collapse" 
+                        class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" 
+                        aria-labelledby="faq-receipt" 
+                        role="region">
+                       <div class="px-6 pb-6">
+                           <p class="text-base-content/80">Yes, you'll receive an email receipt immediately after your donation is processed. Keep this for your tax records if applicable.</p>
+                       </div>
+                   </div>
+               </div>
+               
+               <div class="accordion-item" id="faq-tax">
+                   <button class="accordion-toggle inline-flex items-center gap-x-4 text-start w-full p-6 text-lg font-semibold text-secondary hover:text-secondary/80 transition-colors" 
+                           aria-controls="faq-tax-collapse" 
+                           aria-expanded="false">
+                       <span class="icon-[tabler--plus] accordion-item-active:hidden text-secondary size-5 block shrink-0"></span>
+                       <span class="icon-[tabler--minus] accordion-item-active:block text-secondary size-5 hidden shrink-0"></span>
+                       Are donations tax-deductible?
+                   </button>
+                   <div id="faq-tax-collapse" 
+                        class="accordion-content hidden w-full overflow-hidden transition-[height] duration-300" 
+                        aria-labelledby="faq-tax" 
+                        role="region">
+                       <div class="px-6 pb-6">
+                           <p class="text-base-content/80">Please consult with a tax professional regarding the deductibility of your donation, as this depends on your specific situation and local tax laws.</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+</div>
+
+<script>
+   // Set Stripe publishable key
+   window.STRIPE_PUBLISHABLE_KEY = '{{ site.stripe.publishableKey or "pk_test_your_stripe_publishable_key_here" }}';
+</script> 

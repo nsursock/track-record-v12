@@ -20,5 +20,9 @@ export default {
   supabase: {
     url: process.env.SUPABASE_URL,
     key: process.env.SUPABASE_KEY
+  },
+  stripe: {
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    secretKey: process.env.STRIPE_SECRET_KEY
   }
 };

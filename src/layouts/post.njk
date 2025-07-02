@@ -214,17 +214,22 @@ layout: base
                 <article class="p-6 text-base bg-gradient-to-r from-primary/5 to-secondary/5 rounded-box shadow-sm border border-primary/20">
                   <footer class="flex justify-between items-center mb-2">
                     <div class="flex items-center">
-                      <template x-if="comment.avatar">
-                        <img class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30" 
-                             :src="comment.avatar" 
-                             :alt="comment.name"
-                             loading="lazy">
-                      </template>
-                      <template x-if="!comment.avatar">
-                        <div class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30 bg-primary text-white flex items-center justify-center">
-                          <span class="text-sm font-semibold" x-text="comment.name.charAt(0).toUpperCase()"></span>
-                        </div>
-                      </template>
+                      <div class="mr-2 w-8 h-8 rounded-box ring-2 ring-primary/30 overflow-hidden"
+                           x-data="{ avatarError: false }">
+                        <template x-if="comment.avatar && !avatarError">
+                          <img class="w-full h-full object-cover" 
+                               :src="comment.avatar" 
+                               :alt="comment.name"
+                               @error="avatarError = true"
+                               loading="lazy">
+                        </template>
+                        <template x-if="!comment.avatar || avatarError">
+                          <div class="bg-primary text-white w-full h-full flex items-center justify-center">
+                            <span class="text-sm font-semibold leading-none" 
+                                  x-text="comment.name ? comment.name.split(' ').map(n => n[0]).join('').toUpperCase() : (comment.email ? comment.email.split('@')[0].split('.').map(n => n[0]).join('').toUpperCase() : 'U')"></span>
+                          </div>
+                        </template>
+                      </div>
                       <div class="inline-flex items-center mr-3 text-sm text-primary">
                         <span class="icon-[tabler--user] size-4 mr-1 text-primary"></span>
                         <cite class="font-semibold" x-text="comment.name"></cite>
@@ -359,10 +364,10 @@ layout: base
                 </button>
               </div>
 
-              <!-- primary/Error Messages -->
+              {# <!-- primary/Error Messages -->
               <div class="mt-4" id="comment-messages-auth">
                 <!-- Messages will be injected here via JavaScript -->
-              </div>
+              </div> #}
             </form>
           </div>
 
