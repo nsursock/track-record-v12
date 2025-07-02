@@ -670,7 +670,7 @@ Alpine.data('commentForm', () => ({
       
       // Show error toast
       if (window.notificationStore) {
-        window.notificationStore.error(`Failed to submit comment: ${error.message}`, {
+        window.notificationStore.error(`${error.message}`, {
           duration: 6000
         });
       }
@@ -737,7 +737,7 @@ Alpine.data('commentForm', () => ({
       
       // Show error toast
       if (window.notificationStore) {
-        window.notificationStore.error(`Failed to submit comment: ${error.message}`, {
+        window.notificationStore.error(`${error.message}`, {
           duration: 6000
         });
       }
